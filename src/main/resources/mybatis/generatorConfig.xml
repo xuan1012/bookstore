@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+        PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+        "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+    <!--导入属性配置 -->
+    <properties resource="mybatis/generator.properties"/>
+    <!--数据库驱动-->
+    <!--    <classPathEntry-->
+    <!--            location="D:\Tools\Maven\repository\MySQL\mysql-connector-java\8.0.16\mysql-connector-java-8.0.16.jar"/>-->
+    <context id="DB2Tables" targetRuntime="MyBatis3">
+        <!--http://www.mybatis.org/generator/reference/plugins.html 所有可用的plugin列表-->
+        <!--为model类生成toString   -->
+        <plugin type="org.mybatis.generator.plugins.ToStringPlugin"/>
+
+        <commentGenerator>
+            <property name="suppressDate" value="true"/><!-- 是否生成注释代时间戳 -->
+            <property name="suppressAllComments" value="true"/><!-- 是否取消注释 -->
+        </commentGenerator>
+        <!--数据库链接地址账号密码-->
+        <jdbcConnection driverClass="${driver}" connectionURL="${url}" userId="${username}" password="${password}">
+        </jdbcConnection>
+        <javaTypeResolver>
+            <!--  是否把浮点数映射成bigdecimals-->
+            <property name="forceBigDecimals" value="false"/>
+        </javaTypeResolver>
+        <!--生成Model类存放位置-->
+        <javaModelGenerator targetPackage="${modelPackage}" targetProject="${modelProject}">
+            <property name="enableSubPackages" value="true"/>
+            <property name="trimStrings" value="true"/>
+        </javaModelGenerator>
+        <!--生成映射文件存放位置-->
+        <sqlMapGenerator targetPackage="${sqlPackage}" targetProject="${sqlProject}">
+            <property name="enableSubPackages" value="true"/>
+        </sqlMapGenerator>
+        <!--生成Dao类存放位置-->
+        <javaClientGenerator type="XMLMAPPER" targetPackage="${mapperPackage}" targetProject="${mapperProject}">
+            <property name="enableSubPackages" value="true"/>
+        </javaClientGenerator>
+        <!--生成对应表及类名-->
+        <table tableName="${table}" domainObjectName="${table}" enableCountByExample="false"
+               enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false"
+               selectByExampleQueryId="false">
+            <!--使得自增ID被返回-->
+<!--            <generatedKey column="movie_id" sqlStatement="select last_insert_id()" identity="true"/>-->
+        </table>
+    </context>
+</generatorConfiguration>
