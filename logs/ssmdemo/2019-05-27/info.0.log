@@ -1,0 +1,8 @@
+[INFO ] 2019-05-27 10:31:38 [main] c.b.bookstore.BookstoreApplication - Starting BookstoreApplication on MYPC with PID 5960 (started by Administrator in D:\JAVA项目文件\bookstore\BookStore)
+[INFO ] 2019-05-27 10:31:38 [main] c.b.bookstore.BookstoreApplication - No active profile set, falling back to default profiles: default
+[INFO ] 2019-05-27 10:31:38 [main] o.a.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+[INFO ] 2019-05-27 10:31:38 [main] o.a.catalina.core.StandardService - Starting service [Tomcat]
+[INFO ] 2019-05-27 10:31:38 [main] o.a.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.19]
+[INFO ] 2019-05-27 10:31:38 [main] o.a.c.c.C.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+[INFO ] 2019-05-27 10:31:38 [main] c.alibaba.druid.pool.DruidDataSource - {dataSource-1} inited
+[INFO ] 2019-05-27 10:31:38 [Druid-ConnectionPool-Create-950125603] c.a.d.pool.DruidAbstractDataSource - {dataSource-1} failContinuous is true
