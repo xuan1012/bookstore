@@ -5,6 +5,6 @@ HELP.md
 ### IntelliJ IDEA ###
 .idea
 /target
-/log
+/logs
 gayg.iml
 *.iml
