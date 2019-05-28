@@ -21,4 +21,8 @@ public class HelloController {
         map.put("msg","hello");
         return map;
     }
+    @RequestMapping("/test")
+    public String test(){
+        return "moban/index";
+    }
 }
