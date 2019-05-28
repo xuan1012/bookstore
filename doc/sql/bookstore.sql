@@ -16,6 +16,19 @@
 CREATE DATABASE IF NOT EXISTS `bookstore` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bookstore`;
 
+-- 导出  表 bookstore. shoppingcart 结构
+CREATE TABLE IF NOT EXISTS ` shoppingcart` (
+  `cart_id` bigint(111) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(111) NOT NULL,
+  `book_id` bigint(111) NOT NULL,
+  `count` bigint(111) NOT NULL,
+  PRIMARY KEY (`cart_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  bookstore. shoppingcart 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE ` shoppingcart` DISABLE KEYS */;
+/*!40000 ALTER TABLE ` shoppingcart` ENABLE KEYS */;
+
 -- 导出  表 bookstore.address 结构
 CREATE TABLE IF NOT EXISTS `address` (
   `address_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '地址Id',
@@ -24,7 +37,7 @@ CREATE TABLE IF NOT EXISTS `address` (
   `area` varchar(50) NOT NULL COMMENT '区域',
   `postcode` int(11) NOT NULL COMMENT '邮编',
   `default_address` char(1) NOT NULL DEFAULT 'F' COMMENT '是否为默认地址',
-  `phone` int(11) DEFAULT NULL COMMENT '手机号',
+  `phone` int(11) NOT NULL COMMENT '手机号',
   PRIMARY KEY (`address_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -57,9 +70,9 @@ CREATE TABLE IF NOT EXISTS `book` (
   `publishing` varchar(100) NOT NULL COMMENT '出版社',
   `sell_store` varchar(100) NOT NULL COMMENT '卖家店铺',
   `sales` bigint(255) NOT NULL COMMENT '销量',
-  `categories` varchar(100) NOT NULL COMMENT '类别',
   `publication_date` date NOT NULL COMMENT '出版日期',
-  `picture` varchar(50) NOT NULL COMMENT '图片',
+  `count` int(11) NOT NULL COMMENT '余量',
+  `score` decimal(1,1) NOT NULL COMMENT '评分',
   PRIMARY KEY (`book_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -79,6 +92,19 @@ CREATE TABLE IF NOT EXISTS `bookmark` (
 -- 正在导出表  bookstore.bookmark 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `bookmark` DISABLE KEYS */;
 /*!40000 ALTER TABLE `bookmark` ENABLE KEYS */;
+
+-- 导出  表 bookstore.categories 结构
+CREATE TABLE IF NOT EXISTS `categories` (
+  `categories_id` bigint(111) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `one_categories` varchar(50) NOT NULL COMMENT '一级分类名',
+  `two_categories` varchar(50) NOT NULL COMMENT '二级分类名',
+  `book_id` varchar(50) NOT NULL COMMENT '书的Id',
+  PRIMARY KEY (`categories_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  bookstore.categories 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `categories` DISABLE KEYS */;
+/*!40000 ALTER TABLE `categories` ENABLE KEYS */;
 
 -- 导出  表 bookstore.comment 结构
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -117,12 +143,26 @@ CREATE TABLE IF NOT EXISTS `order` (
   `order_count` int(100) NOT NULL COMMENT '订单数量',
   `user_id` bigint(255) NOT NULL COMMENT '下单用户Id',
   `user_address` varchar(255) NOT NULL COMMENT '用户地址',
+  `state` varchar(50) NOT NULL COMMENT '订单状态',
+  `store_id` bigint(111) NOT NULL COMMENT '店铺Id',
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- 正在导出表  bookstore.order 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
+
+-- 导出  表 bookstore.picture 结构
+CREATE TABLE IF NOT EXISTS `picture` (
+  `picture_id` int(111) NOT NULL AUTO_INCREMENT COMMENT 'Id',
+  `picture_content` varchar(50) NOT NULL COMMENT '图片内容（地址）',
+  `book_id` varchar(50) NOT NULL COMMENT '书的Id',
+  PRIMARY KEY (`picture_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  bookstore.picture 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `picture` DISABLE KEYS */;
+/*!40000 ALTER TABLE `picture` ENABLE KEYS */;
 
 -- 导出  表 bookstore.store 结构
 CREATE TABLE IF NOT EXISTS `store` (
@@ -158,6 +198,19 @@ CREATE TABLE IF NOT EXISTS `user` (
 -- 正在导出表  bookstore.user 的数据：~0 rows (大约)
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
+
+-- 导出  表 bookstore.verification 结构
+CREATE TABLE IF NOT EXISTS `verification` (
+  `verification_id` int(11) NOT NULL AUTO_INCREMENT,
+  `verification_content` int(6) NOT NULL,
+  `user_id` int(6) NOT NULL,
+  `date` timestamp NOT NULL,
+  PRIMARY KEY (`verification_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- 正在导出表  bookstore.verification 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `verification` DISABLE KEYS */;
+/*!40000 ALTER TABLE `verification` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
 /*!40014 SET FOREIGN_KEY_CHECKS=IF(@OLD_FOREIGN_KEY_CHECKS IS NULL, 1, @OLD_FOREIGN_KEY_CHECKS) */;
