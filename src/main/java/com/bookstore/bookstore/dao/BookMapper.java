@@ -15,4 +15,5 @@ import java.util.List;
  */
 public interface BookMapper extends BaseMapper<Book> {
     List<Book> searchByName(String bookname);
+
 }
