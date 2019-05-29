@@ -16,13 +16,14 @@ import java.util.Map;
 public class HelloController {
     @RequestMapping("/hello")
     @ResponseBody
-    public Map hello(){
+    public Map hello() {
         Map<String, Object> map = new HashMap<>();
-        map.put("msg","hello");
+        map.put("msg", "hello");
         return map;
     }
+
     @RequestMapping("/test")
-    public String test(){
+    public String test() {
         return "moban/index";
     }
 }

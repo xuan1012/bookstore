@@ -19,15 +19,14 @@
 <button class="layui-btn layui-btn-danger" onclick="test()">一个标准的按钮</button>
 
 
-
 <script src="layui/layui.all.js"></script>
 <script>
     function test() {
         $.ajax({
 
-            url:"testJson",
-            dataType:"json",
-            success:function (json) {
+            url: "testJson",
+            dataType: "json",
+            success: function (json) {
                 console.log(json);
             }
         })

@@ -42,7 +42,7 @@
                enableUpdateByExample="true" enableDeleteByExample="true" enableSelectByExample="true"
                selectByExampleQueryId="true">
             <!--使得自增ID被返回-->
-<!--            <generatedKey column="movie_id" sqlStatement="select last_insert_id()" identity="true"/>-->
+            <!--            <generatedKey column="movie_id" sqlStatement="select last_insert_id()" identity="true"/>-->
         </table>
     </context>
 </generatorConfiguration>

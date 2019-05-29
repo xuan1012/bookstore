@@ -4,7 +4,7 @@
     <title>欢迎</title>
     <meta charset="utf-8">
     <base href="http://localhost:8080">
-<!--    <base href="/">-->
+    <!--    <base href="/">-->
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
     <link rel="stylesheet" href="layui/css/layui.css">
@@ -41,7 +41,7 @@
                     <div class="layui-form-item">
                         <div class="layui-input-block">
                             <button class="layui-btn" lay-submit lay-filter="*">登录</button>
-<!--                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
+                            <!--                            <button type="reset" class="layui-btn layui-btn-primary">重置</button>-->
                             <input class="layui-btn" onclick="signUser()" value="注册" type="button"/>
                         </div>
                     </div>
@@ -58,10 +58,12 @@
 
         //各种基于事件的操作，下面会有进一步介绍
     });
-    function signUser(){
+
+    function signUser() {
         console.log("ok");
         window.location.href = "/user/signUser";
     }
+
     $(function () {
 
     });
