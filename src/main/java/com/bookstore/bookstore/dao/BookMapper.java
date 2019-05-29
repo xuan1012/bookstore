@@ -1,6 +1,6 @@
 package com.bookstore.bookstore.dao;
 
-import com.bookstore.bookstore.dao.model.User;
+import com.bookstore.bookstore.dao.model.Book;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * </p>
  *
  * @author xuan
- * @since 2019-05-25
+ * @since 2019-05-29
  */
-public interface UserMapper extends BaseMapper<User> {
+public interface BookMapper extends BaseMapper<Book> {
 
 }

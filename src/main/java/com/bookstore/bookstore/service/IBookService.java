@@ -1,6 +1,6 @@
 package com.bookstore.bookstore.service;
 
-import com.bookstore.bookstore.dao.model.User;
+import com.bookstore.bookstore.dao.model.Book;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author xuan
- * @since 2019-05-25
+ * @since 2019-05-29
  */
-public interface IUserService extends IService<User> {
+public interface IBookService extends IService<Book> {
 
 }
