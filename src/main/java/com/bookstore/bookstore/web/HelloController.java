@@ -22,8 +22,8 @@ public class HelloController {
         return map;
     }
 
-    @RequestMapping("/test")
+    @RequestMapping("/")
     public String test() {
-        return "moban/index";
+        return "store/index";
     }
 }

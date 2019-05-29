@@ -28,6 +28,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     public List<Book> searchByName(BookInfo bookInfo) {
         Book book = new Book();
         BeanUtils.copyProperties(bookInfo, book);
-        return null;
+        List<Book> books = bookMapper.searchByName(book.getBookName());
+        return books;
     }
 }
