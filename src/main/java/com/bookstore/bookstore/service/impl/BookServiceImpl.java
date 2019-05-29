@@ -1,9 +1,9 @@
 package com.bookstore.bookstore.service.impl;
 
-import com.bookstore.bookstore.dao.model.Book;
-import com.bookstore.bookstore.dao.BookMapper;
-import com.bookstore.bookstore.service.IBookService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.bookstore.bookstore.dao.BookMapper;
+import com.bookstore.bookstore.dao.model.Book;
+import com.bookstore.bookstore.service.IBookService;
 import com.bookstore.bookstore.service.info.BookInfo;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
@@ -28,7 +28,8 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     public List<Book> searchByName(BookInfo bookInfo) {
         Book book = new Book();
         BeanUtils.copyProperties(bookInfo, book);
-        List<Book> books = bookMapper.searchByName(book.getBookName());
+        String bookName = book.getBookName();
+        List<Book> books = bookMapper.searchByName(bookName);
         return books;
     }
 }

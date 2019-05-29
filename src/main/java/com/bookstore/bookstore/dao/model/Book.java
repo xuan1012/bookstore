@@ -8,7 +8,6 @@ import lombok.experimental.Accessors;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDate;
 
 /**
  * <p>
@@ -64,7 +63,7 @@ public class Book implements Serializable {
     /**
      * 出版日期
      */
-    private LocalDate publicationDate;
+    private Data publicationDate;
 
     /**
      * 余量

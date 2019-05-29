@@ -1,5 +1,5 @@
 ﻿<!doctype html>
-<html class="no-js" lang="en">
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
@@ -7,29 +7,30 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" href="img/favicon.png"/>
+    <link rel="icon" href="/img/favicon.png"/>
     <!-- Place favicon.ico in the root directory -->
 
     <!-- all css here -->
     <!-- bootstrap.min.css -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
     <!-- font-awesome.min.css -->
-    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link rel="stylesheet" href="/css/font-awesome.min.css">
     <!-- owl.carousel.css -->
-    <link rel="stylesheet" href="css/owl.carousel.css">
+    <link rel="stylesheet" href="/css/owl.carousel.css">
     <!-- owl.carousel.css -->
-    <link rel="stylesheet" href="css/meanmenu.min.css">
+    <link rel="stylesheet" href="/css/meanmenu.min.css">
     <!-- jquery-ui.min.css -->
-    <link rel="stylesheet" href="css/jquery-ui.min.css">
+<!--    <link rel="stylesheet" href="/css/jquery-ui.min.css">-->
+    <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
     <!-- shortcode/shortcodes.css -->
-    <link rel="stylesheet" href="css/shortcode/shortcodes.css">
+    <link rel="stylesheet" href="/css/shortcode/shortcodes.css">
     <!-- nivo-slider.css -->
-    <link rel="stylesheet" href="css/nivo-slider.css">
+    <link rel="stylesheet" href="/css/nivo-slider.css">
     <!-- style.css -->
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="/style.css">
     <!-- responsive.css -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <script src="js/vendor/modernizr-2.8.3.min.js"></script>
+    <link rel="stylesheet" href="/css/responsive.css">
+    <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
 </head>
 <body>
 
@@ -93,7 +94,7 @@
             <div class="row">
                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                     <div class="logo">
-                        <a href="index.html"><img src="img/logo.png" alt=""/></a>
+                        <a href="index.html"><img src="/img/logo.png" alt=""/></a>
                     </div>
                 </div>
                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
@@ -105,47 +106,7 @@
                         </div>
                         <div class="search-box">
                             <form action="#">
-                                <select name="#" id="select">
-                                    <option value="">All categories</option>
-                                    <option value="40">Accessories</option>
-                                    <option value="41">Clothing</option>
-                                    <option value="42">-Hoodies</option>
-                                    <option value="47">-T-shirts</option>
-                                    <option value="43">Men's</option>
-                                    <option value="50"> -Hats</option>
-                                    <option value="44">Music</option>
-                                    <option value="46">-Singles</option>
-                                    <option value="49">-Albums</option>
-                                    <option value="45">Posters</option>
-                                    <option value="48">Women's</option>
-                                    <option value="51">-Hats</option>
-                                    <option value="52">----Shoes</option>
-                                    <option value="53">----Scarves</option>
-                                    <option value="54">Jewellery</option>
-                                    <option value="55">---Rings</option>
-                                    <option value="56">----Gold Ring</option>
-                                    <option value="57">----platinum ring</option>
-                                    <option value="58">----Silver Ring</option>
-                                    <option value="59">----Diamond rings</option>
-                                    <option value="60">---Necklaces</option>
-                                    <option value="61">----Diamond necklaces</option>
-                                    <option value="62">----Pearl necklaces</option>
-                                    <option value="63">----Silver necklaces</option>
-                                    <option value="64">----Statement necklaces</option>
-                                    <option value="65">Equipments</option>
-                                    <option value="73">---Accessories</option>
-                                    <option value="78">----headphone</option>
-                                    <option value="79">----health</option>
-                                    <option value="80">----camera</option>
-                                    <option value="74">---beauty</option>
-                                    <option value="75">----run</option>
-                                    <option value="76">----evening</option>
-                                    <option value="77">----coats</option>
-                                    <option value="66">Watches</option>
-                                    <option value="67">Books</option>
-                                    <option value="68">Sports</option>
-                                    <option value="69">Gifts</option>
-                                </select>
+
                                 <input type="text" placeholder="Search...">
                                 <button><i class="fa fa-search"></i></button>
                             </form>
@@ -169,18 +130,18 @@
                                         </a>
                                     </div>
                                     <div class="top-cart-content">
-                                        <ol class="mini-products-list">
+                                        <ol class="mini-products-list" >
                                             <!-- single item -->
                                             <li>
                                                 <a class="product-image" href="product-details.html">
-                                                    <img alt="" src="img/cart/1.jpg">
+                                                    <img alt="" src="/img/cart/1.jpg">
                                                 </a>
                                                 <div class="product-details">
                                                     <p class="cartproduct-name">
                                                         <a href="product-details.html">Pellentesque habitant </a>
                                                     </p>
                                                     <strong class="qty">qty:1</strong>
-                                                    <span class="sig-price">$222.00</span>
+                                                    <span class="sig-price" >$222.00</span>
                                                 </div>
                                                 <div class="pro-action">
                                                     <a class="btn-remove" href="#">remove</a>
@@ -190,7 +151,7 @@
                                             <!-- single item -->
                                             <li>
                                                 <a class="product-image" href="product-details.html">
-                                                    <img alt="" src="img/cart/2.jpg">
+                                                    <img alt="" src="/img/cart/2.jpg">
                                                 </a>
                                                 <div class="product-details">
                                                     <p class="cartproduct-name">
@@ -236,20 +197,20 @@
                     <div class="product_vmegamenu">
                         <ul>
                             <li>
-                                <a href="#"><img src="img/menu-l/1.png" alt=""/> Automotive & Motorcycle</a></li>
+                                <a href="#"><img src="/img/menu-l/1.png" alt=""/> Automotive & Motorcycle</a></li>
                             <li>
-                                <a href="#"><img src="img/menu-l/2.png" alt=""/>Bags, Shoes & Accessories</a></li>
+                                <a href="#"><img src="/img/menu-l/2.png" alt=""/>Bags, Shoes & Accessories</a></li>
                             <li>
-                                <a href="#"><img src="img/menu-l/3.png" alt=""/> Cameras & Photo</a>
+                                <a href="#"><img src="/img/menu-l/3.png" alt=""/> Cameras & Photo</a>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/4.png" alt=""/> Computers & Networking</a>
+                                <a href="#"><img src="/img/menu-l/4.png" alt=""/> Computers & Networking</a>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/5.png" alt=""/>Flashlights & Lamps</a>
+                                <a href="#"><img src="/img/menu-l/5.png" alt=""/>Flashlights & Lamps</a>
                             </li>
                             <li>
-                                <a href="#" class="hover-icon"><img src="img/menu-l/6.png" alt=""/>Laptops & Accessories</a>
+                                <a href="#" class="hover-icon"><img src="/img/menu-l/6.png" alt=""/>Laptops & Accessories</a>
                                 <div class="vmegamenu">
 											<span>
 												<a href="#" class="vgema-title">Linux</a>
@@ -278,7 +239,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="#" class="hover-icon"><img src="img/menu-l/12.png" alt=""/>Sports &
+                                <a href="#" class="hover-icon"><img src="/img/menu-l/12.png" alt=""/>Sports &
                                     Outdoors</a>
                                 <div class="vmegamenu">
 											<span>
@@ -312,7 +273,7 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="#" class="hover-icon"><img src="img/menu-l/7.png" alt=""/>Smartphone & Tablets</a>
+                                <a href="#" class="hover-icon"><img src="/img/menu-l/7.png" alt=""/>Smartphone & Tablets</a>
                                 <div class="vmegamenu vmegamenu2">
 											<span>
 												<a href="#" class="vgema-title">HandBags</a>
@@ -331,22 +292,22 @@
                                 </div>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/8.png" alt=""/>Health & Beauty</a>
+                                <a href="#"><img src="/img/menu-l/8.png" alt=""/>Health & Beauty</a>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/9.png" alt=""/>Toys & Hobbies</a>
+                                <a href="#"><img src="/img/menu-l/9.png" alt=""/>Toys & Hobbies</a>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/10.png" alt=""/>Holiday Supplies & Gifts</a>
+                                <a href="#"><img src="/img/menu-l/10.png" alt=""/>Holiday Supplies & Gifts</a>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/11.png" alt=""/>Jewelry & Watches</a>
+                                <a href="#"><img src="/img/menu-l/11.png" alt=""/>Jewelry & Watches</a>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/5.png" alt=""/>Smartphone & Watches</a>
+                                <a href="#"><img src="/img/menu-l/5.png" alt=""/>Smartphone & Watches</a>
                             </li>
                             <li>
-                                <a href="#"><img src="img/menu-l/4.png" alt=""/>Health Watches</a>
+                                <a href="#"><img src="/img/menu-l/4.png" alt=""/>Health Watches</a>
                             </li>
                         </ul>
                     </div>
@@ -643,14 +604,14 @@
                         <div class="tab-content">
                             <div role="tabpanel" class="tab-pane active" id="home">
                                 <div class="row">
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                    <div class="col-lg-4 col-md-4 col-sm-6" th:each=" book : ${books} ">
                                         <div class="single-product mb-30  white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/1.jpg" alt=""/></a>
+                                                <a href="#"><img  th:src="${picture.pictureContent}" src="/img/product/1.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
+                                                    <h4><a href="product-details.html" th:text="${book.bookName}">Moebius Table</a></h4>
                                                 </div>
                                                 <div class="pro-rating ">
                                                     <a href="#"><i class="fa fa-star"></i></a>
@@ -660,75 +621,7 @@
                                                     <a href="#"><i class="fa fa-star-o"></i></a>
                                                 </div>
                                                 <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30  white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/3.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/4.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
+                                                    <span class="price product-price" th:text="${book.bookPrice}">$400.00</span>
                                                 </div>
                                                 <div class="product-icon">
                                                     <div class="product-icon-left f-left">
@@ -748,7 +641,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30  white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/5.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/3.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -782,7 +675,41 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/6.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/4.jpg" alt=""/></a>
+                                            </div>
+                                            <div class="product-content product-i">
+                                                <div class="pro-title">
+                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
+                                                </div>
+                                                <div class="pro-rating ">
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star-o"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="price product-price">$400.00</span>
+                                                </div>
+                                                <div class="product-icon">
+                                                    <div class="product-icon-left f-left">
+                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                                    </div>
+                                                    <div class="product-icon-right floatright">
+                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
+                                                                class="fa fa-exchange"></i></a>
+                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
+                                                                class="fa fa-heart"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="new">new</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="single-product mb-30  white-bg">
+                                            <div class="product-img pt-20">
+                                                <a href="#"><img src="/img/product/5.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -816,7 +743,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/7.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/6.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -850,7 +777,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/8.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/7.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -884,7 +811,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/9.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/8.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -918,7 +845,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/10.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/9.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -952,7 +879,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/11.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/10.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -986,7 +913,7 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/12.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/11.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -1020,7 +947,41 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6">
                                         <div class="single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/2.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/12.jpg" alt=""/></a>
+                                            </div>
+                                            <div class="product-content product-i">
+                                                <div class="pro-title">
+                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
+                                                </div>
+                                                <div class="pro-rating ">
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star"></i></a>
+                                                    <a href="#"><i class="fa fa-star-o"></i></a>
+                                                </div>
+                                                <div class="price-box">
+                                                    <span class="price product-price">$400.00</span>
+                                                </div>
+                                                <div class="product-icon">
+                                                    <div class="product-icon-left f-left">
+                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                                    </div>
+                                                    <div class="product-icon-right floatright">
+                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
+                                                                class="fa fa-exchange"></i></a>
+                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
+                                                                class="fa fa-heart"></i></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <span class="new">new</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-4 col-md-4 col-sm-6">
+                                        <div class="single-product mb-30 white-bg">
+                                            <div class="product-img pt-20">
+                                                <a href="#"><img src="/img/product/2.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
@@ -1073,7 +1034,7 @@
                                     <div class="col-lg-12">
                                         <div class="single-product  shop-single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/2.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/2.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content">
                                                 <div class="pro-title">
@@ -1111,7 +1072,7 @@
                                     <div class="col-lg-12">
                                         <div class="single-product  shop-single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/5.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/5.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content">
                                                 <div class="pro-title">
@@ -1149,7 +1110,7 @@
                                     <div class="col-lg-12">
                                         <div class="single-product  shop-single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/6.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/6.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content">
                                                 <div class="pro-title">
@@ -1187,7 +1148,7 @@
                                     <div class="col-lg-12">
                                         <div class="single-product  shop-single-product mb-30 white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img src="img/product/9.jpg" alt=""/></a>
+                                                <a href="#"><img src="/img/product/9.jpg" alt=""/></a>
                                             </div>
                                             <div class="product-content">
                                                 <div class="pro-title">
@@ -1261,22 +1222,22 @@
             <div class="col-lg-12">
                 <div class="brand-active border-1">
                     <div class="single-brand">
-                        <a href="#"><img src="img/brand/1.jpg" alt=""/></a>
+                        <a href="#"><img src="/img/brand/1.jpg" alt=""/></a>
                     </div>
                     <div class="single-brand">
-                        <a href="#"><img src="img/brand/2.jpg" alt=""/></a>
+                        <a href="#"><img src="/img/brand/2.jpg" alt=""/></a>
                     </div>
                     <div class="single-brand">
-                        <a href="#"><img src="img/brand/3.jpg" alt=""/></a>
+                        <a href="#"><img src="/img/brand/3.jpg" alt=""/></a>
                     </div>
                     <div class="single-brand">
-                        <a href="#"><img src="img/brand/4.jpg" alt=""/></a>
+                        <a href="#"><img src="/img/brand/4.jpg" alt=""/></a>
                     </div>
                     <div class="single-brand">
-                        <a href="#"><img src="img/brand/5.jpg" alt=""/></a>
+                        <a href="#"><img src="/img/brand/5.jpg" alt=""/></a>
                     </div>
                     <div class="single-brand">
-                        <a href="#"><img src="img/brand/6.jpg" alt=""/></a>
+                        <a href="#"><img src="/img/brand/6.jpg" alt=""/></a>
                     </div>
                 </div>
             </div>
@@ -1290,7 +1251,7 @@
         <div class="row">
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
                 <div class="newletter-logo">
-                    <a href="#"><img src="img/logo.png" alt=""/></a>
+                    <a href="#"><img src="/img/logo.png" alt=""/></a>
                 </div>
             </div>
             <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
@@ -1394,22 +1355,22 @@
                     <div class="footer-widget">
                         <div class="footer-widget-img">
                             <div class="single-img">
-                                <a href="#"><img src="img/footer/1.jpg" alt=""/></a>
+                                <a href="#"><img src="/img/footer/1.jpg" alt=""/></a>
                             </div>
                             <div class="single-img">
-                                <a href="#"><img src="img/footer/2.jpg" alt=""/></a>
+                                <a href="#"><img src="/img/footer/2.jpg" alt=""/></a>
                             </div>
                             <div class="single-img">
-                                <a href="#"><img src="img/footer/3.jpg" alt=""/></a>
+                                <a href="#"><img src="/img/footer/3.jpg" alt=""/></a>
                             </div>
                             <div class="single-img">
-                                <a href="#"><img src="img/footer/4.jpg" alt=""/></a>
+                                <a href="#"><img src="/img/footer/4.jpg" alt=""/></a>
                             </div>
                             <div class="single-img">
-                                <a href="#"><img src="img/footer/5.jpg" alt=""/></a>
+                                <a href="#"><img src="/img/footer/5.jpg" alt=""/></a>
                             </div>
                             <div class="single-img">
-                                <a href="#"><img src="img/footer/6.jpg" alt=""/></a>
+                                <a href="#"><img src="/img/footer/6.jpg" alt=""/></a>
                             </div>
                         </div>
                     </div>
@@ -1432,7 +1393,7 @@
                 </div>
                 <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
                     <div class="payment text-right">
-                        <a href="#"><img src="img/payment.png" alt=""/></a>
+                        <a href="#"><img src="/img/payment.png" alt=""/></a>
                     </div>
                 </div>
             </div>
@@ -1455,25 +1416,25 @@
 
 <!-- all js here -->
 <!-- jquery-1.12.0 -->
-<script src="js/vendor/jquery-1.12.0.min.js"></script>
+<script src="/js/vendor/jquery-1.12.0.min.js"></script>
 <!-- bootstrap.min.js -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/js/bootstrap.min.js"></script>
 <!-- nivo.slider.js -->
-<script src="js/jquery.nivo.slider.pack.js"></script>
+<script src="/js/jquery.nivo.slider.pack.js"></script>
 <!-- jquery-ui.min.js -->
-<script src="js/jquery-ui.min.js"></script>
+<script src="/js/jquery-ui.min.js"></script>
 <!-- jquery.magnific-popup.min.js -->
-<script src="js/jquery.magnific-popup.min.js"></script>
+<script src="/js/jquery.magnific-popup.min.js"></script>
 <!-- jquery.meanmenu.min.js -->
-<script src="js/jquery.meanmenu.js"></script>
+<script src="/js/jquery.meanmenu.js"></script>
 <!-- jquery.scrollup.min.js-->
-<script src="js/jquery.scrollup.min.js"></script>
+<script src="/js/jquery.scrollup.min.js"></script>
 <!-- owl.carousel.min.js -->
-<script src="js/owl.carousel.min.js"></script>
+<script src="/js/owl.carousel.min.js"></script>
 <!-- plugins.js -->
-<script src="js/plugins.js"></script>
+<script src="/js/plugins.js"></script>
 <!-- main.js -->
-<script src="js/main.js"></script>
+<script src="/js/main.js"></script>
 </body>
 </html>
 
