@@ -29,6 +29,6 @@ public class HelloController {
 
     @RequestMapping("/")
     public String shoppingCart() {
-        return "moban/cart";
+        return "store/index";
     }
 }

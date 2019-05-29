@@ -20,7 +20,7 @@
     <!-- owl.carousel.css -->
     <link rel="stylesheet" href="/css/meanmenu.min.css">
     <!-- jquery-ui.min.css -->
-<!--    <link rel="stylesheet" href="/css/jquery-ui.min.css">-->
+    <!--    <link rel="stylesheet" href="/css/jquery-ui.min.css">-->
     <link href="https://cdn.bootcss.com/jqueryui/1.12.1/jquery-ui.min.css" rel="stylesheet">
     <!-- shortcode/shortcodes.css -->
     <link rel="stylesheet" href="/css/shortcode/shortcodes.css">
@@ -130,7 +130,7 @@
                                         </a>
                                     </div>
                                     <div class="top-cart-content">
-                                        <ol class="mini-products-list" >
+                                        <ol class="mini-products-list">
                                             <!-- single item -->
                                             <li>
                                                 <a class="product-image" href="product-details.html">
@@ -141,7 +141,7 @@
                                                         <a href="product-details.html">Pellentesque habitant </a>
                                                     </p>
                                                     <strong class="qty">qty:1</strong>
-                                                    <span class="sig-price" >$222.00</span>
+                                                    <span class="sig-price">$222.00</span>
                                                 </div>
                                                 <div class="pro-action">
                                                     <a class="btn-remove" href="#">remove</a>
@@ -210,7 +210,8 @@
                                 <a href="#"><img src="/img/menu-l/5.png" alt=""/>Flashlights & Lamps</a>
                             </li>
                             <li>
-                                <a href="#" class="hover-icon"><img src="/img/menu-l/6.png" alt=""/>Laptops & Accessories</a>
+                                <a href="#" class="hover-icon"><img src="/img/menu-l/6.png" alt=""/>Laptops &
+                                    Accessories</a>
                                 <div class="vmegamenu">
 											<span>
 												<a href="#" class="vgema-title">Linux</a>
@@ -607,11 +608,22 @@
                                     <div class="col-lg-4 col-md-4 col-sm-6" th:each=" book : ${books} ">
                                         <div class="single-product mb-30  white-bg">
                                             <div class="product-img pt-20">
-                                                <a href="#"><img  th:src="${picture.pictureContent}" src="/img/product/1.jpg" alt=""/></a>
+                                                <a href="#">
+                                                    <img th:unless="${#lists.isEmpty(book.pictureContent)}"
+                                                         th:src="${book.pictureContent[0].pictureContent}"
+                                                         src="/img/product/1.jpg" alt=""/>
+                                                    <img th:if="${#lists.isEmpty(book.pictureContent)}"
+                                                         src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
+                                                         alt=""/>
+                                                </a>
                                             </div>
                                             <div class="product-content product-i">
                                                 <div class="pro-title">
-                                                    <h4><a href="product-details.html" th:text="${book.bookName}">Moebius Table</a></h4>
+                                                    <h4><a href="product-details.html" th:text="${book.bookName}">Moebius
+                                                        Table</a></h4>
+                                                    <!--                                                    <span class="price product-price" th:each="categorie:${book.categories}">-->
+                                                    <!--                                                        <span th:text="${categorie.twoCategories}"></span>-->
+                                                    <!--                                                    </span>-->
                                                 </div>
                                                 <div class="pro-rating ">
                                                     <a href="#"><i class="fa fa-star"></i></a>
@@ -625,7 +637,7 @@
                                                 </div>
                                                 <div class="product-icon">
                                                     <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                                        <a href="#"><i class="fa fa-shopping-cart"></i>加入购物车</a>
                                                     </div>
                                                     <div class="product-icon-right floatright">
                                                         <a href="#" data-toggle="tooltip" title="Compare"><i
@@ -635,568 +647,94 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                            <span class="new">new</span>
+                                            <!--                                            <span class="new">上新</span>-->
                                         </div>
                                     </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30  white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/3.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/4.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30  white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/5.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/6.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/7.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/8.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/9.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/10.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/11.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/12.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-4 col-md-4 col-sm-6">
-                                        <div class="single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/2.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content product-i">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
-                                                </div>
-                                                <div class="pro-rating ">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <span class="new">new</span>
+
+                                    <div class="content-sortpagibar">
+                                        <div class="product-count display-inline">Showing 1 - 12 of 13 items</div>
+                                        <ul class="shop-pagi display-inline">
+                                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                            <li class="active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
+                                        <div class="selector-field f-right">
+                                            <form action="#">
+                                                <button class="compare">Compare (1)</button>
+                                            </form>
                                         </div>
                                     </div>
                                 </div>
-                                <div class="content-sortpagibar">
-                                    <div class="product-count display-inline">Showing 1 - 12 of 13 items</div>
-                                    <ul class="shop-pagi display-inline">
-                                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    </ul>
-                                    <div class="selector-field f-right">
-                                        <form action="#">
-                                            <button class="compare">Compare (1)</button>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                            <div role="tabpanel" class="tab-pane" id="profile">
-                                <div class="row">
-                                    <div class="col-lg-12">
-                                        <div class="single-product  shop-single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/2.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Moebius Table</a></h4>
+
+                                <div role="tabpanel" class="tab-pane" id="profile">
+                                    <div class="row">
+                                        <div class="col-lg-12" th:each="a:${news}">
+                                            <div class="single-product  shop-single-product mb-30 white-bg">
+                                                <div class="product-img pt-20">
+                                                    <a href="#">
+                                                        <img th:unless="${#lists.isEmpty(a.newsPicture)}"
+                                                             th:src="${a.newsPicture}"
+                                                             src="/img/product/1.jpg" alt=""/>
+                                                        <img th:if="${#lists.isEmpty(a.newsPicture)}"
+                                                             src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
+                                                             alt=""/>
+                                                    </a>
                                                 </div>
-                                                <div class="pro-rating mb-20">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <p>Revolutionary multi-touch interface. iPod touch features the same
-                                                    multi-touch screen technology as iPhone. Pinch to zoom in on a
-                                                    photo. Scroll through your songs and videos with a flick. Flip
-                                                    through your library by album artwork with Cover Flow. Gorgeous
-                                                    3.5-inch widescreen display. Watc..</p>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$400.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
+                                                <div class="product-content">
+                                                    <div class="pro-title">
+                                                        <h4><a href="product-details.html"
+                                                               th:text="${#dates.format(a.newsDate,'yyyy年MM月dd日 hh:mm:ss')}">Moebius
+                                                            Table</a></h4>
                                                     </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
+                                                    <div class="pro-rating mb-20">
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star"></i></a>
+                                                        <a href="#"><i class="fa fa-star-o"></i></a>
+                                                    </div>
+                                                    <p th:text="${a.newsContent}">Revolutionary multi-touch interface.
+                                                        iPod touch features the same
+                                                        multi-touch screen technology as iPhone. Pinch to zoom in on a
+                                                        photo. Scroll through your songs and videos with a flick. Flip
+                                                        through your library by album artwork with Cover Flow. Gorgeous
+                                                        3.5-inch widescreen display. Watc..</p>
+                                                    <div class="price-box">
+                                                        <span class="price product-price" th:text="${a.price}">$400.00</span>
+                                                    </div>
+                                                    <div class="product-icon">
+                                                        <div class="product-icon-left f-left">
+                                                            <a href="#"><i class="fa fa-shopping-cart"></i>Add to
+                                                                Cart</a>
+                                                        </div>
+                                                        <div class="product-icon-right floatright">
+                                                            <a href="#" data-toggle="tooltip" title="Compare"><i
+                                                                    class="fa fa-exchange"></i></a>
+                                                            <a href="#" data-toggle="tooltip" title="Wishlist"><i
+                                                                    class="fa fa-heart"></i></a>
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single-product  shop-single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/5.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Footstool</a></h4>
-                                                </div>
-                                                <div class="pro-rating mb-20">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <p>Revolutionary multi-touch interface. iPod touch features the same
-                                                    multi-touch screen technology as iPhone. Pinch to zoom in on a
-                                                    photo. Scroll through your songs and videos with a flick. Flip
-                                                    through your library by album artwork with Cover Flow. Gorgeous
-                                                    3.5-inch widescreen display. Watc..</p>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$324.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
+
+
+                                    <div class="content-sortpagibar">
+                                        <div class="product-count display-inline">Showing 1 - 12 of 13 items</div>
+                                        <ul class="shop-pagi display-inline">
+                                            <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
+                                            <li class="active"><a href="#">1</a></li>
+                                            <li><a href="#">2</a></li>
+                                            <li><a href="#">3</a></li>
+                                            <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
+                                        </ul>
+                                        <div class="selector-field f-right">
+                                            <form action="#">
+                                                <button class="compare">Compare (1)</button>
+                                            </form>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single-product  shop-single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/6.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">Como Ottoman</a></h4>
-                                                </div>
-                                                <div class="pro-rating mb-20">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <p>Revolutionary multi-touch interface. iPod touch features the same
-                                                    multi-touch screen technology as iPhone. Pinch to zoom in on a
-                                                    photo. Scroll through your songs and videos with a flick. Flip
-                                                    through your library by album artwork with Cover Flow. Gorgeous
-                                                    3.5-inch widescreen display. Watc..</p>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$422.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="col-lg-12">
-                                        <div class="single-product  shop-single-product mb-30 white-bg">
-                                            <div class="product-img pt-20">
-                                                <a href="#"><img src="/img/product/9.jpg" alt=""/></a>
-                                            </div>
-                                            <div class="product-content">
-                                                <div class="pro-title">
-                                                    <h4><a href="product-details.html">MacBook</a></h4>
-                                                </div>
-                                                <div class="pro-rating mb-20">
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star"></i></a>
-                                                    <a href="#"><i class="fa fa-star-o"></i></a>
-                                                </div>
-                                                <p>Revolutionary multi-touch interface. iPod touch features the same
-                                                    multi-touch screen technology as iPhone. Pinch to zoom in on a
-                                                    photo. Scroll through your songs and videos with a flick. Flip
-                                                    through your library by album artwork with Cover Flow. Gorgeous
-                                                    3.5-inch widescreen display. Watc..</p>
-                                                <div class="price-box">
-                                                    <span class="price product-price">$422.00</span>
-                                                </div>
-                                                <div class="product-icon">
-                                                    <div class="product-icon-left f-left">
-                                                        <a href="#"><i class="fa fa-shopping-cart"></i>Add to Cart</a>
-                                                    </div>
-                                                    <div class="product-icon-right floatright">
-                                                        <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                class="fa fa-exchange"></i></a>
-                                                        <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                class="fa fa-heart"></i></a>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="content-sortpagibar">
-                                    <div class="product-count display-inline">Showing 1 - 12 of 13 items</div>
-                                    <ul class="shop-pagi display-inline">
-                                        <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="#">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                    </ul>
-                                    <div class="selector-field f-right">
-                                        <form action="#">
-                                            <button class="compare">Compare (1)</button>
-                                        </form>
                                     </div>
                                 </div>
                             </div>
@@ -1206,235 +744,234 @@
             </div>
         </div>
     </div>
-</div>
-<!-- shop-area end -->
-<!-- brand-area-start -->
-<div class="brand-area pb-60 pt-60 dotted-style-2">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="section-title">
-                    <h3>Logo Brands & Clients</h3>
-                </div>
-            </div>
-        </div>
-        <div class="row">
-            <div class="col-lg-12">
-                <div class="brand-active border-1">
-                    <div class="single-brand">
-                        <a href="#"><img src="/img/brand/1.jpg" alt=""/></a>
-                    </div>
-                    <div class="single-brand">
-                        <a href="#"><img src="/img/brand/2.jpg" alt=""/></a>
-                    </div>
-                    <div class="single-brand">
-                        <a href="#"><img src="/img/brand/3.jpg" alt=""/></a>
-                    </div>
-                    <div class="single-brand">
-                        <a href="#"><img src="/img/brand/4.jpg" alt=""/></a>
-                    </div>
-                    <div class="single-brand">
-                        <a href="#"><img src="/img/brand/5.jpg" alt=""/></a>
-                    </div>
-                    <div class="single-brand">
-                        <a href="#"><img src="/img/brand/6.jpg" alt=""/></a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- brand-area-end -->
-<!-- newletter-area-start -->
-<div class="newletter-area ptb-30">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
-                <div class="newletter-logo">
-                    <a href="#"><img src="/img/logo.png" alt=""/></a>
-                </div>
-            </div>
-            <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                <div class="subscribe-form">
-                    <form action="#">
-                        <input placeholder="Email address..." type="text">
-                        <button class="subscribe">Subscribe</button>
-                    </form>
-                </div>
-            </div>
-            <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                <div class="subscribe-social text-right">
-                    <a href="#"><i class="fa fa-youtube"></i></a>
-                    <a href="#"><i class="fa fa-facebook"></i></a>
-                    <a href="#"><i class="fa fa-google-plus"></i></a>
-                    <a href="#"><i class="fa fa-twitter"></i></a>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- newletter-area-end -->
-<footer>
-    <!-- footer-top-area -->
-    <div class="footer-top-area border-1 ptb-30 bg-color-3">
+    <!-- shop-area end -->
+    <!-- brand-area-start -->
+    <div class="brand-area pb-60 pt-60 dotted-style-2">
         <div class="container">
             <div class="row">
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-title">
-                        <h4>Store Information</h4>
-                    </div>
-                    <div class="footer-widget">
-                        <div class="contact-info">
-                            <ul>
-                                <li>
-                                    <div class="contact-icon">
-                                        <i class="fa fa-home"></i>
-                                    </div>
-                                    <div class="contact-text">
-                                        <span>PO Box 16122 Collins Street West Victoria 8007 Australia</span>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="contact-icon">
-                                        <i class="fa fa-envelope-o"></i>
-                                    </div>
-                                    <div class="contact-text">
-                                        <a href="#"><span>demo@towerthemes.com</span></a>
-                                    </div>
-                                </li>
-                                <li>
-                                    <div class="contact-icon">
-                                        <i class="fa fa-phone"></i>
-                                    </div>
-                                    <div class="contact-text">
-                                        <span>(+1)866-550-3669</span>
-                                    </div>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-title">
-                        <h4>Information</h4>
-                    </div>
-                    <div class="footer-widget">
-                        <div class="list-unstyled">
-                            <ul>
-                                <li><a href="#">About Us</a></li>
-                                <li><a href="#">Delivery Information</a></li>
-                                <li><a href="#">Privacy Policy</a></li>
-                                <li><a href="#">Terms & Conditions</a></li>
-                                <li><a href="#">Contact Us</a></li>
-                                <li><a href="#">Site Map</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-title">
-                        <h4>My Account</h4>
-                    </div>
-                    <div class="footer-widget">
-                        <div class="list-unstyled">
-                            <ul>
-                                <li><a href="#">My Account</a></li>
-                                <li><a href="#">Order History</a></li>
-                                <li><a href="#">Wish List</a></li>
-                                <li><a href="#">Newsletter</a></li>
-                                <li><a href="#">Specials</a></li>
-                                <li><a href="#">Brands</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
-                    <div class="footer-title">
-                        <h4>Instagram</h4>
-                    </div>
-                    <div class="footer-widget">
-                        <div class="footer-widget-img">
-                            <div class="single-img">
-                                <a href="#"><img src="/img/footer/1.jpg" alt=""/></a>
-                            </div>
-                            <div class="single-img">
-                                <a href="#"><img src="/img/footer/2.jpg" alt=""/></a>
-                            </div>
-                            <div class="single-img">
-                                <a href="#"><img src="/img/footer/3.jpg" alt=""/></a>
-                            </div>
-                            <div class="single-img">
-                                <a href="#"><img src="/img/footer/4.jpg" alt=""/></a>
-                            </div>
-                            <div class="single-img">
-                                <a href="#"><img src="/img/footer/5.jpg" alt=""/></a>
-                            </div>
-                            <div class="single-img">
-                                <a href="#"><img src="/img/footer/6.jpg" alt=""/></a>
-                            </div>
-                        </div>
+                <div class="col-lg-12">
+                    <div class="section-title">
+                        <h3>Logo Brands & Clients</h3>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-</footer>
-<!-- copyright-area-start -->
-<div class="copyright-area text-center bg-color-3">
-    <div class="container">
-        <div class="copyright-border ptb-30">
             <div class="row">
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="copyright text-left">
-                        <p>Copyright &copy; 2017.Company name All rights reserved.<a target="_blank"
-                                                                                     href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
-                        </p>
-                    </div>
-                </div>
-                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-                    <div class="payment text-right">
-                        <a href="#"><img src="/img/payment.png" alt=""/></a>
+                <div class="col-lg-12">
+                    <div class="brand-active border-1">
+                        <div class="single-brand">
+                            <a href="#"><img src="/img/brand/1.jpg" alt=""/></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="/img/brand/2.jpg" alt=""/></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="/img/brand/3.jpg" alt=""/></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="/img/brand/4.jpg" alt=""/></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="/img/brand/5.jpg" alt=""/></a>
+                        </div>
+                        <div class="single-brand">
+                            <a href="#"><img src="/img/brand/6.jpg" alt=""/></a>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-<!-- copyright-area-end -->
-<!-- social_block-start -->
-<div id="social_block">
-    <ul>
-        <li class="facebook"><a href="#">Facebook</a></li>
-        <li class="twitter"><a href="#">twitter</a></li>
-        <li class="rss"><a href="#">rss</a></li>
-        <li class="youtube"><a href="#">youtube</a></li>
-        <li class="google-plus"><a href="#">google plus</a></li>
-        <li class="pinterest"><a href="#">pinterest</a></li>
-    </ul>
-</div>
-<!-- social_block-end -->
+    <!-- brand-area-end -->
+    <!-- newletter-area-start -->
+    <div class="newletter-area ptb-30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+                    <div class="newletter-logo">
+                        <a href="#"><img src="/img/logo.png" alt=""/></a>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                    <div class="subscribe-form">
+                        <form action="#">
+                            <input placeholder="Email address..." type="text">
+                            <button class="subscribe">Subscribe</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                    <div class="subscribe-social text-right">
+                        <a href="#"><i class="fa fa-youtube"></i></a>
+                        <a href="#"><i class="fa fa-facebook"></i></a>
+                        <a href="#"><i class="fa fa-google-plus"></i></a>
+                        <a href="#"><i class="fa fa-twitter"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- newletter-area-end -->
+    <footer>
+        <!-- footer-top-area -->
+        <div class="footer-top-area border-1 ptb-30 bg-color-3">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="footer-title">
+                            <h4>Store Information</h4>
+                        </div>
+                        <div class="footer-widget">
+                            <div class="contact-info">
+                                <ul>
+                                    <li>
+                                        <div class="contact-icon">
+                                            <i class="fa fa-home"></i>
+                                        </div>
+                                        <div class="contact-text">
+                                            <span>PO Box 16122 Collins Street West Victoria 8007 Australia</span>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="contact-icon">
+                                            <i class="fa fa-envelope-o"></i>
+                                        </div>
+                                        <div class="contact-text">
+                                            <a href="#"><span>demo@towerthemes.com</span></a>
+                                        </div>
+                                    </li>
+                                    <li>
+                                        <div class="contact-icon">
+                                            <i class="fa fa-phone"></i>
+                                        </div>
+                                        <div class="contact-text">
+                                            <span>(+1)866-550-3669</span>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="footer-title">
+                            <h4>Information</h4>
+                        </div>
+                        <div class="footer-widget">
+                            <div class="list-unstyled">
+                                <ul>
+                                    <li><a href="#">About Us</a></li>
+                                    <li><a href="#">Delivery Information</a></li>
+                                    <li><a href="#">Privacy Policy</a></li>
+                                    <li><a href="#">Terms & Conditions</a></li>
+                                    <li><a href="#">Contact Us</a></li>
+                                    <li><a href="#">Site Map</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="footer-title">
+                            <h4>My Account</h4>
+                        </div>
+                        <div class="footer-widget">
+                            <div class="list-unstyled">
+                                <ul>
+                                    <li><a href="#">My Account</a></li>
+                                    <li><a href="#">Order History</a></li>
+                                    <li><a href="#">Wish List</a></li>
+                                    <li><a href="#">Newsletter</a></li>
+                                    <li><a href="#">Specials</a></li>
+                                    <li><a href="#">Brands</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-3 col-sm-6 col-xs-12">
+                        <div class="footer-title">
+                            <h4>Instagram</h4>
+                        </div>
+                        <div class="footer-widget">
+                            <div class="footer-widget-img">
+                                <div class="single-img">
+                                    <a href="#"><img src="/img/footer/1.jpg" alt=""/></a>
+                                </div>
+                                <div class="single-img">
+                                    <a href="#"><img src="/img/footer/2.jpg" alt=""/></a>
+                                </div>
+                                <div class="single-img">
+                                    <a href="#"><img src="/img/footer/3.jpg" alt=""/></a>
+                                </div>
+                                <div class="single-img">
+                                    <a href="#"><img src="/img/footer/4.jpg" alt=""/></a>
+                                </div>
+                                <div class="single-img">
+                                    <a href="#"><img src="/img/footer/5.jpg" alt=""/></a>
+                                </div>
+                                <div class="single-img">
+                                    <a href="#"><img src="/img/footer/6.jpg" alt=""/></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <!-- copyright-area-start -->
+    <div class="copyright-area text-center bg-color-3">
+        <div class="container">
+            <div class="copyright-border ptb-30">
+                <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="copyright text-left">
+                            <p>Copyright &copy; 2017.Company name All rights reserved.<a target="_blank"
+                                                                                         href="http://sc.chinaz.com/moban/">&#x7F51;&#x9875;&#x6A21;&#x677F;</a>
+                            </p>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
+                        <div class="payment text-right">
+                            <a href="#"><img src="/img/payment.png" alt=""/></a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- copyright-area-end -->
+    <!-- social_block-start -->
+    <div id="social_block">
+        <ul>
+            <li class="facebook"><a href="#">Facebook</a></li>
+            <li class="twitter"><a href="#">twitter</a></li>
+            <li class="rss"><a href="#">rss</a></li>
+            <li class="youtube"><a href="#">youtube</a></li>
+            <li class="google-plus"><a href="#">google plus</a></li>
+            <li class="pinterest"><a href="#">pinterest</a></li>
+        </ul>
+    </div>
+    <!-- social_block-end -->
 
-<!-- all js here -->
-<!-- jquery-1.12.0 -->
-<script src="/js/vendor/jquery-1.12.0.min.js"></script>
-<!-- bootstrap.min.js -->
-<script src="/js/bootstrap.min.js"></script>
-<!-- nivo.slider.js -->
-<script src="/js/jquery.nivo.slider.pack.js"></script>
-<!-- jquery-ui.min.js -->
-<script src="/js/jquery-ui.min.js"></script>
-<!-- jquery.magnific-popup.min.js -->
-<script src="/js/jquery.magnific-popup.min.js"></script>
-<!-- jquery.meanmenu.min.js -->
-<script src="/js/jquery.meanmenu.js"></script>
-<!-- jquery.scrollup.min.js-->
-<script src="/js/jquery.scrollup.min.js"></script>
-<!-- owl.carousel.min.js -->
-<script src="/js/owl.carousel.min.js"></script>
-<!-- plugins.js -->
-<script src="/js/plugins.js"></script>
-<!-- main.js -->
-<script src="/js/main.js"></script>
+    <!-- all js here -->
+    <!-- jquery-1.12.0 -->
+    <script src="/js/vendor/jquery-1.12.0.min.js"></script>
+    <!-- bootstrap.min.js -->
+    <script src="/js/bootstrap.min.js"></script>
+    <!-- nivo.slider.js -->
+    <script src="/js/jquery.nivo.slider.pack.js"></script>
+    <!-- jquery-ui.min.js -->
+    <script src="/js/jquery-ui.min.js"></script>
+    <!-- jquery.magnific-popup.min.js -->
+    <script src="/js/jquery.magnific-popup.min.js"></script>
+    <!-- jquery.meanmenu.min.js -->
+    <script src="/js/jquery.meanmenu.js"></script>
+    <!-- jquery.scrollup.min.js-->
+    <script src="/js/jquery.scrollup.min.js"></script>
+    <!-- owl.carousel.min.js -->
+    <script src="/js/owl.carousel.min.js"></script>
+    <!-- plugins.js -->
+    <script src="/js/plugins.js"></script>
+    <!-- main.js -->
+    <script src="/js/main.js"></script>
 </body>
 </html>
 

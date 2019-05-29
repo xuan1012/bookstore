@@ -1,11 +1,11 @@
 package com.bookstore.bookstore.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.bookstore.bookstore.dao.BookMapper;
+import com.bookstore.bookstore.dao.*;
+import com.bookstore.bookstore.dao.model.AllBookMessage;
 import com.bookstore.bookstore.dao.model.Book;
+import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.service.IBookService;
-import com.bookstore.bookstore.service.info.BookInfo;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -22,14 +22,33 @@ import java.util.List;
 @Service
 public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IBookService {
     @Resource
-    BookMapper bookMapper;
+    BookMessageMapper bookMessageMapper;
+    @Resource
+    PicturesMapper picturesMapper;
+    @Resource
+    CategoriesMapper categoriesMapper;
+    @Resource
+    NewsMapper newsMapper;
 
     @Override
-    public List<Book> searchByName(BookInfo bookInfo) {
-        Book book = new Book();
-        BeanUtils.copyProperties(bookInfo, book);
-        String bookName = book.getBookName();
-        List<Book> books = bookMapper.searchByName(bookName);
+    public List<AllBookMessage> searchByName(String bookName) {
+        List<AllBookMessage> books = bookMessageMapper.findByName(bookName);
+        for (AllBookMessage book : books) {
+            Long bookId = book.getBookId();
+            book.setPictureContent(picturesMapper.getBookPicture(bookId));
+            book.setCategories(categoriesMapper.findByBookId(bookId));
+        }
+
         return books;
+    }
+
+    @Override
+    public List<News> findAllNews() {
+        List<News> news = newsMapper.findAll();
+        for (News news1 : news) {
+            AllBookMessage book = bookMessageMapper.findById(news1.getNewsId());
+            news1.setPrice(book.getBookPrice());
+        }
+        return news;
     }
 }

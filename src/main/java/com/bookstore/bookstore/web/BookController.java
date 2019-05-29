@@ -1,15 +1,11 @@
 package com.bookstore.bookstore.web;
 
 
-import com.bookstore.bookstore.dao.PictureMapper;
-import com.bookstore.bookstore.dao.model.Book;
-import com.bookstore.bookstore.dao.model.Picture;
+import com.bookstore.bookstore.dao.model.AllBookMessage;
+import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.service.IBookService;
-import com.bookstore.bookstore.service.info.BookInfo;
-import com.bookstore.bookstore.web.form.BookForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,17 +27,14 @@ public class BookController {
     private static Logger logger = LoggerFactory.getLogger(BookController.class);
     @Resource
     IBookService bookService;
-    @Resource
-    PictureMapper pictureMapper;
+
+
     @RequestMapping("search")
-    public String searchByname(BookForm form, ModelMap model){
-        BookInfo bookInfo = new BookInfo();
-        BeanUtils.copyProperties(form, bookInfo);
-        List<Book> books = bookService.searchByName(bookInfo);
-        logger.info("书列表",books);
-        Picture picture = pictureMapper.selectById(1);
+    public String searchByname(String bookName, ModelMap model){
+        List<AllBookMessage> books = bookService.searchByName(bookName.trim());
+        List<News> news = bookService.findAllNews();
         model.addAttribute("books",books);
-        model.addAttribute("picture",picture);
+        model.addAttribute("news",news);
         return "store/shop";
     }
 }

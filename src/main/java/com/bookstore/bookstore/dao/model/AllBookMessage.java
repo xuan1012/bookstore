@@ -3,12 +3,14 @@ package com.bookstore.bookstore.dao.model;
 import lombok.Data;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 /**
  * @program: bookstore
  * @author: xuan
  * @create: 2019-05-29 11:45
  **/
+@Data
 public class AllBookMessage {
     private Long bookId;
 
@@ -52,24 +54,15 @@ public class AllBookMessage {
      */
     private BigDecimal score;
 
-    private Integer pictureId;
+
 
     /**
      * 图片内容（地址）
      */
-    private String pictureContent;
+    private List<Picture> pictureContent;
 
-    private Long categoriesId;
 
-    /**
-     * 一级分类名
-     */
-    private String oneCategories;
-
-    /**
-     * 二级分类名
-     */
-    private String twoCategories;
+    private List<Categories> categories;
 
     private Integer storeId;
 

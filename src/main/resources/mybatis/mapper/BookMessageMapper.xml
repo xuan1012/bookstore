@@ -2,8 +2,23 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.bookstore.dao.BookMessageMapper">
 
-    <select id="findByName" resultType="com.bookstore.bookstore.dao.model.AllBookMessage">
-        select * from book t1,picture t2,categories t3,store t4 where t1.book_name=#{bookName}
-        and t1.book_id=t2.book_id and t1.store_id=t4.store_id and t1.book_id=t3.book_id
+    <select id="findByName" resultType="com.bookstore.bookstore.dao.model.AllBookMessage" parameterType="String">
+        select * from book t1,store t2
+        <where>
+            t1.store_id=t2.store_id
+            <if test="bookName!=null and bookName!=''">
+                and t1.book_name=#{bookName}
+            </if>
+
+        </where>
+    </select>
+    <select id="findById" resultType="com.bookstore.bookstore.dao.model.AllBookMessage">
+       select * from book t1,store t2
+        <where>
+            t1.store_id=t2.store_id
+            <if test="bookId!=null and bookId!=''">
+                and t1.book_id=#{bookId}
+            </if>
+        </where>
     </select>
 </mapper>

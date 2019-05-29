@@ -1,8 +1,9 @@
 package com.bookstore.bookstore.service;
 
-import com.bookstore.bookstore.dao.model.Book;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.bookstore.bookstore.service.info.BookInfo;
+import com.bookstore.bookstore.dao.model.AllBookMessage;
+import com.bookstore.bookstore.dao.model.Book;
+import com.bookstore.bookstore.dao.model.News;
 
 import java.util.List;
 
@@ -15,5 +16,6 @@ import java.util.List;
  * @since 2019-05-29
  */
 public interface IBookService extends IService<Book> {
-    List<Book> searchByName(BookInfo bookInfo);
+    List<AllBookMessage> searchByName(String bookName);
+    List<News> findAllNews();
 }

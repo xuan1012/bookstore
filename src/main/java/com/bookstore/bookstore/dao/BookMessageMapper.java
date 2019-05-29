@@ -2,6 +2,7 @@ package com.bookstore.bookstore.dao;
 
 import com.bookstore.bookstore.dao.model.AllBookMessage;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,5 +13,6 @@ import java.util.List;
  **/
 @Mapper
 public interface BookMessageMapper {
-    List<AllBookMessage> findByName(String bookName);
+    List<AllBookMessage> findByName(@Param("bookName") String bookName);
+    AllBookMessage findById(@Param("bookId") Long bookId);
 }
