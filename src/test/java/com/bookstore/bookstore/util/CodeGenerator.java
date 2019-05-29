@@ -67,7 +67,7 @@ public class CodeGenerator {
         PackageConfig pc = new PackageConfig();
 
 //        pc.setModuleName(scanner("模块名"));
-        pc.setEntity("dao.model");
+        pc.setEntity("dao.form");
         pc.setParent("com.bookstore.bookstore");
         pc.setController("web");
         pc.setMapper("dao");

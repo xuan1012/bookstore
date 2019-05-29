@@ -1,4 +1,4 @@
-package com.bookstore.bookstore.service.model;
+package com.bookstore.bookstore.web.form;
 
 import lombok.Data;
 
@@ -11,7 +11,7 @@ import java.time.LocalDate;
  * @create: 2019-05-29 09:52
  **/
 @Data
-public class BookService {
+public class BookForm {
     private Long bookId;
 
     /**
