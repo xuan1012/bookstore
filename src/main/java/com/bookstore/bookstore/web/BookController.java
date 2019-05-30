@@ -2,6 +2,7 @@ package com.bookstore.bookstore.web;
 
 
 import com.bookstore.bookstore.dao.model.AllBookMessage;
+import com.bookstore.bookstore.dao.model.AllShops;
 import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.service.IBookService;
 import org.slf4j.Logger;
@@ -30,16 +31,18 @@ public class BookController {
 
 
     @RequestMapping("search")
-    public String searchByname(String bookName, ModelMap model){
+    public String searchByname(String bookName, ModelMap model) {
         List<AllBookMessage> books = bookService.searchByName(bookName.trim());
         List<News> news = bookService.findAllNews();
-        model.addAttribute("books",books);
-        model.addAttribute("news",news);
+        model.addAttribute("books", books);
+        model.addAttribute("news", news);
         return "store/shop";
     }
 
     @RequestMapping("cart")
-    public String shoppingCart(){
+    public String shoppingCart(Long userId, ModelMap map) {
+        List<AllShops> allShops = bookService.getAllShops(userId);
+        map.addAttribute("shops", allShops);
         return "store/cart";
     }
 }

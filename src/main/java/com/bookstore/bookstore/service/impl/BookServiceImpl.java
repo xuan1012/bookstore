@@ -2,9 +2,7 @@ package com.bookstore.bookstore.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bookstore.bookstore.dao.*;
-import com.bookstore.bookstore.dao.model.AllBookMessage;
-import com.bookstore.bookstore.dao.model.Book;
-import com.bookstore.bookstore.dao.model.News;
+import com.bookstore.bookstore.dao.model.*;
 import com.bookstore.bookstore.service.IBookService;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +27,10 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     CategoriesMapper categoriesMapper;
     @Resource
     NewsMapper newsMapper;
+    @Resource
+    ShoppingcartMapper shoppingcartMapper;
+    @Resource
+    StoreMapper storeMapper;
 
     @Override
     public List<AllBookMessage> searchByName(String bookName) {
@@ -53,6 +55,21 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
         return news;
     }
 
+    @Override
+    public List<AllShops> getAllShops(Long userId) {
+        List<AllShops> shops = shoppingcartMapper.findByUser(userId);
+        for (AllShops shop : shops) {
+            Long bookId = shop.getBookId();
+            AllBookMessage book = bookMessageMapper.findById(bookId);
+            Store store = storeMapper.selectById(book.getStoreId());
+            shop.setPictureContent(picturesMapper.getBookPicture(bookId));
+            shop.setAuthor(book.getAuthor());
+            shop.setBookPrice(book.getBookPrice());
+            shop.setBookName(book.getBookName());
+            shop.setSellStore(store.getStoreName());
+        }
+        return shops;
+    }
 
 
 }
