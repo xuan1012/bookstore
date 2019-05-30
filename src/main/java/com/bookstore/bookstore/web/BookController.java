@@ -37,6 +37,9 @@ public class BookController {
     }
 
     private void getBooksAndNews(String bookName, ModelMap model) {
+        if (bookName == null) {
+            bookName = "";
+        }
         List<AllBookMessage> books = bookService.searchByName(bookName.trim());
         List<News> news = bookService.findAllNews();
         model.addAttribute("books", books);
