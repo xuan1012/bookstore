@@ -32,17 +32,25 @@ public class BookController {
 
     @RequestMapping("search")
     public String searchByname(String bookName, ModelMap model) {
+        getBooksAndNews(bookName, model);
+        return "store/shop";
+    }
+
+    private void getBooksAndNews(String bookName, ModelMap model) {
         List<AllBookMessage> books = bookService.searchByName(bookName.trim());
         List<News> news = bookService.findAllNews();
         model.addAttribute("books", books);
         model.addAttribute("news", news);
-        return "store/shop";
     }
 
     @RequestMapping("cart")
     public String shoppingCart(Long userId, ModelMap map) {
+        getCartShops(userId, map);
+        return "store/cart";
+    }
+
+    private void getCartShops(Long userId, ModelMap map) {
         List<AllShops> allShops = bookService.getAllShops(userId);
         map.addAttribute("shops", allShops);
-        return "store/cart";
     }
 }

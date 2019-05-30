@@ -31,4 +31,9 @@ public class HelloController {
     public String shoppingCart() {
         return "store/index";
     }
+
+    @RequestMapping("/test")
+    public String test() {
+        return "store/test";
+    }
 }
