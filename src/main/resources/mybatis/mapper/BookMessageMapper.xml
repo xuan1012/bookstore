@@ -7,9 +7,8 @@
         <where>
             t1.store_id=t2.store_id
             <if test="bookName!=null and bookName!=''">
-                and t1.book_name=#{bookName}
+                and t1.book_name LIKE CONCAT('%',#{bookName},'%')
             </if>
-
         </where>
     </select>
     <select id="findById" resultType="com.bookstore.bookstore.dao.model.AllBookMessage">

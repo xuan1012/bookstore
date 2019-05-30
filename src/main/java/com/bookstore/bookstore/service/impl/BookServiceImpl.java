@@ -32,6 +32,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
 
     @Override
     public List<AllBookMessage> searchByName(String bookName) {
+
         List<AllBookMessage> books = bookMessageMapper.findByName(bookName);
         for (AllBookMessage book : books) {
             Long bookId = book.getBookId();
@@ -51,4 +52,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
         }
         return news;
     }
+
+
+
 }

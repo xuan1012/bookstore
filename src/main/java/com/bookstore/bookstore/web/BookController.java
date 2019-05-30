@@ -37,4 +37,9 @@ public class BookController {
         model.addAttribute("news",news);
         return "store/shop";
     }
+
+    @RequestMapping("cart")
+    public String shoppingCart(){
+        return "store/cart";
+    }
 }
