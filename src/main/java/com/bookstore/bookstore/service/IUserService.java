@@ -1,8 +1,11 @@
 package com.bookstore.bookstore.service;
 
+import com.bookstore.bookstore.dao.UserMapper;
 import com.bookstore.bookstore.dao.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
+
+import java.util.List;
 
 /**
  * <p>
@@ -15,4 +18,6 @@ import com.bookstore.bookstore.service.info.Regisrelnfo;
 public interface IUserService extends IService<User> {
 
     void add(Regisrelnfo regisrelnfo);
+
+    User select(Regisrelnfo regisrelnfo);
 }

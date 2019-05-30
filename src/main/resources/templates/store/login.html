@@ -406,53 +406,40 @@
 <div class="account-area pt-30 log">
     <div class="container">
         <div class="row">
-            <div class="col-md-6 col-lg-6 col-sm-6">
+
+            <div class="col-md-12 col-lg-12 col-sm-12">
                 <div class="account-info pb-30">
-                    <form action="#">
+                    <form action="/user/dolog" method="post">
                         <div class="form-fields">
-                            <h2>Login</h2>
+                                <h3 style="color:#A62F00;text-align: center;" th:text="${msg}">请登录</h3>
                             <p>
                                 <label>
-                                    Username or email address
+                                    用户名：
                                     <span class="required">*</span>
                                 </label>
-                                <input type="text">
+                                <input type="text" name="username">
                             </p>
                             <p>
                                 <label>
-                                    Password
+                                    密码
                                     <span class="required">*</span>
                                 </label>
-                                <input type="password">
+                                <input type="password" name="password">
                             </p>
                         </div>
                         <div class="form-action">
                             <label>
-                                <a href="#" class="lost_password">Lost your password?</a>
+                                <a href="#" class="lost_password">忘记密码？</a>
                                 <input type="checkbox">
-                                Remember me
+                                 记住密码
                             </label>
-                            <input value="Login" type="submit">
+                            <input value="登录" type="submit">
                         </div>
+
                     </form>
                 </div>
             </div>
-            <div class="col-md-6 col-lg-6 col-sm-6">
-                <div class="form-fields pb-30">
-                    <h2>Register</h2>
-                    <p>
-                        <label>Email address <span class="required">*</span></label>
-                        <input type="text">
-                    </p>
-                    <p>
-                        <label>Password <span class="required">*</span></label>
-                        <input type="password">
-                    </p>
-                </div>
-                <div class="form-action floatright">
-                    <input value="Register" type="submit">
-                </div>
-            </div>
+
         </div>
     </div>
 </div>

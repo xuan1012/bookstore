@@ -9,6 +9,10 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static javafx.scene.input.KeyCode.U;
+
 /**
  * <p>
  *  服务实现类
@@ -23,10 +27,31 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     private UserMapper userMapper;
 
 
+
     @Override
     public void add(Regisrelnfo regisrelnfo) {
         User user=new User();
-        BeanUtils.copyProperties(regisrelnfo,user);
-        userMapper.add1(user);
+
+       BeanUtils.copyProperties(regisrelnfo,user);
+
+       userMapper.add1(user);
     }
+
+    @Override
+    public User select(Regisrelnfo regisrelnfo) {
+
+        User user=new User();
+
+        BeanUtils.copyProperties(regisrelnfo,user);
+
+        User select = userMapper.select(user);
+
+        return select;
+    }
+
+
+
+
+
+
 }

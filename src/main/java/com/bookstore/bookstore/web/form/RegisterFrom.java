@@ -6,9 +6,11 @@ import sun.rmi.runtime.Log;
 @Data
 public class RegisterFrom {
 
-    private String Name;
+    private String username;
 
-    private String Password;
+    private String password;
+
+    private String phone;
 
 
 }

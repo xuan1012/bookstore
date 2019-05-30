@@ -41,7 +41,7 @@ package com.bookstore.bookstore.dao.model;
             /**
             * 手机
             */
-    private Integer phone;
+    private String phone;
 
             /**
             * 性别M/F

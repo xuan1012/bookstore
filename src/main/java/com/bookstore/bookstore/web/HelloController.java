@@ -22,13 +22,8 @@ public class HelloController {
         return map;
     }
 
-//    @RequestMapping("/")
-//    public String test() {
-//        return "store/index";
-//    }
-
     @RequestMapping("/")
-    public String shoppingCart() {
+    public String test() {
         return "store/index";
     }
 }

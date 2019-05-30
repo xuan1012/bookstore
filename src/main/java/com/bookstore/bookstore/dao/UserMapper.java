@@ -3,6 +3,8 @@ package com.bookstore.bookstore.dao;
 import com.bookstore.bookstore.dao.model.User;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
+import java.util.List;
+
 /**
  * <p>
  *  Mapper 接口
@@ -14,4 +16,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 public interface UserMapper extends BaseMapper<User> {
 
     void add1(User user);
+
+    User select(User user);
 }

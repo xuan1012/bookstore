@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class Regisrelnfo {
 
-    private String Name;
+    private String username;
 
-    private String Password;
+    private String password;
+
+    private String phone;
 }
