@@ -51,6 +51,7 @@ public class BookController {
         List<AllBookMessage> books = bookService.searchByName(bookName.trim());
         List<News> news = bookService.findAllNews();
         model.addAttribute("books", books);
+        model.addAttribute("bookName", bookName.trim());
         model.addAttribute("news", news);
     }
 

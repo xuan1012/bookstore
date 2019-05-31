@@ -32,51 +32,41 @@ public class UserController {
 
     @RequestMapping("/reg")
     public String toReg(ModelMap model) {
-
         return "store/register";
     }
 
-
     @RequestMapping("/doReg")
     public String doReg(RegisterFrom registerFrom) {
-
-        log.info("{}", registerFrom);
-
         Regisrelnfo lnfo = new Regisrelnfo();
-
         BeanUtils.copyProperties(registerFrom, lnfo);
-
         iUserService.add(lnfo);
-
         return "store/login";
     }
 
-
     @RequestMapping("/log")
     public String tolog(ModelMap model) {
-
         return "store/login";
     }
 
     @RequestMapping("/dolog")
     public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session) {
-
         Regisrelnfo regisrelnfo = new Regisrelnfo();
         if (registerFrom != null) {
-
             BeanUtils.copyProperties(registerFrom, regisrelnfo);
-
             User select = iUserService.select(regisrelnfo);
-
             if (select == null) {
                 modelMap.addAttribute("msg", "您的账号或者密码错误");
-
                 return "store/login";
             }
             session.setAttribute("userId", select.getUserId());
+            session.setAttribute("username", registerFrom.getUsername());
         }
-
-
         return "store/index";
     }
+    @RequestMapping("/logout")
+    public String logout(HttpSession session) {
+        session.invalidate();
+        return "store/index";
+    }
+
 }
