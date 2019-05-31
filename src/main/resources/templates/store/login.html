@@ -29,27 +29,17 @@
                         <form action="/user/dolog" method="post">
                             <div class="form-fields">
                                 <h3 style="color:#A62F00;text-align: center;" th:text="${msg}">请登录</h3>
-                                <p>
-                                    <label>
-                                        用户名：
-                                        <span class="required">*</span>
-                                    </label>
-                                    <input type="text" name="username">
-                                </p>
-                                <p>
-                                    <label>
-                                        密码
-                                        <span class="required">*</span>
-                                    </label>
-                                    <input type="password" name="password">
-                                </p>
+
+                                <p>用户名：<span class="required">*</span> <input type="text" name="username"
+                                                                              class="required"/></p>
+
+                                <p>密码<span class="required">*</span><input type="password" name="password"
+                                                                           class="required"/></p>
                             </div>
                             <div class="form-action">
-                                <label>
-                                    <a href="#" class="lost_password">忘记密码？</a>
-                                    <input type="checkbox">
-                                    记住密码
-                                </label>
+                                <a href="#" class="lost_password">忘记密码？</a>
+                                <input type="checkbox" value="记住密码"/>
+
                                 <input value="登录" type="submit">
                             </div>
 
@@ -68,7 +58,7 @@
     $(function () {
         document.title = config.pageTitle;
         $("#" + config.navActive).addClass("active");
-        $(".product_vmegamenu").css('display', 'block');
+
     })
 </script>
 </body>
