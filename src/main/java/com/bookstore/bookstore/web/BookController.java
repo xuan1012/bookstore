@@ -53,9 +53,13 @@ public class BookController {
             bookName = "";
         }
         List<AllBookMessage> books = bookService.searchByName(bookName.trim());
-        List<News> news = bookService.findAllNews();
         model.addAttribute("books", books);
         model.addAttribute("bookName", bookName.trim());
+        getNews(model);
+    }
+
+    private void getNews(ModelMap model) {
+        List<News> news = bookService.findAllNews();
         model.addAttribute("news", news);
     }
 
