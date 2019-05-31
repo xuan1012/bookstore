@@ -1,8 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.bookstore.dao.ShoppingcartMapper">
+    <insert id="addToCart">
+        insert into shoppingcart(user_id,book_id,`count`) value(#{userId},#{bookId},1)
+    </insert>
+    <update id="updateCount">
+        update shoppingcart set `count`=#{count} where cart_id=#{cartId}
+    </update>
 
     <select id="findByUser" resultType="com.bookstore.bookstore.dao.model.AllShops">
         select * from shoppingcart where user_id=#{userId}
+    </select>
+    <select id="findByBookId" resultType="com.bookstore.bookstore.dao.model.AllShops">
+        select * from shoppingcart where book_id=#{bookId} and user_id=#{userId}
     </select>
 </mapper>

@@ -36,10 +36,11 @@ public class UserController {
     }
 
     @RequestMapping("/doReg")
-    public String doReg(RegisterFrom registerFrom) {
+    public String doReg(RegisterFrom registerFrom, ModelMap map) {
         Regisrelnfo lnfo = new Regisrelnfo();
         BeanUtils.copyProperties(registerFrom, lnfo);
         iUserService.add(lnfo);
+        map.addAttribute("msg", "注册成功！请登录");
         return "store/login";
     }
 
@@ -63,6 +64,7 @@ public class UserController {
         }
         return "store/index";
     }
+
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
