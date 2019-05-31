@@ -1,10 +1,15 @@
 package com.bookstore.bookstore.web;
 
+import com.bookstore.bookstore.dao.model.News;
+import com.bookstore.bookstore.service.IBookService;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import javax.annotation.Resource;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,6 +19,10 @@ import java.util.Map;
  **/
 @Controller
 public class HelloController {
+
+    @Resource
+    IBookService bookService;
+
     @RequestMapping("/hello")
     @ResponseBody
     public Map hello() {
@@ -23,8 +32,11 @@ public class HelloController {
     }
 
     @RequestMapping("/")
-    public String index() {
+    public String index(ModelMap model) {
+        List<News> news = bookService.findAllNews();
+        model.addAttribute("news", news);
         return "store/index";
     }
 
+    //改了
 }

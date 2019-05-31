@@ -20,12 +20,14 @@
     top: 0px;
     left: 0px;
     max-width: none;
+
 }
 
 .nivo-main-image {
     display: block !important;
     position: relative !important;
     width: 100% !important;
+    height: 370px !important;;
 }
 
 /* If an image is wrapped in a link */

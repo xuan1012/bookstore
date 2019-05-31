@@ -20,8 +20,15 @@
                         <div class="slider-container">
                             <!-- Slider Image -->
                             <div id="mainSlider" class="nivoSlider slider-image">
-                                <img src="/img/slider/1.jpg" alt="" title="#htmlcaption1">
-                                <img src="/img/slider/2.jpg" alt="" title="#htmlcaption2">
+                                <span th:each="a:${news}">
+                                    <img th:unless="${#lists.isEmpty(a.newsPicture)}"
+                                         th:src="${a.newsPicture}"
+                                         alt="" style="width: 555px;height:370px;" title="#htmlcaption1"/>
+                                    <img th:if="${#lists.isEmpty(a.newsPicture)}"
+                                         src="https://i.loli.net/2019/05/31/5cf0deaecd94252145.jpg"
+                                         style="width: 555px;height:370px;"
+                                         alt="" title="#htmlcaption2"/>
+                                </span>
                             </div>
                         </div>
                     </div>
