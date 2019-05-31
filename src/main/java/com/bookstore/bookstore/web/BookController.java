@@ -10,11 +10,15 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -51,6 +55,7 @@ public class BookController {
         List<AllBookMessage> books = bookService.searchByName(bookName.trim());
         List<News> news = bookService.findAllNews();
         model.addAttribute("books", books);
+        model.addAttribute("bookName", bookName.trim());
         model.addAttribute("news", news);
     }
 
@@ -71,5 +76,19 @@ public class BookController {
     private void getCartShops(Long userId, ModelMap map) {
         List<AllShops> allShops = bookService.getAllShops(userId);
         map.addAttribute("shops", allShops);
+    }
+
+    @RequestMapping(value = "addToCart", method = RequestMethod.POST)
+    @ResponseBody
+    public Map<String, Object> addToCart(Long bookId, HttpSession session) {
+        Map<String, Object> map = new HashMap<>(5);
+        if (session.getAttribute("userId") != null) {
+            Long userId = (Long) session.getAttribute("userId");
+            bookService.addToCart(userId, bookId);
+            map.put("msg", 0);
+        } else {
+            map.put("msg", 1);
+        }
+        return map;
     }
 }

@@ -54,10 +54,17 @@
                 <div class="col-lg-9 col-md-9 col-sm-8">
                     <div class="header-top-right">
                         <ul>
-                            <li class="slide-toggle"><a href="#"><i class="fa fa-user"></i> 我的账户</a>
+                            <li class="slide-toggle"><a href="#" th:unless="${session.username==null}"
+                                                        th:text="${session.username}"> 我的账户<i
+                                    class="fa fa-user"></i></a>
+                            <li class="slide-toggle"><a href="#" th:if="${session.username==null}"
+                                                        th:text="我的账户"> 我的账户<i
+                                    class="fa fa-user"></i></a>
                                 <ul class="show-toggle">
-                                    <li><a href="/user/reg">注册</a></li>
-                                    <li><a href="/user/log">登录</a></li>
+                                    <li><a href="/user/log" th:if="${session.userId==null}" th:text="登录">登录</a></li>
+                                    <li><a href="/user/reg" th:if="${session.userId==null}" th:text="注册">注册</a></li>
+                                    <li><a href="/user/logout" th:if="${session.username!=null}" th:text="登出">登出</a>
+                                    </li>
                                 </ul>
                             </li>
                         </ul>
@@ -113,7 +120,7 @@
                         </div>
                         <div class="search-box">
                             <form action="/book/search" method="post">
-                                <input type="text" placeholder="搜索书名..." name="bookName">
+                                <input type="text" placeholder="搜索书名..." name="bookName" th:value="*{bookName}">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
                         </div>

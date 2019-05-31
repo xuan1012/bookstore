@@ -17,4 +17,5 @@ public interface IBookService extends IService<Book> {
     List<AllBookMessage> searchByName(String bookName);
     List<News> findAllNews();
     List<AllShops> getAllShops(Long userId);
+    void addToCart(Long uerId,Long bookId);
 }

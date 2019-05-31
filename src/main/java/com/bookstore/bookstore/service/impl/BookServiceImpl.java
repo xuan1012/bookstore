@@ -71,5 +71,17 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
         return shops;
     }
 
+    @Override
+    public void addToCart(Long uerId, Long bookId) {
+        AllShops byBookId = shoppingcartMapper.findByBookId(bookId, uerId);
+        if (byBookId == null) {
+            shoppingcartMapper.addToCart(uerId, bookId);
+        } else {
+            Long count = byBookId.getCount() + 1;
+            Long cartId = byBookId.getCartId();
+            shoppingcartMapper.updateCount(count, cartId);
+        }
+    }
+
 
 }

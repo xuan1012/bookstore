@@ -124,27 +124,27 @@
                                 </ul>
                                 <div class="selector-field f-left ml-20 hidden-xs">
                                     <form action="#">
-<!--                                        <label>Sort by</label>-->
-<!--                                        <select name="select">-->
-<!--                                            <option value="">&#45;&#45;&#45;&#45;</option>-->
-<!--                                            <option value="">Price: Lowest first</option>-->
-<!--                                            <option value="">Price: Highest first</option>-->
-<!--                                            <option value="">Product Name: A to Z</option>-->
-<!--                                            <option value="">Product Name: Z to A</option>-->
-<!--                                            <option value="">In stock</option>-->
-<!--                                            <option value="">Reference: Lowest first</option>-->
-<!--                                            <option value="">Reference: Highest first</option>-->
-<!--                                        </select>-->
+                                        <!--                                        <label>Sort by</label>-->
+                                        <!--                                        <select name="select">-->
+                                        <!--                                            <option value="">&#45;&#45;&#45;&#45;</option>-->
+                                        <!--                                            <option value="">Price: Lowest first</option>-->
+                                        <!--                                            <option value="">Price: Highest first</option>-->
+                                        <!--                                            <option value="">Product Name: A to Z</option>-->
+                                        <!--                                            <option value="">Product Name: Z to A</option>-->
+                                        <!--                                            <option value="">In stock</option>-->
+                                        <!--                                            <option value="">Reference: Lowest first</option>-->
+                                        <!--                                            <option value="">Reference: Highest first</option>-->
+                                        <!--                                        </select>-->
                                     </form>
                                 </div>
                                 <div class="selector-field f-left ml-30 hidden-xs">
                                     <form action="#">
-<!--                                        <label>Show</label>-->
-<!--                                        <select name="select">-->
-<!--                                            <option value="">12</option>-->
-<!--                                            <option value="">13</option>-->
-<!--                                            <option value="">14</option>-->
-<!--                                        </select>-->
+                                        <!--                                        <label>Show</label>-->
+                                        <!--                                        <select name="select">-->
+                                        <!--                                            <option value="">12</option>-->
+                                        <!--                                            <option value="">13</option>-->
+                                        <!--                                            <option value="">14</option>-->
+                                        <!--                                        </select>-->
                                     </form>
                                 </div>
                                 <div class="selector-field f-right ml-30">
@@ -163,7 +163,7 @@
                                                     <a href="#">
                                                         <img th:unless="${#lists.isEmpty(book.pictureContent)}"
                                                              th:src="${book.pictureContent[0].pictureContent}"
-                                                             src="/img/product/1.jpg" alt=""/>
+                                                             style="width: 260.48px;height:260.48px; " alt=""/>
                                                         <img th:if="${#lists.isEmpty(book.pictureContent)}"
                                                              src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
                                                              alt=""/>
@@ -171,7 +171,7 @@
                                                 </div>
                                                 <div class="product-content product-i">
                                                     <div class="pro-title">
-                                                        <h4><a href="product-details.html" th:text="${book.bookName}">Moebius
+                                                        <h4><a href="#" th:text="${book.bookName}">Moebius
                                                             Table</a></h4>
                                                         <!--                                                    <span class="price product-price" th:each="categorie:${book.categories}">-->
                                                         <!--                                                        <span th:text="${categorie.twoCategories}"></span>-->
@@ -189,7 +189,12 @@
                                                     </div>
                                                     <div class="product-icon">
                                                         <div class="product-icon-left f-left">
-                                                            <a href="#"><i class="fa fa-shopping-cart"></i>加入购物车</a>
+                                                            <div>
+                                                                <input type="hidden" th:value="${book.bookId}"/>
+                                                                <a href="#" class="addToCart" onclick="addToCart(this)"><i
+                                                                        class="fa fa-shopping-cart"></i>加入购物车</a>
+                                                            </div>
+
                                                         </div>
                                                         <div class="product-icon-right floatright">
                                                             <a href="#" data-toggle="tooltip" title="Compare"><i
@@ -229,7 +234,7 @@
                                                         <a href="#">
                                                             <img th:unless="${#lists.isEmpty(a.newsPicture)}"
                                                                  th:src="${a.newsPicture}"
-                                                                 src="/img/product/1.jpg" alt=""/>
+                                                                 alt="" style="width: 260.48px;height:260.48px;"/>
                                                             <img th:if="${#lists.isEmpty(a.newsPicture)}"
                                                                  src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
                                                                  alt=""/>
@@ -378,8 +383,27 @@
     $(function () {
         document.title = config.pageTitle;
         $("#" + config.navActive).addClass("active");
-        $(".product_vmegamenu").css('display', 'block');
-    })
+
+    });
+
+    function addToCart(e) {
+        var bookId = $(e).parent().children("input:first").val();
+        $.ajax({
+            type: "post",
+            url: "/book/addToCart",
+            data: {
+                bookId: bookId
+            },
+            dataType: "json",
+            success: function (json) {
+                if (json.msg == "0") {
+                    alert("添加成功");
+                } else if (json.msg == "1") {
+                    alert("请先登录哦");
+                }
+            }
+        });
+    }
 </script>
 </body>
 </html>

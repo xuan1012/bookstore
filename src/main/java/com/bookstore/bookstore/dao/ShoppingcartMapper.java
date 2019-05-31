@@ -9,7 +9,7 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author xuan
@@ -17,4 +17,10 @@ import java.util.List;
  */
 public interface ShoppingcartMapper extends BaseMapper<Shoppingcart> {
     List<AllShops> findByUser(@Param("userId") Long userId);
+
+    void addToCart(@Param("userId") Long uerId, @Param("bookId") Long bookId);
+
+    AllShops findByBookId(@Param("bookId") Long bookId, @Param("userId") Long uerId);
+
+    void updateCount(@Param("count") Long count, @Param("cartId") Long cartId);
 }
