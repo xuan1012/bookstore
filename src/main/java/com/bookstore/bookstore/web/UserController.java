@@ -12,9 +12,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.servlet.http.HttpSession;
+
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author xuan
@@ -29,20 +31,20 @@ public class UserController {
     private IUserService iUserService;
 
     @RequestMapping("/reg")
-    public String toReg( ModelMap model){
+    public String toReg(ModelMap model) {
 
         return "store/register";
     }
 
 
     @RequestMapping("/doReg")
-    public String doReg(RegisterFrom registerFrom){
+    public String doReg(RegisterFrom registerFrom) {
 
-        log.info("{}",registerFrom);
+        log.info("{}", registerFrom);
 
-        Regisrelnfo lnfo=new Regisrelnfo();
+        Regisrelnfo lnfo = new Regisrelnfo();
 
-        BeanUtils.copyProperties(registerFrom,lnfo);
+        BeanUtils.copyProperties(registerFrom, lnfo);
 
         iUserService.add(lnfo);
 
@@ -51,25 +53,27 @@ public class UserController {
 
 
     @RequestMapping("/log")
-    public String tolog( ModelMap model){
+    public String tolog(ModelMap model) {
 
         return "store/login";
     }
 
     @RequestMapping("/dolog")
-    public String log(RegisterFrom registerFrom,ModelMap modelMap){
+    public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session) {
 
-        Regisrelnfo regisrelnfo=new Regisrelnfo();
-        if(registerFrom!=null){
+        Regisrelnfo regisrelnfo = new Regisrelnfo();
+        if (registerFrom != null) {
 
-            BeanUtils.copyProperties(registerFrom,regisrelnfo);
+            BeanUtils.copyProperties(registerFrom, regisrelnfo);
 
             User select = iUserService.select(regisrelnfo);
 
-            if (select==null){
-                modelMap.addAttribute("msg","您的账号或者密码错误");
+            if (select == null) {
+                modelMap.addAttribute("msg", "您的账号或者密码错误");
+
                 return "store/login";
             }
+            session.setAttribute("userId", select.getUserId());
         }
 
 

@@ -10,8 +10,10 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -31,7 +33,13 @@ public class BookController {
 
 
     @RequestMapping("search")
-    public String searchByname(String bookName, ModelMap model) {
+    public String searchByname(String bookName, ModelMap model, RedirectAttributes attr) {
+        attr.addAttribute("bookName", bookName);
+        return "redirect:/book/findBook";
+    }
+
+    @RequestMapping("findBook")
+    public String findBook(String bookName, ModelMap model) {
         getBooksAndNews(bookName, model);
         return "store/shop";
     }
@@ -47,8 +55,16 @@ public class BookController {
     }
 
     @RequestMapping("cart")
-    public String shoppingCart(Long userId, ModelMap map) {
-        getCartShops(userId, map);
+    public String shoppingCart(HttpSession session, ModelMap map) {
+
+        if (session.getAttribute("userId") != null) {
+            Long userId = (Long) session.getAttribute("userId");
+            getCartShops(userId, map);
+            return "store/cart";
+        }
+        map.addAttribute("msg", "没有商品哦");
+        map.addAttribute("shops", null);
+
         return "store/cart";
     }
 

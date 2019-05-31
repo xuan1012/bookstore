@@ -46,7 +46,7 @@
                         <input type="checkbox" id="shop_a" class="shopChoice">
                         <label for="shop_a" class="shop"></label>
                     </div>
-                    <div class="shop_name" th:text="${shops[0].sellStore}">
+                    <div class="shop_name" th:unless="${#lists.isEmpty(shops)}" th:text="${shops[0].sellStore}">
                         店铺：<a href="javascript:;">搜猎人艺术生活</a>
                     </div>
                 </div>
@@ -94,7 +94,7 @@
 
                 </div>
             </div>
-
+            <div th:text="${msg}" style="color:red; margin-left: 45%"></div>
 
             <!--底部-->
             <div class="bar-wrapper">
@@ -120,10 +120,10 @@
 </div>
 
 <script layout:fragment="script">
-    var config={pageTitle:"购物车",navActive:"navProduct"};
-    $(function(){
-        document.title=config.pageTitle;
-        $("#"+config.navActive).addClass("active");
+    var config = {pageTitle: "购物车", navActive: "navProduct"};
+    $(function () {
+        document.title = config.pageTitle;
+        $("#" + config.navActive).addClass("active");
     })
 </script>
 </body>
