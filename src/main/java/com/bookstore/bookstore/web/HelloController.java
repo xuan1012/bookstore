@@ -27,5 +27,4 @@ public class HelloController {
         return "store/index";
     }
 
-   //改了
 }
