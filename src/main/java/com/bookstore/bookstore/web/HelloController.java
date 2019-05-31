@@ -23,12 +23,9 @@ public class HelloController {
     }
 
     @RequestMapping("/")
-    public String test() {
+    public String index() {
         return "store/index";
     }
 
-    @RequestMapping("/test")
-    public String test() {
-        return "store/test";
-    }
+
 }
