@@ -41,7 +41,6 @@ import java.util.Locale.Category;
  */
 @Controller
 @RequestMapping("/user")
-@Slf4j
 public class UserController {
 
     @Autowired
@@ -57,7 +56,7 @@ public class UserController {
     @RequestMapping("/doReg")
     public String doReg(RegisterFrom registerFrom){
 
-        log.info("{}",registerFrom);
+
 
         Regisrelnfo lnfo=new Regisrelnfo();
 
