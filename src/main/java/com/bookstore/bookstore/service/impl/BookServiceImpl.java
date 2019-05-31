@@ -55,33 +55,5 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
         return news;
     }
 
-    @Override
-    public List<AllShops> getAllShops(Long userId) {
-        List<AllShops> shops = shoppingcartMapper.findByUser(userId);
-        for (AllShops shop : shops) {
-            Long bookId = shop.getBookId();
-            AllBookMessage book = bookMessageMapper.findById(bookId);
-            Store store = storeMapper.selectById(book.getStoreId());
-            shop.setPictureContent(picturesMapper.getBookPicture(bookId));
-            shop.setAuthor(book.getAuthor());
-            shop.setBookPrice(book.getBookPrice());
-            shop.setBookName(book.getBookName());
-            shop.setSellStore(store.getStoreName());
-        }
-        return shops;
-    }
-
-    @Override
-    public void addToCart(Long uerId, Long bookId) {
-        AllShops byBookId = shoppingcartMapper.findByBookId(bookId, uerId);
-        if (byBookId == null) {
-            shoppingcartMapper.addToCart(uerId, bookId);
-        } else {
-            Long count = byBookId.getCount() + 1;
-            Long cartId = byBookId.getCartId();
-            shoppingcartMapper.updateCount(count, cartId);
-        }
-    }
-
 
 }
