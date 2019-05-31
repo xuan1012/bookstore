@@ -28,7 +28,7 @@ public class HelloController {
     }
 
     @RequestMapping("/test")
-    public String test1() {
+    public String test() {
         return "store/test";
     }
 }
