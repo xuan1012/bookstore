@@ -26,8 +26,8 @@
                 <ul class="order_lists cartTop">
                     <li class="list_chk">
                         <!--所有商品全选-->
-                        <input type="checkbox" id="all" class="whole_check">
-                        <label for="all"></label>
+                        <input type="checkbox" id="all" class="whole_check" onclick="changeAll(this)">
+                        <label for="all" class="al"></label>
                         全选
                     </li>
                     <li class="list_con">商品信息</li>
@@ -43,8 +43,8 @@
                     <div class="shop_info">
                         <div class="all_check">
                             <!--店铺全选-->
-                            <input type="checkbox" id="shop_a" class="shopChoice">
-                            <label for="shop_a" class="shop"></label>
+                            <!--                            <input type="checkbox" id="shop_a" class="shopChoice" onclick="changeAll(this)">-->
+                            <!--                            <label for="shop_a" class="shop"></label>-->
                         </div>
                         <div class="shop_name" th:unless="${#lists.isEmpty(shops)}" th:text="${shops[0].sellStore}">
                             店铺：<a href="javascript:;">搜猎人艺术生活</a>
@@ -56,7 +56,7 @@
                                 <input type="checkbox" th:id="checkbox_+${shop.cartId}" id="checkbox_2"
                                        class="son_check" onclick="changeSub(this)">
                                 <label th:for="checkbox_+${shop.cartId}" for="checkbox_2" class="de"></label>
-                                <input type="hidden" name="userAddress" value="f">
+                                <input type="hidden" name="userAddress" value="F">
                             </li>
                             <li class="list_con">
                                 <div class="list_img"><a href="javascript:;">
@@ -71,7 +71,7 @@
                                     <br>
                                     <a href="javascript:;" th:text="${shop.bookName}"
                                        style="padding-left: 40%;">书名</a></div>
-                                <input type="hidden" name="orderContent" th:value="${shop.bookId}">
+                                <input type="hidden" name="bookId" th:value="${shop.bookId}">
                                 <input type="hidden" name="cartId" th:value="${shop.cartId}">
                             </li>
                             <li class="list_info">
@@ -88,7 +88,7 @@
                                     <input type="text" th:value="${shop.count}" class="sum" readonly="readonly">
                                     <a href="javascript:;" class="plus" onclick="addCount(this)">+</a>
                                     <input type="hidden" name="userId" th:value="${session.userId}">
-                                    <input type="hidden" name="storeId" th:value="${shops[0].sellStore}">
+                                    <input type="hidden" name="sellStore" th:value="${shops[0].sellStore}">
                                     <input type="hidden" name="orderCount" th:value="${shop.count}">
                                 </div>
                             </li>
@@ -142,6 +142,16 @@
 
     });
 
+    function changeAll(e) {
+        var label = $(e).parent().children("label:last").attr("class");
+        if (label === "al") {
+            $("[name=userAddress]").val("T");
+        }
+        if (label === "al mark") {
+            $("[name=userAddress]").val("F");
+        }
+    }
+
     function changeSub(e) {
         var sub = $(e).parent().children("label:first").attr("class");
         if (sub === "de") {
@@ -186,9 +196,7 @@
     }
 
     function subCount(e) {
-        var price = $(e).parents('.order_lists').find('.price').html().substring(1);
-        var num = parseFloat(price * 3).toFixed(2);
-        console.log(num);
+
         var count = $(e).parent().children("input:last").val();
         count--;
         if (count <= 1) {
@@ -210,7 +218,7 @@
 
     function submitOrder() {
         var jsonStr = $("#form1").serializeJson();
-        console.log("jsonStr:\r\n" + jsonStr);
+        // console.log("jsonStr:\r\n" + jsonStr);
         //alert(jsonStr);
         $.ajax({
             url: "/order/subOrder",
@@ -219,10 +227,11 @@
             dataType: "json",
             data: jsonStr,
             success: function (data) {
-                alert(data);
+                window.location.href = "/order/orderList";
             },
             error: function (res) {
-                alert(res.responseText);
+                console.log("error");
+                // alert(res.responseText);
             }
         });
     }

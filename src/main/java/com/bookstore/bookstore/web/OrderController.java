@@ -1,17 +1,22 @@
 package com.bookstore.bookstore.web;
 
 
+import com.bookstore.bookstore.dao.model.Address;
+import com.bookstore.bookstore.service.IOrderService;
 import com.bookstore.bookstore.web.form.OrderForm;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.math.BigDecimal;
-import java.time.LocalDateTime;
-import java.util.Iterator;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -23,32 +28,48 @@ import java.util.List;
  */
 @Controller
 @RequestMapping("/order")
+@Slf4j
 public class OrderController {
+    @Resource
+    IOrderService orderService;
 
     @RequestMapping(value = "/subOrder", method = {RequestMethod.POST})
     @ResponseBody
-    public String subOrder(@RequestBody List<OrderForm> orderForms)
+    public Map<String, Object> subOrder(@RequestBody List<OrderForm> orderForms, HttpSession session)
             throws Exception {
-        String result = "";
+        Map<String, Object> map = new HashMap<>(5);
         if (orderForms == null || orderForms.size() <= 0) {
-            return "No any ID.中文";
+            log.warn("orderForms为空");
+            map.put("msg", "false");
+            return map;
         }
-//        for (OrderForm orderForm : orderForms) {
-//            orderForm.setOrderDate(LocalDateTime.now());
-//
-//        }
-        Iterator it = orderForms.iterator();
-        while (it.hasNext()) {
-            OrderForm next = (OrderForm) it.next();
-            next.setOrderDate(LocalDateTime.now());
-            next.setOrderPrice((next.getOnePrice()).multiply(new BigDecimal(next.getOrderCount())));
-            if ("f".equals(next.getUserAddress())) {
-                it.remove();
-            }
-        }
+        List<OrderForm> orderInfos = orderService.initOrder(orderForms);
 
+        session.setAttribute("orderForms", orderInfos);
+        map.put("msg", "success");
         System.out.println(orderForms);
-        return result;
+        return map;
+    }
+
+    @RequestMapping("/orderList")
+    public String orderList(ModelMap map, HttpSession session) {
+        List<OrderForm> orderForms = (List<OrderForm>) session.getAttribute("orderForms");
+        if (session.getAttribute("userId") != null) {
+            Long userId = (Long) session.getAttribute("userId");
+            List<Address> address = orderService.getAddress(userId);
+            map.addAttribute("address", address);
+        }
+        map.addAttribute("orderForms", orderForms);
+
+        return "order/orderList";
+    }
+
+    @RequestMapping(value = "/sub", method = {RequestMethod.POST})
+    @ResponseBody
+    public Map<String, Object> sub(@RequestBody List<OrderForm> orderForms, HttpSession session)
+            throws Exception {
+
+        return null;
     }
 
 }

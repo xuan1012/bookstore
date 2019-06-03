@@ -27,10 +27,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     CategoriesMapper categoriesMapper;
     @Resource
     NewsMapper newsMapper;
-    @Resource
-    ShoppingcartMapper shoppingcartMapper;
-    @Resource
-    StoreMapper storeMapper;
+
 
     @Override
     public List<AllBookMessage> searchByName(String bookName) {

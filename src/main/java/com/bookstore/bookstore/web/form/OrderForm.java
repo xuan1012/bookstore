@@ -1,9 +1,11 @@
 package com.bookstore.bookstore.web.form;
 
+import com.bookstore.bookstore.dao.model.Picture;
 import lombok.Data;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @program: bookstore
@@ -25,7 +27,7 @@ public class OrderForm {
     /**
      * 订单商品
      */
-    private Long orderContent;
+    private Long bookId;
 
     /**
      * 订单数量
@@ -50,9 +52,26 @@ public class OrderForm {
     /**
      * 店铺Id
      */
-    private String storeId;
+    private Long storeId;
 
     private Long cartId;
 
     private BigDecimal onePrice;
+    /*
+     * 图片
+     */
+    private List<Picture> pictureContent;
+    /**
+     * 作者
+     */
+    private String author;
+
+    /**
+     * 书名
+     */
+    private String bookName;
+    /**
+     * 卖家店铺
+     */
+    private String sellStore;
 }
