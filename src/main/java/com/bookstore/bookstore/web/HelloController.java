@@ -1,7 +1,12 @@
 package com.bookstore.bookstore.web;
 
+import com.bookstore.bookstore.dao.model.Classification;
 import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.service.IBookService;
+import com.bookstore.bookstore.service.ICategoriesService;
+import com.bookstore.bookstore.service.IClassificationService;
+import com.bookstore.bookstore.service.info.ClassIficationInfo;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +28,12 @@ public class HelloController {
     @Resource
     IBookService bookService;
 
+    @Autowired
+    private IClassificationService classification;
+
+    @Autowired
+    private ICategoriesService categoriesService;
+
     @RequestMapping("/hello")
     @ResponseBody
     public Map hello() {
@@ -33,8 +44,15 @@ public class HelloController {
 
     @RequestMapping("/")
     public String index(ModelMap model) {
+
+        List<ClassIficationInfo> categories = classification.classification();
+        model.addAttribute("categories",categories);
+
+
         List<News> news = bookService.findAllNews();
+
         model.addAttribute("news", news);
+
         return "store/index";
     }
 
