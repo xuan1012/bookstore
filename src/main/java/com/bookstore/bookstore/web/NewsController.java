@@ -1,9 +1,8 @@
 package com.bookstore.bookstore.web;
 
 
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
-
-import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @author xuan
  * @since 2019-05-29
  */
-@RestController
+@Controller
 @RequestMapping("/news")
 public class NewsController {
 

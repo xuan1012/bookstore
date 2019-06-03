@@ -134,7 +134,7 @@ $(function () {
             $obj = $(this).parents('.amount_box').find('.reduce'),
             $priceTotalObj = $(this).parents('.order_lists').find('.sum_price'),
             $price = $(this).parents('.order_lists').find('.price').html(),  //单价
-            $priceTotal = $count*parseInt($price.substring(1));
+            $priceTotal = $count*parseFloat($price.substring(1)).toFixed(2);
             $inputVal.val($count);
         $priceTotalObj.html('￥'+$priceTotal);
         if($inputVal.val()>1 && $obj.hasClass('reSty')){
@@ -148,13 +148,14 @@ $(function () {
             $count = parseInt($inputVal.val())-1,
             $priceTotalObj = $(this).parents('.order_lists').find('.sum_price'),
             $price = $(this).parents('.order_lists').find('.price').html(),  //单价
-            $priceTotal = $count*parseInt($price.substring(1));
+            $priceTotal = $count*parseFloat($price.substring(1)).toFixed(2);
             $inputVal.val($count);
         if($inputVal.val()>1){
             $inputVal.val($count);
             $priceTotalObj.html('￥'+$priceTotal);
         }
-        if($inputVal.val()==1 && !$(this).hasClass('reSty')){
+        if($inputVal.val()<=1 && !$(this).hasClass('reSty')){
+            $inputVal.val(1);
             $(this).addClass('reSty');
         }
         totalMoney();
@@ -170,7 +171,7 @@ $(function () {
         }
         $(this).val($(this).val().replace(/\D|^0/g,''));
         $count = $(this).val();
-        $priceTotal = $count*parseInt($price.substring(1));
+        $priceTotal = $count*parseFloat($price.substring(1)).toFixed(2);
         $(this).attr('value',$count);
         $priceTotalObj.html('￥'+$priceTotal);
         totalMoney();
@@ -217,13 +218,14 @@ $(function () {
         var calBtn = $('.calBtn a');
         $sonCheckBox.each(function () {
             if ($(this).is(':checked')) {
-                var goods = parseInt($(this).parents('.order_lists').find('.sum_price').html().substring(1));
+                var goods = parseFloat($(this).parents('.order_lists').find('.sum_price').html().substring(1)).toFixed(2);
+                console.log(goods);
                 var num =  parseInt($(this).parents('.order_lists').find('.sum').val());
                 total_money += goods;
                 total_count += num;
             }
         });
-        $('.total_text').html('￥'+total_money);
+        $('.total_text').html('￥'+total_money.toFixed(2));
         $('.piece_num').html(total_count);
 
         // console.log(total_money,total_count);
