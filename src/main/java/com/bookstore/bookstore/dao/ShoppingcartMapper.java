@@ -23,4 +23,5 @@ public interface ShoppingcartMapper extends BaseMapper<Shoppingcart> {
     AllShops findByBookId(@Param("bookId") Long bookId, @Param("userId") Long uerId);
 
     void updateCount(@Param("count") Long count, @Param("cartId") Long cartId);
+
 }
