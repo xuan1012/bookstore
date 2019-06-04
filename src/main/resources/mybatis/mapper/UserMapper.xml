@@ -7,4 +7,8 @@
     <select id="select" parameterType="com.bookstore.bookstore.dao.model.User" resultType="com.bookstore.bookstore.dao.model.User">
         select * from myuser where username=#{username} and password=#{password}
     </select>
+    
+    <update id="update" parameterType="com.bookstore.bookstore.dao.model.User">
+        update myuser set username=#{username},phone=#{phone},email=#{email} where user_id=#{userId};
+    </update>
 </mapper>

@@ -3,6 +3,8 @@ package com.bookstore.bookstore.dao.model;
     import com.baomidou.mybatisplus.annotation.IdType;
     import com.baomidou.mybatisplus.annotation.TableId;
     import java.io.Serializable;
+
+    import com.baomidou.mybatisplus.annotation.TableName;
     import lombok.Data;
     import lombok.EqualsAndHashCode;
     import lombok.experimental.Accessors;
@@ -18,6 +20,7 @@ package com.bookstore.bookstore.dao.model;
     @Data
         @EqualsAndHashCode(callSuper = false)
     @Accessors(chain = true)
+    @TableName("myuser")
     public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;

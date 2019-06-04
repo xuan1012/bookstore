@@ -4,6 +4,8 @@ package com.bookstore.bookstore.web;
 import com.bookstore.bookstore.dao.model.User;
 import com.bookstore.bookstore.service.IUserService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
+import com.bookstore.bookstore.service.info.SelectUesrInfo;
+import com.bookstore.bookstore.web.form.ModifyForm;
 import com.bookstore.bookstore.web.form.RegisterFrom;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -13,6 +15,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * <p>
@@ -65,10 +68,48 @@ public class UserController {
         return "store/index";
     }
 
+
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
         return "store/index";
     }
 
+    //个人信息
+    @RequestMapping("/information")
+    public String information(ModelMap modelMap, HttpSession session) {
+
+        Long userId = (Long) session.getAttribute("userId");
+
+        User user = iUserService.getById(userId);
+
+        modelMap.addAttribute("use", user);
+
+        log.info("用户{}", userId);
+
+        log.info("用户信息{}", user);
+
+        return "moban/information";
+    }
+
+    //信息修改
+    @RequestMapping("/modify")
+    public String modify(ModelMap modelMap, HttpSession session, ModifyForm modifyForm) {
+
+        Long userId = (Long) session.getAttribute("userId");
+
+        if (userId != null) {
+            ModifyForm userInfo = new ModifyForm();
+
+            BeanUtils.copyProperties(modifyForm, userInfo);
+
+            iUserService.modify(modifyForm);
+
+        }
+
+        log.info("用户{}", userId);
+
+
+        return "/information";
+    }
 }

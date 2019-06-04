@@ -1,0 +1,158 @@
+﻿<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+<body>
+<div id="content" layout:fragment="content">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            个人信息
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            个人信息
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            个人信息
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            个人信息
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            个人信息
+                        </a>
+                    </li>
+                </ul>
+                <!-- <div class="list-group">
+                    <ul>
+                        <li>
+                             <a href="#" class="list-group-item active">
+                                而退欧普【
+                              </a>
+                        </li>
+                        <li>
+                             <a href="#" class="list-group-item">飒飒大受打击偶奇偶基金会/a>
+                        </li>
+                        <li>
+                             <a href="#" class="list-group-item">飒飒大受打击偶奇偶基金会/a>
+                        </li>
+                        <li>
+                             <a href="#" class="list-group-item">飒飒大受打击偶奇偶基金会/a>
+                        </li>
+                    </ul>
+                </div> -->
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+
+                <!-- <label class="sr-only" for="inputHelpBlock">Input with help text</label>
+                    <input type="text" id="inputHelpBlock" class="form-control" aria-describedby="helpBlock"> -->
+                <h3>个人信息</h3>
+                <!-- <form >
+                    <div class="control-group">
+                      <label class="control-label" for="inputIcon">Email</label>
+                       <input type="email" class="form-control" id="exampleInputEmail1" placeholder="Email">
+                    </div>
+                        <button type="submit" class="btn btn-primary">保存</button>
+                 </form> -->
+                <form action="/user/modify" method="post">
+                    <div class="form-group" th:each="u : ${use}">
+
+                        <input type="hidden" th:text="${u.userId}">
+
+                      <h4 style="color: #5e5e5e;font-size: 1em;">昵称:</h4>
+                        <input type="text" name="username" class="form-control" id="exampleInputEmail" th:value="${u.username}" placeholder="昵称">
+                    </div>
+                    <div class="form-group" th:each="u : ${use}">
+                        <h4 style="color: #5e5e5e;font-size: 1em;">Email:</h4>
+                        <input type="email" class="form-control" name="email" id="exampleInputEmail1" th:value="${u.email}" placeholder="邮箱">
+                    </div>
+                    <div class="form-group" th:each="u : ${use}">
+                        <h4 style="color: #5e5e5e;font-size: 1em;">联系方式:</h4>
+                        <input type="text" class="form-control" name="phone" id="exampleInputPassword1" th:value="${u.phone}" placeholder="手机号">
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="float: right;">保存</button>
+                </form>
+            </div>
+            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
+
+            </div>
+        </div>
+
+
+    </div>
+
+</div>
+
+<script layout:fragment="script">
+    var config = {pageTitle: "购物车", navActive: "navProduct"};
+    var cartId = 0;
+    $(function () {
+        document.title = config.pageTitle;
+        $("#" + config.navActive).addClass("active");
+    });
+
+    function getCartId(e) {
+        cartId = $(e).parent().parent().children("input:first").val();
+    }
+
+    function delCart() {
+        $.ajax({
+            type: "post",
+            url: "/book/delCart",
+            data: {
+                cartId: cartId
+            },
+            dataType: "json",
+            success: function (json) {
+
+            }
+        });
+    }
+
+    function updateCount(carId, count) {
+        $.ajax({
+            type: "post",
+            url: "/book/updateCount",
+            data: {
+                cartId: carId,
+                count: count
+            },
+            dataType: "json",
+            success: function (json) {
+
+            }
+        });
+    }
+
+    function subCount(e) {
+        var count = $(e).parent().children("input:last").val();
+        count--;
+        var carId = $(e).parent().children("input:first").val();
+        if (count === 0) {
+            count = 1;
+        }
+        updateCount(carId, count);
+    }
+
+    function addCount(e) {
+        var count = $(e).parent().children("input:last").val();
+        count++;
+        var carId = $(e).parent().children("input:first").val();
+        updateCount(carId, count);
+    }
+</script>
+</body>
+</html>

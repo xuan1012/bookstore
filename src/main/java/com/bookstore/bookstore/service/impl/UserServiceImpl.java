@@ -5,10 +5,15 @@ import com.bookstore.bookstore.dao.UserMapper;
 import com.bookstore.bookstore.dao.model.User;
 import com.bookstore.bookstore.service.IUserService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
+import com.bookstore.bookstore.service.info.SelectUesrInfo;
+import com.bookstore.bookstore.web.form.ModifyForm;
+import lombok.extern.slf4j.Slf4j;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
+import java.util.List;
 
 /**
  * <p>
@@ -19,14 +24,15 @@ import javax.annotation.Resource;
  * @since 2019-05-30
  */
 @Service
+@Slf4j
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IUserService {
+
     @Resource
     private UserMapper userMapper;
 
-
-
     @Override
     public void add(Regisrelnfo regisrelnfo) {
+
         User user=new User();
 
        BeanUtils.copyProperties(regisrelnfo,user);
@@ -46,9 +52,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         return select;
     }
 
+    @Override
+    public void modify(ModifyForm modifyForm) {
 
+        User user=new User();
 
+        BeanUtils.copyProperties(modifyForm,user);
 
-
-
+        userMapper.select(user);
+    }
 }

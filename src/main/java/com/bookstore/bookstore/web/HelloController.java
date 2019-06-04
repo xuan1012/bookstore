@@ -46,8 +46,8 @@ public class HelloController {
     public String index(ModelMap model) {
 
         List<ClassIficationInfo> categories = classification.classification();
-        model.addAttribute("categories",categories);
 
+        model.addAttribute("categories",categories);
 
         List<News> news = bookService.findAllNews();
 

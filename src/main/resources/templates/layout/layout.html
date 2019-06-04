@@ -216,8 +216,8 @@
                                     小&emsp;说
                                     <img src="/img/menu-l/6.png" alt=""/>
                                 </a>
-                                <div class="vmegamenu" th:each="tow : ${c.classificationInfos}">
-											<span >
+                                <div class="vmegamenu">
+											<span th:each="tow : ${c.classificationInfos}">
 												<a href="#" class="vgema-title" th:text="${tow.classname}">1</a>
                                             </span>
                                 </div>

@@ -18,4 +18,7 @@ public interface UserMapper extends BaseMapper<User> {
     void add1(User user);
 
     User select(User user);
+
+    void update(User user);
+
 }
