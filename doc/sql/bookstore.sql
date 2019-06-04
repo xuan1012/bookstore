@@ -65,20 +65,20 @@ CREATE TABLE IF NOT EXISTS `book` (
   `sales` bigint(255) NOT NULL COMMENT '销量',
   `publication_date` date NOT NULL COMMENT '出版日期',
   `count` int(11) NOT NULL COMMENT '余量',
-  `score` decimal(5,0) NOT NULL COMMENT '评分',
+  `score` decimal(2,1) NOT NULL COMMENT '评分',
   PRIMARY KEY (`book_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='书籍管理表';
 
--- 正在导出表  bookstore.book 的数据：~5 rows (大约)
+-- 正在导出表  bookstore.book 的数据：~6 rows (大约)
 DELETE FROM `book`;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
 INSERT INTO `book` (`book_id`, `book_name`, `book_price`, `author`, `publishing`, `store_id`, `sales`, `publication_date`, `count`, `score`) VALUES
-	(1, '白夜行', 68.40, '东野圭吾', '天南地北出版社', 0, 0, '2019-05-29', 50, 5),
-	(2, '白夜行', 80.00, '东野圭吾', '地下出版社', 0, 0, '2012-05-29', 50, 5),
-	(3, '悟空传', 43.00, '今何在', '光明日报出版社', 0, 0, '2001-04-01', 50, 5),
-	(4, '冰与火之歌', 200.00, '马丁', '国外', 0, 0, '2012-05-29', 50, 5),
-	(5, 'JAVA:从入门到放弃', 999.00, 'mmm', '入土出版社', 0, 999, '2019-05-31', 999, 5),
-	(6, '十万个为什么', 100.00, '麦子哥', '麦子出版社', 0, 999, '2019-05-31', 999, 5);
+	(1, '白夜行', 68.40, '东野圭吾', '天南地北出版社', 0, 0, '2019-05-29', 50, 5.0),
+	(2, '白夜行', 80.00, '东野圭吾', '地下出版社', 0, 0, '2012-05-29', 50, 5.0),
+	(3, '悟空传', 43.00, '今何在', '光明日报出版社', 0, 0, '2001-04-01', 50, 5.0),
+	(4, '冰与火之歌', 200.00, '马丁', '国外', 0, 0, '2012-05-29', 50, 5.0),
+	(5, 'JAVA:从入门到放弃', 999.00, 'mmm', '入土出版社', 0, 999, '2019-05-31', 999, 5.0),
+	(6, '十万个为什么', 100.00, '麦子哥', '麦子出版社', 0, 999, '2019-05-31', 999, 5.0);
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 
 -- 导出  表 bookstore.bookmark 结构
@@ -115,6 +115,44 @@ INSERT INTO `categorie` (`categories_id`, `one_categories`, `two_categories`, `b
 	(3, '学习', '编程', '5');
 /*!40000 ALTER TABLE `categorie` ENABLE KEYS */;
 
+-- 导出  表 bookstore.category 结构
+DROP TABLE IF EXISTS `category`;
+CREATE TABLE IF NOT EXISTS `category` (
+  `noe_id` int(11) NOT NULL COMMENT '一级',
+  `category_name` varchar(600) NOT NULL COMMENT '名称',
+  `two_id` int(11) NOT NULL COMMENT '二级',
+  PRIMARY KEY (`noe_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='类别表';
+
+-- 正在导出表  bookstore.category 的数据：~2 rows (大约)
+DELETE FROM `category`;
+/*!40000 ALTER TABLE `category` DISABLE KEYS */;
+INSERT INTO `category` (`noe_id`, `category_name`, `two_id`) VALUES
+	(1, '小说', -1),
+	(2, '修仙', 1);
+/*!40000 ALTER TABLE `category` ENABLE KEYS */;
+
+-- 导出  表 bookstore.classification 结构
+DROP TABLE IF EXISTS `classification`;
+CREATE TABLE IF NOT EXISTS `classification` (
+  `classid` int(11) NOT NULL COMMENT '类的id',
+  `classname` varchar(500) DEFAULT NULL COMMENT '名称',
+  `two_stage` int(11) DEFAULT NULL COMMENT '二级id',
+  PRIMARY KEY (`classid`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类-h';
+
+-- 正在导出表  bookstore.classification 的数据：~0 rows (大约)
+DELETE FROM `classification`;
+/*!40000 ALTER TABLE `classification` DISABLE KEYS */;
+INSERT INTO `classification` (`classid`, `classname`, `two_stage`) VALUES
+	(1, '小说', -1),
+	(2, '学习', -1),
+	(3, '恐怖', 1),
+	(4, 'c++', 2),
+	(5, 'ASP.net', 2),
+	(6, 'c#', 2);
+/*!40000 ALTER TABLE `classification` ENABLE KEYS */;
+
 -- 导出  表 bookstore.comment 结构
 DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
@@ -147,15 +185,16 @@ CREATE TABLE IF NOT EXISTS `myuser` (
   `state` char(1) NOT NULL DEFAULT '0' COMMENT '0：正常。1：审核中。2：冻结',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
--- 正在导出表  bookstore.myuser 的数据：~2 rows (大约)
+-- 正在导出表  bookstore.myuser 的数据：~3 rows (大约)
 DELETE FROM `myuser`;
 /*!40000 ALTER TABLE `myuser` DISABLE KEYS */;
 INSERT INTO `myuser` (`user_id`, `username`, `password`, `phone`, `sex`, `email`, `identity_card`, `avatar`, `state`) VALUES
 	(1, 'xuan', 'xuan', '111', 'M', '50', '500', '', '0'),
 	(2, '123456', '123456', '18185492609', 'M', NULL, NULL, NULL, '0'),
-	(9, 'hmx', '123456', '18883164312', 'M', NULL, NULL, NULL, '0');
+	(9, 'hmx', '123456', '18883164312', 'M', NULL, NULL, NULL, '0'),
+	(10, '李四', '123456', '55', 'M', NULL, NULL, NULL, '0');
 /*!40000 ALTER TABLE `myuser` ENABLE KEYS */;
 
 -- 导出  表 bookstore.news 结构
@@ -169,7 +208,7 @@ CREATE TABLE IF NOT EXISTS `news` (
   PRIMARY KEY (`news_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='新闻表';
 
--- 正在导出表  bookstore.news 的数据：~2 rows (大约)
+-- 正在导出表  bookstore.news 的数据：~3 rows (大约)
 DELETE FROM `news`;
 /*!40000 ALTER TABLE `news` DISABLE KEYS */;
 INSERT INTO `news` (`news_id`, `news_content`, `news_date`, `news_picture`, `book_id`) VALUES
@@ -184,7 +223,7 @@ CREATE TABLE IF NOT EXISTS `order` (
   `order_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '订单Id',
   `order_date` timestamp NOT NULL COMMENT '下单日期',
   `order_price` decimal(20,2) NOT NULL COMMENT '订单价格',
-  `order_content` varchar(255) NOT NULL COMMENT '订单商品',
+  `order_content` bigint(111) NOT NULL COMMENT '订单商品',
   `order_count` int(100) NOT NULL COMMENT '订单数量',
   `user_id` bigint(255) NOT NULL COMMENT '下单用户Id',
   `user_address` varchar(255) NOT NULL COMMENT '用户地址',
@@ -193,11 +232,9 @@ CREATE TABLE IF NOT EXISTS `order` (
   PRIMARY KEY (`order_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
--- 正在导出表  bookstore.order 的数据：~1 rows (大约)
+-- 正在导出表  bookstore.order 的数据：~0 rows (大约)
 DELETE FROM `order`;
 /*!40000 ALTER TABLE `order` DISABLE KEYS */;
-INSERT INTO `order` (`order_id`, `order_date`, `order_price`, `order_content`, `order_count`, `user_id`, `user_address`, `state`, `store_id`) VALUES
-	(1, '2019-05-30 15:27:14', 100.00, ' 白夜行', 1, 1, 'th', '0', 0);
 /*!40000 ALTER TABLE `order` ENABLE KEYS */;
 
 -- 导出  表 bookstore.picture 结构
@@ -448,18 +485,20 @@ CREATE TABLE IF NOT EXISTS `shoppingcart` (
   `book_id` bigint(111) NOT NULL COMMENT '书id',
   `count` bigint(111) NOT NULL COMMENT '数量',
   PRIMARY KEY (`cart_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='购物车表';
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='购物车表';
 
--- 正在导出表  bookstore.shoppingcart 的数据：~5 rows (大约)
+-- 正在导出表  bookstore.shoppingcart 的数据：~6 rows (大约)
 DELETE FROM `shoppingcart`;
 /*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
 INSERT INTO `shoppingcart` (`cart_id`, `user_id`, `book_id`, `count`) VALUES
-	(1, 1, 1, 2),
-	(2, 1, 3, 2),
-	(3, 1, 4, 3),
-	(5, 1, 2, 2),
+	(1, 1, 1, 5),
+	(2, 1, 3, 1),
+	(3, 1, 4, 4),
+	(5, 1, 2, 1),
 	(7, 9, 5, 1),
-	(8, 1, 5, 2);
+	(8, 1, 5, 1),
+	(11, 10, 1, 6),
+	(12, 10, 2, 1);
 /*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
 
 -- 导出  表 bookstore.store 结构
@@ -689,7 +728,7 @@ CREATE TABLE IF NOT EXISTS `sys_logininfor` (
   PRIMARY KEY (`info_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8 COMMENT='系统访问记录';
 
--- 正在导出表  bookstore.sys_logininfor 的数据：~0 rows (大约)
+-- 正在导出表  bookstore.sys_logininfor 的数据：~3 rows (大约)
 DELETE FROM `sys_logininfor`;
 /*!40000 ALTER TABLE `sys_logininfor` DISABLE KEYS */;
 INSERT INTO `sys_logininfor` (`info_id`, `login_name`, `ipaddr`, `login_location`, `browser`, `os`, `status`, `msg`, `login_time`) VALUES
@@ -861,7 +900,7 @@ CREATE TABLE IF NOT EXISTS `sys_oper_log` (
   PRIMARY KEY (`oper_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=136 DEFAULT CHARSET=utf8 COMMENT='操作日志记录';
 
--- 正在导出表  bookstore.sys_oper_log 的数据：~27 rows (大约)
+-- 正在导出表  bookstore.sys_oper_log 的数据：~36 rows (大约)
 DELETE FROM `sys_oper_log`;
 /*!40000 ALTER TABLE `sys_oper_log` DISABLE KEYS */;
 INSERT INTO `sys_oper_log` (`oper_id`, `title`, `business_type`, `method`, `operator_type`, `oper_name`, `dept_name`, `oper_url`, `oper_ip`, `oper_location`, `oper_param`, `status`, `error_msg`, `oper_time`) VALUES
@@ -1116,7 +1155,7 @@ CREATE TABLE IF NOT EXISTS `sys_user_online` (
   PRIMARY KEY (`sessionId`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='在线用户记录';
 
--- 正在导出表  bookstore.sys_user_online 的数据：~2 rows (大约)
+-- 正在导出表  bookstore.sys_user_online 的数据：~0 rows (大约)
 DELETE FROM `sys_user_online`;
 /*!40000 ALTER TABLE `sys_user_online` DISABLE KEYS */;
 /*!40000 ALTER TABLE `sys_user_online` ENABLE KEYS */;

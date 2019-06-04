@@ -41,7 +41,7 @@ public class ClassificationServiceImpl extends ServiceImpl<ClassificationMapper,
             Collection<Classification> classification = listByMap(hashMap);
             c.setClassificationInfos(classification);
             classIfication.add(c);
-            log.info("分类 {}", classIfication);
+
         }
         return classIfication;
     }

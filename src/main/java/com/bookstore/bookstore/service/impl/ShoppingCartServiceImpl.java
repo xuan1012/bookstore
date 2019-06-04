@@ -24,10 +24,6 @@ public class ShoppingCartServiceImpl extends ServiceImpl<ShoppingcartMapper, Sho
     @Resource
     PicturesMapper picturesMapper;
     @Resource
-    CategoriesMapper categoriesMapper;
-    @Resource
-    NewsMapper newsMapper;
-    @Resource
     ShoppingcartMapper shoppingcartMapper;
     @Resource
     StoreMapper storeMapper;

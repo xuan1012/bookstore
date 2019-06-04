@@ -29,7 +29,7 @@ public class ShoppingcartController {
     @Resource
     IShoppingCartService shoppingCartService;
 
-    @RequestMapping("cart")
+    @RequestMapping("/cart")
     public String shoppingCart(HttpSession session, ModelMap map) {
 
         if (session.getAttribute("userId") != null) {
@@ -48,7 +48,7 @@ public class ShoppingcartController {
         map.addAttribute("shops", allShops);
     }
 
-    @RequestMapping(value = "addToCart", method = RequestMethod.POST)
+    @RequestMapping(value = "/addToCart", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addToCart(Long bookId, HttpSession session) {
         Map<String, Object> map = new HashMap<>(5);
@@ -63,7 +63,7 @@ public class ShoppingcartController {
     }
 
     @ResponseBody
-    @RequestMapping("delCart")
+    @RequestMapping("/delCart")
     public Map<String, Object> delCart(Long cartId, HttpSession session) {
         Map<String, Object> map = new HashMap<>(5);
         shoppingCartService.delCartId(cartId);
@@ -72,7 +72,7 @@ public class ShoppingcartController {
     }
 
     @ResponseBody
-    @RequestMapping("updateCount")
+    @RequestMapping("/updateCount")
     public Map<String, Object> updateCount(Long cartId, Long count, HttpSession session) {
         Map<String, Object> map = new HashMap<>(5);
         shoppingCartService.updateCount(cartId, count);

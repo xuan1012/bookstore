@@ -1,0 +1,336 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <title></title>
+</head>
+<body>
+<div id="content" layout:fragment="content">
+    <div class="breadcrumb-area">
+        <div class="container">
+            <ol class="breadcrumb">
+                <li><a><i class="fa fa-home"></i> 确认订单</a></li>
+            </ol>
+        </div>
+    </div>
+    <div class="Caddress">
+        <div class="open_new">
+            <button class="open_btn" onclick="javascript:onclick_open();">使用新地址</button>
+        </div>
+        <div class="add_mi" th:each="addr:${address}">
+            <p style="border-bottom:1px dashed #ccc;line-height:28px;"><span th:text="${addr.area}">浙江杭州</span>
+                (收件人:<span th:text="${addr.people}">(爸爸收)</span>)</p>
+            <p th:text="${addr.content}">萧山 北干 明怡花苑53幢3单元</p>
+            <p th:text="${addr.phone}">13735683918</p>
+            <input type="hidden" th:value="${addr.addressId}">
+        </div>
+
+    </div>
+
+
+    <div class="shopping_content">
+        <div class="shopping_table">
+            <form id="form1">
+                <table border="1" bordercolor="#cccccc" cellspacing="0" cellpadding="0"
+                       style="width: 100%; text-align: center;">
+                    <tr>
+                        <th style="text-align: center;">商品图片</th>
+                        <th style="text-align: center;">商品名称</th>
+                        <th style="text-align: center;">商品属性</th>
+                        <th style="text-align: center;">商品单价</th>
+                        <th style="text-align: center;">商品总价</th>
+                        <th style="text-align: center;">商品数量</th>
+
+                    </tr>
+                    <tr th:each="orderForm:${orderForms}">
+                        <td>
+                            <img th:unless="${#lists.isEmpty(orderForm.pictureContent)}"
+                                 th:src="${orderForm.pictureContent[0].pictureContent}"
+                                 src="/img/product/1.jpg" alt="" style="width: 100px;height:100px;"/>
+                            <img th:if="${#lists.isEmpty(orderForm.pictureContent)}"
+                                 src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
+                                 alt="" style="width: 100px;height:100px;"/>
+                        </td>
+                        <td><span th:text="${orderForm.bookName}">小消息下</span></td>
+                        <td>
+                            <div class="">
+                                <span>作者</span>：<span th:text="${orderForm.author}">白色</span>
+                            </div>
+                            <div class="">
+                                <span>尺寸</span>：<span>16开</span>
+                            </div>
+                        </td>
+                        <td>
+                            <span th:text="${orderForm.onePrice}">11.10</span>
+                            <input type="hidden" name="onePrice" th:value="${orderForm.onePrice}">
+                            <input type="hidden" name="bookId" th:value="${orderForm.bookId}">
+                            <input type="hidden" name="sellStore" th:value="${orderForm.sellStore}">
+                            <input type="hidden" name="userId" th:value="${orderForm.userId}">
+                            <input type="hidden" name="orderCount" th:value="${orderForm.orderCount}">
+                            <input type="hidden" name="userAddress" value="defult">
+                        </td>
+                        <td>
+                            <span class="span_momey" th:text="${orderForm.orderPrice}">11.10</span>
+                            <input type="hidden" name="orderPrice" th:value="${orderForm.orderPrice}">
+                        </td>
+                        <td>
+                            <input class="momey_input" th:value="${orderForm.orderCount}"
+                                   disabled="disabled"/>
+                        </td>
+
+                    </tr>
+
+                </table>
+            </form>
+            <div class="" style="width: 100%; text-align: right; margin-top: 10px;">
+                <div class="div_outMumey" style="float: left;width: 18% ">
+                    总价：<span class="out_momey">11</span>
+                </div>
+                <button class="btn_closing" onclick="submitOrder()">结算</button>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="shade">
+    </div>
+
+    <div class="shade_content">
+        <div class="col-xs-12 shade_colse">
+            <button onclick="javascript:onclick_close();">x</button>
+        </div>
+        <div class="nav shade_content_div">
+            <div class="col-xs-12 shade_title">
+                新增收货地址
+            </div>
+            <div class="col-xs-12 shade_from">
+                <form action="" method="post">
+                    <div class="col-xs-12">
+                        <span class="span_style">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区</span>
+                        <input class="input_style" type="" name="" id="region" value=""
+                               placeholder="&nbsp;&nbsp;请输入您的所在地区"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <span class="span_style">详细地址</span>
+                        <input class="input_style" type="" name="" id="address" value=""
+                               placeholder="&nbsp;&nbsp;请输入您的详细地址"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <span class="span_style">邮政编号</span>
+                        <input class="input_style" type="" name="" id="number_this" value=""
+                               placeholder="&nbsp;&nbsp;请输入您的邮政编号"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <span class="span_style">姓&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;名</span>
+                        <input class="input_style" type="" name="" id="name_" value=""
+                               placeholder="&nbsp;&nbsp;请输入您的姓名"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <span class="span_style">手机号码</span>
+                        <input class="input_style" type="" name="" id="phone" value=""
+                               placeholder="&nbsp;&nbsp;请输入您的手机号码"/>
+                    </div>
+                    <div class="col-xs-12">
+                        <input class="btn_remove" type="button" onclick="javascript:onclick_close();" value="取消"/>
+                        <input type="submit" class="sub_set" id="sub_setID" value="提交"/>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- cart-main-area end -->
+
+</div>
+<script layout:fragment="script">
+    var config = {pageTitle: "确认订单", navActive: "navProduct"};
+    $(function () {
+        document.title = config.pageTitle;
+        $("#" + config.navActive).addClass("active");
+
+    });
+
+    function submitOrder() {
+        var addr = $("#turnOn").children("input:last").val();
+        if (addr===undefined){
+            alert("请选择收货地址!");
+            return;
+        }
+        $("[name=userAddress]").val(addr);
+
+        var jsonStr = $("#form1").serializeJson();
+        console.log("jsonStr:\r\n" + jsonStr);
+        //alert(jsonStr);
+        $.ajax({
+            url: "/order/sub",
+            type: "POST",
+            contentType: 'application/json;charset=utf-8', //设置请求头信息
+            dataType: "json",
+            data: jsonStr,
+            success: function (data) {
+                // window.location.href = "/order/orderList";
+            },
+            error: function (res) {
+                console.log("error");
+                // alert(res.responseText);
+            }
+        });
+    }
+
+    (function ($) {
+        $.fn.serializeJson = function () {
+            var jsonData1 = {};
+            var serializeArray = this.serializeArray();
+            // 先转换成{"id": ["12","14"], "name": ["aaa","bbb"], "pwd":["pwd1","pwd2"]}这种形式
+            $(serializeArray).each(function () {
+                if (jsonData1[this.name]) {
+                    if ($.isArray(jsonData1[this.name])) {
+                        jsonData1[this.name].push(this.value);
+                    } else {
+                        jsonData1[this.name] = [jsonData1[this.name], this.value];
+                    }
+                } else {
+                    jsonData1[this.name] = this.value;
+                }
+            });
+            // 再转成[{"id": "12", "name": "aaa", "pwd":"pwd1"},{"id": "14", "name": "bb", "pwd":"pwd2"}]的形式
+            var vCount = 0;
+            // 计算json内部的数组最大长度
+            for (var item in jsonData1) {
+                var tmp = $.isArray(jsonData1[item]) ? jsonData1[item].length : 1;
+                vCount = (tmp > vCount) ? tmp : vCount;
+            }
+
+            if (vCount > 1) {
+                var jsonData2 = new Array();
+                for (var i = 0; i < vCount; i++) {
+                    var jsonObj = {};
+                    for (var item in jsonData1) {
+                        jsonObj[item] = jsonData1[item][i];
+                    }
+                    jsonData2.push(jsonObj);
+                }
+                return JSON.stringify(jsonData2);
+            } else {
+                return "[" + JSON.stringify(jsonData1) + "]";
+            }
+        };
+    })(jQuery);
+
+    $(function () {
+        var region = $("#region");
+        var address = $("#address");
+        var number_this = $("#number_this");
+        var name = $("#name_");
+        var phone = $("#phone");
+        $("#sub_setID").click(function () {
+            var input_out = $(".input_style");
+            for (var i = 0; i <= input_out.length; i++) {
+                if ($(input_out[i]).val() == "") {
+                    $(input_out[i]).css("border", "1px solid red");
+
+                    return false;
+                } else {
+                    $(input_out[i]).css("border", "1px solid #cccccc");
+                }
+            }
+        });
+        var span_momey = $(".span_momey");
+        var b = 0;
+        for (var i = 0; i < span_momey.length; i++) {
+            b += parseFloat($(span_momey[i]).html());
+        }
+        var out_momey = $(".out_momey");
+        out_momey.html(b.toFixed(2));
+        $(".shade_content").hide();
+        $(".shade").hide();
+        $('.nav_mini ul li').hover(function () {
+            $(this).find('.two_nav').show(100);
+        }, function () {
+            $(this).find('.two_nav').hide(100);
+        })
+        $('.left_nav').hover(function () {
+            $(this).find('.nav_mini').show(100);
+        }, function () {
+            $(this).find('.nav_mini').hide(100);
+        })
+        $('#jia').click(function () {
+            $('input[name=num]').val(parseInt($('input[name=num]').val()) + 1);
+        })
+        $('#jian').click(function () {
+            $('input[name=num]').val(parseInt($('input[name=num]').val()) - 1);
+        })
+        $('.Caddress .add_mi').click(function () {
+            $(this).css('background', 'url("/images/mail_1.jpg") no-repeat').siblings('.add_mi').css('background', 'url("/images/mail.jpg") no-repeat');
+            $(this).attr("id","turnOn").siblings('.add_mi').removeAttr("id");
+        });
+    });
+    var x = Array();
+
+    function func(a, b) {
+        x[b] = a.html();
+        alert(x)
+        a.css('border', '2px solid #f00').siblings('.min_mx').css('border', '2px solid #ccc');
+    }
+
+    function onclick_close() {
+        var shade_content = $(".shade_content");
+        var shade = $(".shade");
+        if (confirm("确认关闭么！此操作不可恢复")) {
+            shade_content.hide();
+            shade.hide();
+        }
+    }
+
+    function onclick_open() {
+        $(".shade_content").show();
+        $(".shade").show();
+        var input_out = $(".input_style");
+        for (var i = 0; i <= input_out.length; i++) {
+            if ($(input_out[i]).val() != "") {
+                $(input_out[i]).val("");
+            }
+        }
+    }
+
+    function onclick_remove(r) {
+        if (confirm("确认删除么！此操作不可恢复")) {
+            var out_momey = $(".out_momey");
+            var input_val = $(r).parent().prev().children().eq(1).val();
+            var span_html = $(r).parent().prev().prev().children().html();
+            var out_add = parseFloat(input_val).toFixed(2) * parseFloat(span_html).toFixed(2);
+            var reduce = parseFloat(out_momey.html()).toFixed(2) - parseFloat(out_add).toFixed(2);
+            console.log(parseFloat(reduce).toFixed(2));
+            out_momey.text(parseFloat(reduce).toFixed(2));
+            $(r).parent().parent().remove();
+        }
+    }
+
+    function onclick_btnAdd(a) {
+        var out_momey = $(".out_momey");
+        var input_ = $(a).prev();
+        var input_val = $(a).prev().val();
+        var input_add = parseInt(input_val) + 1;
+        input_.val(input_add);
+        var btn_momey = parseFloat($(a).parent().prev().children().html());
+        var out_momey_float = parseFloat(out_momey.html()) + btn_momey;
+        out_momey.text(out_momey_float.toFixed(2));
+    }
+
+    function onclick_reduce(b) {
+        var out_momey = $(".out_momey");
+        var input_ = $(b).next();
+        var input_val = $(b).next().val();
+        if (input_val <= 1) {
+            alert("商品个数不能小于1！")
+        } else {
+            var input_add = parseInt(input_val) - 1;
+            input_.val(input_add);
+            var btn_momey = parseFloat($(b).parent().prev().children().html());
+            var out_momey_float = parseFloat(out_momey.html()) - btn_momey;
+            out_momey.text(out_momey_float.toFixed(2));
+        }
+    }
+</script>
+</body>
+</html>

@@ -30,13 +30,13 @@ public class BookController {
     IBookService bookService;
 
 
-    @RequestMapping("search")
+    @RequestMapping("/search")
     public String searchByname(String bookName, ModelMap model, RedirectAttributes attr) {
         attr.addAttribute("bookName", bookName);
         return "redirect:/book/findBook";
     }
 
-    @RequestMapping("findBook")
+    @RequestMapping("/findBook")
     public String findBook(String bookName, ModelMap model) {
         getBooksAndNews(bookName, model);
         return "store/shop";

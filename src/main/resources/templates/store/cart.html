@@ -26,8 +26,8 @@
                 <ul class="order_lists cartTop">
                     <li class="list_chk">
                         <!--所有商品全选-->
-                        <input type="checkbox" id="all" class="whole_check">
-                        <label for="all"></label>
+                        <input type="checkbox" id="all" class="whole_check" onclick="changeAll(this)">
+                        <label for="all" class="al"></label>
                         全选
                     </li>
                     <li class="list_con">商品信息</li>
@@ -38,74 +38,84 @@
                     <li class="list_op">操作</li>
                 </ul>
             </div>
-
-            <div class="cartBox">
-                <div class="shop_info">
-                    <div class="all_check">
-                        <!--店铺全选-->
-                        <input type="checkbox" id="shop_a" class="shopChoice">
-                        <label for="shop_a" class="shop"></label>
+            <form id="form1">
+                <div class="cartBox">
+                    <div class="shop_info">
+                        <div class="all_check">
+                            <!--店铺全选-->
+                            <!--                            <input type="checkbox" id="shop_a" class="shopChoice" onclick="changeAll(this)">-->
+                            <!--                            <label for="shop_a" class="shop"></label>-->
+                        </div>
+                        <div class="shop_name" th:unless="${#lists.isEmpty(shops)}" th:text="${shops[0].sellStore}">
+                            店铺：<a href="javascript:;">搜猎人艺术生活</a>
+                        </div>
                     </div>
-                    <div class="shop_name" th:unless="${#lists.isEmpty(shops)}" th:text="${shops[0].sellStore}">
-                        店铺：<a href="javascript:;">搜猎人艺术生活</a>
-                    </div>
-                </div>
-                <div class="order_content">
-                    <ul class="order_lists" th:each="shop:${shops}">
-                        <li class="list_chk">
-                            <input type="checkbox" th:id="checkbox_+${shop.cartId}" id="checkbox_2" class="son_check">
-                            <label th:for="checkbox_+${shop.cartId}" for="checkbox_2"></label>
-                        </li>
-                        <li class="list_con">
-                            <div class="list_img"><a href="javascript:;">
-                                <img th:unless="${#lists.isEmpty(shop.pictureContent)}"
-                                     th:src="${shop.pictureContent[0].pictureContent}"
-                                     src="/img/product/1.jpg" alt="" style="width: 90px;height:90px;"/>
-                                <img th:if="${#lists.isEmpty(shop.pictureContent)}"
-                                     src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
-                                     alt=""/>
-                            </a></div>
-                            <div class="list_text">
+                    <div class="order_content">
+                        <ul class="order_lists" th:each="shop:${shops}">
+                            <li class="list_chk">
+                                <input type="checkbox" th:id="checkbox_+${shop.cartId}" id="checkbox_2"
+                                       class="son_check" onclick="changeSub(this)">
+                                <label th:for="checkbox_+${shop.cartId}" for="checkbox_2" class="de"></label>
+                                <input type="hidden" name="userAddress" value="F">
+                            </li>
+                            <li class="list_con">
+                                <div class="list_img"><a href="javascript:;">
+                                    <img th:unless="${#lists.isEmpty(shop.pictureContent)}"
+                                         th:src="${shop.pictureContent[0].pictureContent}"
+                                         src="/img/product/1.jpg" alt="" style="width: 90px;height:90px;"/>
+                                    <img th:if="${#lists.isEmpty(shop.pictureContent)}"
+                                         src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
+                                         alt=""/>
+                                </a></div>
+                                <div class="list_text">
+                                    <br>
+                                    <a href="javascript:;" th:text="${shop.bookName}"
+                                       style="padding-left: 40%;">书名</a></div>
+                                <input type="hidden" name="bookId" th:value="${shop.bookId}">
+                                <input type="hidden" name="cartId" th:value="${shop.cartId}">
+                            </li>
+                            <li class="list_info">
                                 <br>
-                                <a href="javascript:;" th:text="${shop.bookName}"
-                                   style="padding-left: 40%;">书名</a></div>
-                        </li>
-                        <li class="list_info">
-                            <br>
-                            <p th:text="${shop.author}">尺寸：16*16*3(cm)</p>
-                        </li>
-                        <li class="list_price">
-                            <p class="price" th:text="￥+${shop.bookPrice}"> ￥980</p>
-                        </li>
-                        <li class="list_amount">
-                            <div class="amount_box">
+                                <p th:text="${shop.author}">尺寸：16*16*3(cm)</p>
+                            </li>
+                            <li class="list_price">
+                                <p class="price" th:text="￥+${shop.bookPrice}"> ￥980</p>
+                            </li>
+                            <li class="list_amount">
+                                <div class="amount_box">
+                                    <input type="hidden" th:value="${shop.cartId}">
+                                    <a href="javascript:;" class="reduce" onclick="subCount(this)">-</a>
+                                    <input type="text" th:value="${shop.count}" class="sum" readonly="readonly">
+                                    <a href="javascript:;" class="plus" onclick="addCount(this)">+</a>
+                                    <input type="hidden" name="userId" th:value="${session.userId}">
+                                    <input type="hidden" name="sellStore" th:value="${shops[0].sellStore}">
+                                    <input type="hidden" name="orderCount" th:value="${shop.count}">
+                                </div>
+                            </li>
+                            <li class="list_sum">
+                                <p class="sum_price" th:text="￥+${(shop.bookPrice)*(shop.count)}"></p>
+                                <input type="hidden" name="onePrice" th:value="${shop.bookPrice}">
+                            </li>
+                            <li class="list_op">
                                 <input type="hidden" th:value="${shop.cartId}">
-                                <a href="javascript:;" class="reduce" onclick="subCount(this)">-</a>
-                                <input type="text" th:value="${shop.count}" class="sum">
-                                <a href="javascript:;" class="plus" onclick="addCount(this)">+</a>
-                            </div>
-                        </li>
-                        <li class="list_sum">
-                            <p class="sum_price" th:text="￥+${shop.bookPrice}"></p>
-                        </li>
-                        <li class="list_op">
-                            <input type="hidden" th:value="${shop.cartId}">
-                            <p class="del"><a href="javascript:;" class="delBtn" onclick="getCartId(this)">移除商品</a></p>
-                        </li>
-                    </ul>
+                                <p class="del"><a href="javascript:;" class="delBtn" onclick="getCartId(this)">移除商品</a>
+                                </p>
+                            </li>
+                        </ul>
 
+                    </div>
                 </div>
-            </div>
-            <div th:text="${msg}" style="color:red; margin-left: 45%"></div>
+                <div th:text="${msg}" style="color:red; margin-left: 45%"></div>
 
-            <!--底部-->
-            <div class="bar-wrapper">
-                <div class="bar-right">
-                    <div class="piece">已选商品<strong class="piece_num">0</strong>件</div>
-                    <div class="totalMoney">共计: <strong class="total_text">0.00</strong></div>
-                    <div class="calBtn"><a href="javascript:;">结算</a></div>
+                <!--底部-->
+                <div class="bar-wrapper">
+                    <div class="bar-right">
+                        <div class="piece">已选商品<strong class="piece_num">0</strong>件</div>
+                        <div class="totalMoney">共计: <strong class="total_text">0.00</strong></div>
+                        <div class="calBtn"><a href="javascript:;" onclick="submitOrder()">结算</a></div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </section>
         <section class="model_bg" style="height: 2100px;"></section>
         <section class="my_model">
@@ -129,7 +139,28 @@
     $(function () {
         document.title = config.pageTitle;
         $("#" + config.navActive).addClass("active");
+
     });
+
+    function changeAll(e) {
+        var label = $(e).parent().children("label:last").attr("class");
+        if (label === "al") {
+            $("[name=userAddress]").val("T");
+        }
+        if (label === "al mark") {
+            $("[name=userAddress]").val("F");
+        }
+    }
+
+    function changeSub(e) {
+        var sub = $(e).parent().children("label:first").attr("class");
+        if (sub === "de") {
+            var test = $(e).parent().children("input:last").val("T");
+        }
+        if (sub === "de mark") {
+            $(e).parent().children("input:last").val("F");
+        }
+    }
 
     function getCartId(e) {
         cartId = $(e).parent().parent().children("input:first").val();
@@ -165,21 +196,85 @@
     }
 
     function subCount(e) {
+
         var count = $(e).parent().children("input:last").val();
         count--;
-        var carId = $(e).parent().children("input:first").val();
-        if (count === 0) {
+        if (count <= 1) {
             count = 1;
         }
+        $(e).parent().children("input:last").val(count);
+        var carId = $(e).parent().children("input:first").val();
+
         updateCount(carId, count);
     }
 
     function addCount(e) {
         var count = $(e).parent().children("input:last").val();
         count++;
+        $(e).parent().children("input:last").val(count);
         var carId = $(e).parent().children("input:first").val();
         updateCount(carId, count);
     }
+
+    function submitOrder() {
+        var jsonStr = $("#form1").serializeJson();
+        // console.log("jsonStr:\r\n" + jsonStr);
+        //alert(jsonStr);
+        $.ajax({
+            url: "/order/subOrder",
+            type: "POST",
+            contentType: 'application/json;charset=utf-8', //设置请求头信息
+            dataType: "json",
+            data: jsonStr,
+            success: function (data) {
+                window.location.href = "/order/orderList";
+            },
+            error: function (res) {
+                console.log("error");
+                // alert(res.responseText);
+            }
+        });
+    }
+
+    (function ($) {
+        $.fn.serializeJson = function () {
+            var jsonData1 = {};
+            var serializeArray = this.serializeArray();
+            // 先转换成{"id": ["12","14"], "name": ["aaa","bbb"], "pwd":["pwd1","pwd2"]}这种形式
+            $(serializeArray).each(function () {
+                if (jsonData1[this.name]) {
+                    if ($.isArray(jsonData1[this.name])) {
+                        jsonData1[this.name].push(this.value);
+                    } else {
+                        jsonData1[this.name] = [jsonData1[this.name], this.value];
+                    }
+                } else {
+                    jsonData1[this.name] = this.value;
+                }
+            });
+            // 再转成[{"id": "12", "name": "aaa", "pwd":"pwd1"},{"id": "14", "name": "bb", "pwd":"pwd2"}]的形式
+            var vCount = 0;
+            // 计算json内部的数组最大长度
+            for (var item in jsonData1) {
+                var tmp = $.isArray(jsonData1[item]) ? jsonData1[item].length : 1;
+                vCount = (tmp > vCount) ? tmp : vCount;
+            }
+
+            if (vCount > 1) {
+                var jsonData2 = new Array();
+                for (var i = 0; i < vCount; i++) {
+                    var jsonObj = {};
+                    for (var item in jsonData1) {
+                        jsonObj[item] = jsonData1[item][i];
+                    }
+                    jsonData2.push(jsonObj);
+                }
+                return JSON.stringify(jsonData2);
+            } else {
+                return "[" + JSON.stringify(jsonData1) + "]";
+            }
+        };
+    })(jQuery);
 </script>
 </body>
 </html>
