@@ -99,9 +99,6 @@ public class UserController {
         Long userId = (Long) session.getAttribute("userId");
 
         if (userId != null) {
-            ModifyForm userInfo = new ModifyForm();
-
-            BeanUtils.copyProperties(modifyForm, userInfo);
 
             iUserService.modify(modifyForm);
 
@@ -109,7 +106,9 @@ public class UserController {
 
         log.info("用户{}", userId);
 
+        log.info("三大{}", modifyForm);
 
-        return "/information";
+
+        return "redirect:/user/information";
     }
 }

@@ -70,10 +70,10 @@
                 <form action="/user/modify" method="post">
                     <div class="form-group" th:each="u : ${use}">
 
-                        <input type="hidden" th:text="${u.userId}">
+                        <input type="hidden" th:value="${u.userId}" name="userId">
 
                       <h4 style="color: #5e5e5e;font-size: 1em;">昵称:</h4>
-                        <input type="text" name="username" class="form-control" id="exampleInputEmail" th:value="${u.username}" placeholder="昵称">
+                        <input type="text" name="nicname" class="form-control" id="exampleInputEmail" th:value="${u.nicname}" placeholder="昵称">
                     </div>
                     <div class="form-group" th:each="u : ${use}">
                         <h4 style="color: #5e5e5e;font-size: 1em;">Email:</h4>

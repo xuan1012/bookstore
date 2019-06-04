@@ -2,13 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.bookstore.dao.UserMapper">
     <insert id="add1" parameterType="com.bookstore.bookstore.dao.model.User">
-        insert into myuser(username,password,phone) value(#{username},#{password},#{phone})
+        insert into myuser(username,password,phone) value (#{username},#{password},#{phone})
     </insert>
     <select id="select" parameterType="com.bookstore.bookstore.dao.model.User" resultType="com.bookstore.bookstore.dao.model.User">
         select * from myuser where username=#{username} and password=#{password}
     </select>
-    
     <update id="update" parameterType="com.bookstore.bookstore.dao.model.User">
-        update myuser set username=#{username},phone=#{phone},email=#{email} where user_id=#{userId};
+        update myuser set nicname=#{nicname},phone=#{phone},email=#{email} where user_id=#{userId}
     </update>
 </mapper>

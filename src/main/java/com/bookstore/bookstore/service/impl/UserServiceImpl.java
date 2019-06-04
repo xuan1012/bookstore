@@ -17,7 +17,7 @@ import java.util.List;
 
 /**
  * <p>
- *  服务实现类
+ * 服务实现类
  * </p>
  *
  * @author xuan
@@ -33,19 +33,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public void add(Regisrelnfo regisrelnfo) {
 
-        User user=new User();
+        User user = new User();
 
-       BeanUtils.copyProperties(regisrelnfo,user);
-
-       userMapper.add1(user);
+        BeanUtils.copyProperties(regisrelnfo, user);
+        user.setNicname(user.getUsername());
+        userMapper.add1(user);
     }
 
     @Override
     public User select(Regisrelnfo regisrelnfo) {
 
-        User user=new User();
+        User user = new User();
 
-        BeanUtils.copyProperties(regisrelnfo,user);
+        BeanUtils.copyProperties(regisrelnfo, user);
 
         User select = userMapper.select(user);
 
@@ -55,10 +55,10 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     @Override
     public void modify(ModifyForm modifyForm) {
 
-        User user=new User();
+        User user = new User();
 
-        BeanUtils.copyProperties(modifyForm,user);
+        BeanUtils.copyProperties(modifyForm, user);
 
-        userMapper.select(user);
+        userMapper.update(user);
     }
 }

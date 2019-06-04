@@ -7,7 +7,7 @@ public class ModifyForm {
 
     private Long userId;
 
-    private String username;
+    private String nicname;
 
     private String email;
 

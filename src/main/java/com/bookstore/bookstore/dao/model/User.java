@@ -71,5 +71,6 @@ package com.bookstore.bookstore.dao.model;
             */
     private String state;
 
+    private String nicname;
 
 }
