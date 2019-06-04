@@ -69,6 +69,7 @@
                             <input type="hidden" name="userId" th:value="${orderForm.userId}">
                             <input type="hidden" name="orderCount" th:value="${orderForm.orderCount}">
                             <input type="hidden" name="userAddress" value="defult">
+                            <input type="hidden" name="cartId" th:value="${orderForm.cartId}">
                         </td>
                         <td>
                             <span class="span_momey" th:text="${orderForm.orderPrice}">11.10</span>
@@ -152,7 +153,7 @@
 
     function submitOrder() {
         var addr = $("#turnOn").children("input:last").val();
-        if (addr===undefined){
+        if (addr === undefined) {
             alert("请选择收货地址!");
             return;
         }
@@ -168,7 +169,8 @@
             dataType: "json",
             data: jsonStr,
             success: function (data) {
-                // window.location.href = "/order/orderList";
+                var groupId = data.ordergroup.groupId;
+                window.location.href = "/order/goAlipay?orderId=" + groupId;
             },
             error: function (res) {
                 console.log("error");
@@ -262,7 +264,7 @@
         })
         $('.Caddress .add_mi').click(function () {
             $(this).css('background', 'url("/images/mail_1.jpg") no-repeat').siblings('.add_mi').css('background', 'url("/images/mail.jpg") no-repeat');
-            $(this).attr("id","turnOn").siblings('.add_mi').removeAttr("id");
+            $(this).attr("id", "turnOn").siblings('.add_mi').removeAttr("id");
         });
     });
     var x = Array();

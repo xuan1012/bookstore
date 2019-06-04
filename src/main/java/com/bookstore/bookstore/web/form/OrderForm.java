@@ -4,7 +4,7 @@ import com.bookstore.bookstore.dao.model.Picture;
 import lombok.Data;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,7 +17,7 @@ public class OrderForm {
     /**
      * 下单日期
      */
-    private LocalDateTime orderDate;
+    private Date orderDate;
 
     /**
      * 订单价格
