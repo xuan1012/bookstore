@@ -42,6 +42,7 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
         return books;
     }
 
+
     @Override
     public List<News> findAllNews() {
         List<News> news = newsMapper.findAll();
