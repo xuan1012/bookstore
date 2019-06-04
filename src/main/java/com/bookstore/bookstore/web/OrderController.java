@@ -6,14 +6,17 @@ import com.alipay.api.DefaultAlipayClient;
 import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.bookstore.bookstore.config.AlipayClientParam;
+import com.bookstore.bookstore.dao.OrderbuyMapper;
+import com.bookstore.bookstore.dao.OrdergroupMapper;
 import com.bookstore.bookstore.dao.model.Address;
-import com.bookstore.bookstore.dao.model.Book;
-import com.bookstore.bookstore.dao.model.Order;
+import com.bookstore.bookstore.dao.model.Orderbuy;
+import com.bookstore.bookstore.dao.model.Ordergroup;
 import com.bookstore.bookstore.service.IBookService;
 import com.bookstore.bookstore.service.IOrderService;
 import com.bookstore.bookstore.web.form.OrderForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,11 +48,16 @@ public class OrderController {
     IOrderService orderService;
     @Resource
     IBookService bookService;
+    @Resource
+    OrdergroupMapper ordergroupMapper;
+    @Resource
+    OrderbuyMapper orderbuyMapper;
 
     @RequestMapping(value = "/subOrder", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> subOrder(@RequestBody List<OrderForm> orderForms, HttpSession session)
             throws Exception {
+
         Map<String, Object> map = new HashMap<>(5);
         if (orderForms == null || orderForms.size() <= 0) {
             log.warn("orderForms为空");
@@ -79,6 +87,7 @@ public class OrderController {
 
     @RequestMapping(value = "/sub", method = {RequestMethod.POST})
     @ResponseBody
+    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> sub(@RequestBody List<OrderForm> orderForms, HttpSession session)
             throws Exception {
         Map<String, Object> map = new HashMap<>(5);
@@ -87,21 +96,21 @@ public class OrderController {
             map.put("msg", "false");
             return map;
         }
-        orderService.addOrder(orderForms);
+        Ordergroup ordergroup = orderService.addOrder(orderForms, session);
         map.put("msg", "success");
+        map.put("ordergroup", ordergroup);
         return map;
     }
 
     /**
      * @Description: 前往支付宝第三方网关进行支付
      */
-    @RequestMapping(value = "goAlipay", produces = "text/html; charset=UTF-8")
+    @RequestMapping(value = "/goAlipay", produces = "text/html; charset=UTF-8")
     @ResponseBody
     public String goAlipay(String orderId) throws Exception {
 
-        Order order = orderService.getById(orderId);
+        Ordergroup order = ordergroupMapper.selectById(orderId);
 
-        Book product = bookService.getById(order.getBookId());
 
         //获得初始化的AlipayClient
         AlipayClient alipayClient = new DefaultAlipayClient(AlipayClientParam.gatewayUrl, AlipayClientParam.app_id, AlipayClientParam.merchant_private_key, "json", AlipayClientParam.charset, AlipayClientParam.alipay_public_key, AlipayClientParam.sign_type);
@@ -112,11 +121,12 @@ public class OrderController {
         //商户订单号，商户网站订单系统中唯一订单号，必填
         String out_trade_no = orderId;
         //付款金额，必填
-        String total_amount = String.valueOf(order.getOrderPrice());
+        String total_amount = String.valueOf(order.getMoney());
         //订单名称，必填
-        String subject = product.getBookName();
+        String subject = order.getGroupContent();
         //商品描述，可空
-        String body = "用户订购商品个数：" + order.getOrderCount();
+//        String body = "用户订购商品个数：" + order.getOrderCount();
+        String body = "";
         // 该笔订单允许的最晚付款时间，逾期将关闭交易。取值范围：1m～15d。m-分钟，h-小时，d-天，1c-当天（1c-当天的情况下，无论交易何时创建，都在0点关闭）。 该参数数值不接受小数点， 如 1.5h，可转换为 90m。
         String timeout_express = "1c";
         alipayRequest.setBizContent("{\"out_trade_no\":\"" + out_trade_no + "\","
@@ -134,7 +144,7 @@ public class OrderController {
      * @Description: 支付宝同步通知页面
      */
     @RequestMapping(value = "alipayReturnNotice")
-    public ModelAndView alipayReturnNotice(HttpServletRequest request, HttpServletRequest response) throws Exception {
+    public ModelAndView alipayReturnNotice(HttpServletRequest request, HttpServletRequest response, HttpSession session) throws Exception {
         log.info("支付成功, 进入同步通知接口...");
         //获取支付宝GET过来反馈信息
         Map<String, String> params = new HashMap<String, String>();
@@ -154,7 +164,8 @@ public class OrderController {
 
         //调用SDK验证签名
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayClientParam.alipay_public_key, AlipayClientParam.charset, AlipayClientParam.sign_type);
-        ModelAndView mv = new ModelAndView("alipaySuccess");
+//        ModelAndView mv = new ModelAndView("alipaySuccess");
+        ModelAndView mv = new ModelAndView("/user/orderList");
         //——请在这里编写您的程序（以下代码仅作参考）——
         if (signVerified) {
             //商户订单号
@@ -167,20 +178,23 @@ public class OrderController {
             String total_amount = new String(request.getParameter("total_amount").getBytes("ISO-8859-1"), "UTF-8");
 
             // 修改订单状态为支付成功，已付款; 同时新增支付流水
-//            orderService.update(out_trade_no, trade_no, total_amount);
-
-            Order order = orderService.getById(out_trade_no);
-            Book product = bookService.getById(order.getBookId());
+            List<Orderbuy> ordersTodo = (List<Orderbuy>) session.getAttribute("ordersTodo");
+            for (Orderbuy orderbuy : ordersTodo) {
+                orderbuy.setState("已支付");
+                orderbuyMapper.updateById(orderbuy);
+            }
+//            orderService.updateById();
+            Ordergroup orderbuy = ordergroupMapper.selectById(out_trade_no);
             log.info("********************** 支付成功(支付宝同步通知) **********************");
             log.info("* 订单号: {}", out_trade_no);
             log.info("* 支付宝交易号: {}", trade_no);
             log.info("* 实付金额: {}", total_amount);
-            log.info("* 购买产品: {}", product.getBookName());
+            log.info("* 购买产品: {}", orderbuy.getGroupContent());
             log.info("***************************************************************");
             mv.addObject("out_trade_no", out_trade_no);
             mv.addObject("trade_no", trade_no);
             mv.addObject("total_amount", total_amount);
-            mv.addObject("productName", product.getBookName());
+            mv.addObject("productName", orderbuy.getGroupContent());
         } else {
             log.info("支付, 验签失败...");
         }
@@ -192,7 +206,7 @@ public class OrderController {
      */
     @RequestMapping(value = "alipayNotifyNotice")
     @ResponseBody
-    public String alipayNotifyNotice(HttpServletRequest request, HttpServletRequest response) throws Exception {
+    public String alipayNotifyNotice(HttpServletRequest request, HttpServletRequest response, HttpSession session) throws Exception {
 
         log.info("支付成功, 进入异步通知接口...");
 
@@ -254,15 +268,19 @@ public class OrderController {
 
                 // 修改叮当状态，改为 支付成功，已付款; 同时新增支付流水
 //                orderService.updateOrderStatus(out_trade_no, trade_no, total_amount);
+                List<Orderbuy> ordersTodo = (List<Orderbuy>) session.getAttribute("ordersTodo");
+                for (Orderbuy orderbuy : ordersTodo) {
+                    orderbuy.setState("已支付");
+                    orderbuyMapper.updateById(orderbuy);
+                }
 
-                Order order = orderService.getById(out_trade_no);
-                Book product = bookService.getById(order.getBookId());
+                Ordergroup orderbuy = ordergroupMapper.selectById(out_trade_no);
 
                 log.info("********************** 支付成功(支付宝异步通知) **********************");
                 log.info("* 订单号: {}", out_trade_no);
                 log.info("* 支付宝交易号: {}", trade_no);
                 log.info("* 实付金额: {}", total_amount);
-                log.info("* 购买产品: {}", product.getBookName());
+                log.info("* 购买产品: {}", orderbuy.getGroupContent());
                 log.info("***************************************************************");
             }
             log.info("支付成功...");

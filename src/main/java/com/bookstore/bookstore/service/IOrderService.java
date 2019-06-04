@@ -2,9 +2,11 @@ package com.bookstore.bookstore.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bookstore.bookstore.dao.model.Address;
-import com.bookstore.bookstore.dao.model.Order;
+import com.bookstore.bookstore.dao.model.Orderbuy;
+import com.bookstore.bookstore.dao.model.Ordergroup;
 import com.bookstore.bookstore.web.form.OrderForm;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -15,8 +17,8 @@ import java.util.List;
  * @author xuan
  * @since 2019-06-01
  */
-public interface IOrderService extends IService<Order> {
+public interface IOrderService extends IService<Orderbuy> {
     List<OrderForm> initOrder(List<OrderForm> orderForms);
     List<Address> getAddress(Long userId);
-    void addOrder(List<OrderForm> orderForms);
+    Ordergroup addOrder(List<OrderForm> orderForms, HttpSession session);
 }

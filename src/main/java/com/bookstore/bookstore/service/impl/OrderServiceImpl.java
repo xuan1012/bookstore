@@ -2,19 +2,19 @@ package com.bookstore.bookstore.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bookstore.bookstore.dao.*;
-import com.bookstore.bookstore.dao.model.Address;
-import com.bookstore.bookstore.dao.model.AllBookMessage;
-import com.bookstore.bookstore.dao.model.Order;
-import com.bookstore.bookstore.dao.model.Store;
+import com.bookstore.bookstore.dao.model.*;
 import com.bookstore.bookstore.service.IOrderService;
 import com.bookstore.bookstore.web.form.OrderForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.thymeleaf.util.DateUtils;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,7 +28,7 @@ import java.util.List;
  */
 @Service
 @Slf4j
-public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements IOrderService {
+public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> implements IOrderService {
     @Resource
     BookMessageMapper bookMessageMapper;
     @Resource
@@ -38,7 +38,11 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Resource
     StoreMapper storeMapper;
     @Resource
-    OrderMapper orderMapper;
+    OrderbuyMapper orderbuyMapper;
+    @Resource
+    OrdergroupMapper ordergroupMapper;
+    @Resource
+    ShoppingcartMapper shoppingcartMapper;
 
     @Override
     public List<OrderForm> initOrder(List<OrderForm> orderForms) {
@@ -52,7 +56,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
                 AllBookMessage book = bookMessageMapper.findById(bookId);
                 next.setBookName(book.getBookName());
                 next.setAuthor(book.getAuthor());
-                next.setOrderDate(LocalDateTime.now());
+                next.setOrderDate(DateUtils.createNow().getTime());
                 next.setOrderPrice((next.getOnePrice()).multiply(new BigDecimal(next.getOrderCount())));
                 next.setPictureContent(picturesMapper.getBookPicture(bookId));
             }
@@ -67,19 +71,46 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     }
 
     @Override
-    public void addOrder(List<OrderForm> orderForms) {
+    public Ordergroup addOrder(List<OrderForm> orderForms, HttpSession session) {
+//        LocalDateTime now = LocalDateTime.now();
+        Date now = DateUtils.createNow().getTime();
+        List<Orderbuy> orderbuys=new ArrayList<>();
         Iterator it = orderForms.iterator();
+        Ordergroup ordergroup = new Ordergroup();
+        Ordergroup maxId = ordergroupMapper.findMaxId();
+        StringBuilder stringBuilder = new StringBuilder("");
+        BigDecimal money = BigDecimal.valueOf(0);
+        long groupId = 0L;
+        if (maxId == null) {
+            groupId = 1L;
+        } else {
+            groupId = maxId.getGroupId() + 2;
+        }
+        ordergroup.setGroupId(groupId);
+        ordergroup.setCreatDate(now);
         while (it.hasNext()) {
             OrderForm next = (OrderForm) it.next();
-            next.setOrderDate(LocalDateTime.now());
+            next.setOrderDate(now);
             next.setOrderPrice((next.getOnePrice()).multiply(new BigDecimal(next.getOrderCount())));
             Store store = storeMapper.findByName(next.getSellStore());
+            AllBookMessage book = bookMessageMapper.findById(next.getBookId());
+            next.setBookName(book.getBookName());
             next.setStoreId(Long.valueOf(store.getStoreId()));
-            Order order = new Order();
-            BeanUtils.copyProperties(next, order);
-            order.setState("待支付");
-            orderMapper.insert(order);
+            Orderbuy orderbuy = new Orderbuy();
+            BeanUtils.copyProperties(next, orderbuy);
+            orderbuy.setState("待支付");
+            orderbuy.setLevel(groupId);
+            money = money.add(orderbuy.getOrderPrice());
+            stringBuilder.append(next.getBookName());
+            shoppingcartMapper.deleteById(next.getCartId());
+            orderbuys.add(orderbuy);
+            orderbuyMapper.insert(orderbuy);
         }
+        ordergroup.setGroupContent(stringBuilder.toString());
+        ordergroup.setMoney(money);
+        ordergroupMapper.insert(ordergroup);
+        session.setAttribute("ordersTodo",orderbuys);
+        return ordergroup;
     }
 }
 

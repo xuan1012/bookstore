@@ -1,6 +1,6 @@
 package com.bookstore.bookstore.dao;
 
-import com.bookstore.bookstore.dao.model.Order;
+import com.bookstore.bookstore.dao.model.Orderbuy;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 
 /**
@@ -11,6 +11,6 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author xuan
  * @since 2019-06-01
  */
-public interface OrderMapper extends BaseMapper<Order> {
+public interface OrderMapper extends BaseMapper<Orderbuy> {
 
 }
