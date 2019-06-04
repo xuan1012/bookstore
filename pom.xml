@@ -19,6 +19,30 @@
     </properties>
 
     <dependencies>
+
+        <!--用于测试的依赖-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+        </dependency>
+        <!-- 支付宝 -->
+        <dependency>
+            <groupId>net.guerlab</groupId>
+            <artifactId>sdk-alipay-starter</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ow2.util.bundles</groupId>
+            <artifactId>commons-logging-1.1.1</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alipay.sdk</groupId>
+            <artifactId>alipay-sdk-java</artifactId>
+            <version>3.7.73.ALL</version>
+        </dependency>
+
         <dependency>
             <groupId>redis.clients</groupId>
             <artifactId>jedis</artifactId>

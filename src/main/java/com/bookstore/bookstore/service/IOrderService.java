@@ -18,4 +18,5 @@ import java.util.List;
 public interface IOrderService extends IService<Order> {
     List<OrderForm> initOrder(List<OrderForm> orderForms);
     List<Address> getAddress(Long userId);
+    void addOrder(List<OrderForm> orderForms);
 }

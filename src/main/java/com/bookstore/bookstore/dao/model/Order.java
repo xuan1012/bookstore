@@ -44,7 +44,7 @@ import java.time.LocalDateTime;
             /**
             * 订单商品
             */
-    private Long orderContent;
+    private Long bookId;
 
             /**
             * 订单数量
