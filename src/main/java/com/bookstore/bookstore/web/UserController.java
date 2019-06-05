@@ -1,10 +1,13 @@
 package com.bookstore.bookstore.web;
 
 
+import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.dao.model.User;
+import com.bookstore.bookstore.service.IBookService;
+import com.bookstore.bookstore.service.IClassificationService;
 import com.bookstore.bookstore.service.IUserService;
+import com.bookstore.bookstore.service.info.ClassIficationInfo;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
-import com.bookstore.bookstore.service.info.SelectUesrInfo;
 import com.bookstore.bookstore.web.form.ModifyForm;
 import com.bookstore.bookstore.web.form.RegisterFrom;
 import lombok.extern.slf4j.Slf4j;
@@ -14,6 +17,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -32,9 +36,14 @@ public class UserController {
 
     @Autowired
     private IUserService iUserService;
+    @Autowired
+    private IClassificationService classification;
+    @Resource
+    IBookService bookService;
 
     @RequestMapping("/reg")
     public String toReg(ModelMap model) {
+        getClassification(model);
         return "store/register";
     }
 
@@ -44,11 +53,13 @@ public class UserController {
         BeanUtils.copyProperties(registerFrom, lnfo);
         iUserService.add(lnfo);
         map.addAttribute("msg", "注册成功！请登录");
+        getClassification(map);
         return "store/login";
     }
 
     @RequestMapping("/log")
     public String tolog(ModelMap model) {
+        getClassification(model);
         return "store/login";
     }
 
@@ -65,14 +76,25 @@ public class UserController {
             session.setAttribute("userId", select.getUserId());
             session.setAttribute("username", registerFrom.getUsername());
         }
+        getClassification(modelMap);
         return "store/index";
     }
-
 
     @RequestMapping("/logout")
     public String logout(HttpSession session) {
         session.invalidate();
-        return "store/index";
+
+        return "redirect:/";
+    }
+
+    public void getClassification(ModelMap model) {
+        List<ClassIficationInfo> categories = classification.classification();
+        model.addAttribute("categories", categories);
+
+
+        List<News> news = bookService.findAllNews();
+
+        model.addAttribute("news", news);
     }
 
     //个人信息

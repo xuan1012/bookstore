@@ -4,6 +4,8 @@ package com.bookstore.bookstore.web;
 import com.bookstore.bookstore.dao.model.AllBookMessage;
 import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.service.IBookService;
+import com.bookstore.bookstore.service.IClassificationService;
+import com.bookstore.bookstore.service.info.ClassIficationInfo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -28,7 +30,8 @@ public class BookController {
     private static Logger logger = LoggerFactory.getLogger(BookController.class);
     @Resource
     IBookService bookService;
-
+    @Resource
+    IClassificationService classification;
 
     @RequestMapping("/search")
     public String searchByname(String bookName, ModelMap model, RedirectAttributes attr) {
@@ -39,6 +42,7 @@ public class BookController {
     @RequestMapping("/findBook")
     public String findBook(String bookName, ModelMap model) {
         getBooksAndNews(bookName, model);
+        getClassification(model);
         return "store/shop";
     }
 
@@ -57,5 +61,13 @@ public class BookController {
         model.addAttribute("news", news);
     }
 
+    public void getClassification(ModelMap model) {
+        List<ClassIficationInfo> categories = classification.classification();
+        model.addAttribute("categories", categories);
 
+
+        List<News> news = bookService.findAllNews();
+
+        model.addAttribute("news", news);
+    }
 }

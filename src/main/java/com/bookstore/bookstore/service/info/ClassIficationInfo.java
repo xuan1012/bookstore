@@ -7,7 +7,7 @@ import java.util.Collection;
 @Data
 public class ClassIficationInfo {
 
-    private int classID;
+    private Long classID;
 
     private  String className;
 

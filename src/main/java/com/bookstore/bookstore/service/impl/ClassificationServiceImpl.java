@@ -34,10 +34,10 @@ public class ClassificationServiceImpl extends ServiceImpl<ClassificationMapper,
         Collection<Classification> classifications = listByMap(hashMap);
         for (Classification categories:classifications) {
             ClassIficationInfo c = new ClassIficationInfo();
-            c.setClassID(categories.getClassid());
+            c.setClassID(categories.getClassId());
             c.setClassName(categories.getClassname());
 
-            hashMap.put("two_stage", categories.getClassid());
+            hashMap.put("two_stage", categories.getClassId());
             Collection<Classification> classification = listByMap(hashMap);
             c.setClassificationInfos(classification);
             classIfication.add(c);

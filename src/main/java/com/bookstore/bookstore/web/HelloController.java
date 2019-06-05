@@ -1,6 +1,5 @@
 package com.bookstore.bookstore.web;
 
-import com.bookstore.bookstore.dao.model.Classification;
 import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.service.IBookService;
 import com.bookstore.bookstore.service.ICategoriesService;
@@ -56,5 +55,5 @@ public class HelloController {
         return "store/index";
     }
 
-    //改了
+
 }

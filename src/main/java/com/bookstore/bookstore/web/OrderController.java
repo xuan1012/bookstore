@@ -9,10 +9,13 @@ import com.bookstore.bookstore.config.AlipayClientParam;
 import com.bookstore.bookstore.dao.OrderbuyMapper;
 import com.bookstore.bookstore.dao.OrdergroupMapper;
 import com.bookstore.bookstore.dao.model.Address;
+import com.bookstore.bookstore.dao.model.News;
 import com.bookstore.bookstore.dao.model.Orderbuy;
 import com.bookstore.bookstore.dao.model.Ordergroup;
 import com.bookstore.bookstore.service.IBookService;
+import com.bookstore.bookstore.service.IClassificationService;
 import com.bookstore.bookstore.service.IOrderService;
+import com.bookstore.bookstore.service.info.ClassIficationInfo;
 import com.bookstore.bookstore.web.form.OrderForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
@@ -52,6 +55,8 @@ public class OrderController {
     OrdergroupMapper ordergroupMapper;
     @Resource
     OrderbuyMapper orderbuyMapper;
+    @Resource
+    IClassificationService classification;
 
     @RequestMapping(value = "/subOrder", method = {RequestMethod.POST})
     @ResponseBody
@@ -73,7 +78,7 @@ public class OrderController {
     }
 
     @RequestMapping("/orderList")
-    public String orderList(ModelMap map, HttpSession session) {
+    public String orderList(ModelMap map, HttpSession session,ModelMap model) {
         List<OrderForm> orderForms = (List<OrderForm>) session.getAttribute("orderForms");
         if (session.getAttribute("userId") != null) {
             Long userId = (Long) session.getAttribute("userId");
@@ -81,7 +86,7 @@ public class OrderController {
             map.addAttribute("address", address);
         }
         map.addAttribute("orderForms", orderForms);
-
+        getClassification(model);
         return "order/orderList";
     }
 
@@ -288,5 +293,15 @@ public class OrderController {
             log.info("支付, 验签失败...");
         }
         return "success";
+    }
+
+    public void getClassification(ModelMap model) {
+        List<ClassIficationInfo> categories = classification.classification();
+        model.addAttribute("categories", categories);
+
+
+        List<News> news = bookService.findAllNews();
+
+        model.addAttribute("news", news);
     }
 }

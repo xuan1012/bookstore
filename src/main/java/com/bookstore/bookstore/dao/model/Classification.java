@@ -1,9 +1,12 @@
 package com.bookstore.bookstore.dao.model;
 
-    import java.io.Serializable;
-    import lombok.Data;
-    import lombok.EqualsAndHashCode;
-    import lombok.experimental.Accessors;
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.experimental.Accessors;
+
+import java.io.Serializable;
 
 /**
 * <p>
@@ -20,11 +23,12 @@ package com.bookstore.bookstore.dao.model;
 
     private static final long serialVersionUID = 1L;
 
-    private Integer classid;
+    @TableId(value = "class_id", type = IdType.AUTO)
+    private Long classId;
 
     private String classname;
 
-    private Integer twoStage;
+    private Long twoStage;
 
 
 }
