@@ -60,5 +60,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
         BeanUtils.copyProperties(modifyForm, user);
 
         userMapper.update(user);
+
+    }
+
+    @Override
+    public void modifyPassword(ModifyForm modifyForm) {
+        User user = new User();
+
+            BeanUtils.copyProperties(modifyForm, user);
+
+            userMapper.modifyPassword(user);
+
     }
 }

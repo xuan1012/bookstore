@@ -13,4 +13,8 @@ public class ModifyForm {
 
     private String phone;
 
+    private String password;
+
+    private String password1;
+
 }

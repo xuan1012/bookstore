@@ -107,16 +107,13 @@ public class UserController {
 
         modelMap.addAttribute("use", user);
 
-        log.info("用户{}", userId);
-
-        log.info("用户信息{}", user);
 
         return "moban/information";
     }
 
     //信息修改
     @RequestMapping("/modify")
-    public String modify(ModelMap modelMap, HttpSession session, ModifyForm modifyForm) {
+    public String modify(HttpSession session, ModifyForm modifyForm, ModelMap model) {
 
         Long userId = (Long) session.getAttribute("userId");
 
@@ -126,10 +123,24 @@ public class UserController {
 
         }
 
-        log.info("用户{}", userId);
+        return "redirect:/user/information";
+    }
 
-        log.info("三大{}", modifyForm);
+    //修改密码
+    @RequestMapping("/to")
+    public String toModify() {
 
+        return "store/modifyPassword";
+    }
+
+    @RequestMapping("/modifyPassword")
+    public String modifyPassword(HttpSession session, ModifyForm modifyForm, ModelMap model) {
+
+        Long userId = (Long) session.getAttribute("userId");
+
+        modifyForm.setUserId(userId);
+
+        iUserService.modifyPassword(modifyForm);
 
         return "redirect:/user/information";
     }
