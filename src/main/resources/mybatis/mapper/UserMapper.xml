@@ -10,4 +10,8 @@
     <update id="update" parameterType="com.bookstore.bookstore.dao.model.User">
         update myuser set nicname=#{nicname},phone=#{phone},email=#{email} where user_id=#{userId}
     </update>
+
+    <update id="modifyPassword" parameterType="com.bookstore.bookstore.dao.model.User">
+        update myuser set password=#{password},email=#{email} where user_id=#{userId}
+    </update>
 </mapper>

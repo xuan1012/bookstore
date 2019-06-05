@@ -25,4 +25,6 @@ public interface IUserService extends IService<User> {
 
     void modify(ModifyForm modifyForm);
 
+    void modifyPassword(ModifyForm modifyForm);
+
 }
