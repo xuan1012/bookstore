@@ -31,7 +31,7 @@
     <script src="/js/vendor/modernizr-2.8.3.min.js"></script>
 
 
-<!--    <link rel="stylesheet" type="text/css" href="/css/style.css">-->
+    <!--    <link rel="stylesheet" type="text/css" href="/css/style.css">-->
     <link rel="stylesheet" type="text/css" href="/css/css.css"/>
     <script type="text/javascript" src="/js/jquery-1.7.2.min.js"></script>
 </head>
@@ -111,6 +111,23 @@
                                 <input type="text" placeholder="搜索书名..." name="bookName" th:value="*{bookName}">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
+                            <form id="allSearch" method="get" action="/book/allSearch">
+                                <input type="hidden" name="bookName" th:value="${bookName}">
+                                <div th:unless="${#lists.isEmpty(bookForm)}">
+                                <input type="hidden" name="classname" th:value="${bookForm.classname}">
+                                <input type="hidden" name="minBookPrice" th:value="${bookForm.minBookPrice}">
+                                <input type="hidden" name="maxBookPrice" th:value="${bookForm.maxBookPrice}">
+                                <input type="hidden" name="page" value="1" >
+                                <input type="hidden" name="sales" th:value="${bookForm.sales}">
+                                </div>
+                                <div th:if="${#lists.isEmpty(bookForm)}">
+                                    <input type="hidden" name="classname">
+                                    <input type="hidden" name="minBookPrice">
+                                    <input type="hidden" name="maxBookPrice">
+                                    <input type="hidden" name="page" value="1">
+                                    <input type="hidden" name="sales">
+                                </div>
+                            </form>
                         </div>
                     </div>
                     <div class="header-bottom-right">
@@ -120,64 +137,64 @@
                                 <a href="#"><i class="fa fa-heart"></i> 收藏夹:<i>0</i> </a>
                             </div>
                         </div>
-<!--                        <div class="shop-cart-area">-->
-<!--                            <div class="top-cart-wrapper">-->
-<!--                                <div class="block-cart">-->
-<!--                                    <div class="top-cart-title">-->
-<!--                                        <a href="#">-->
-<!--                                            <span class="title-cart">我的购物车</span>-->
-<!--                                            <span class="count-item">2 items</span>-->
-<!--                                            <span class="price">$444.00</span>-->
-<!--                                        </a>-->
-<!--                                    </div>-->
-<!--                                    <div class="top-cart-content">-->
-<!--                                        <ol class="mini-products-list">-->
-<!--                                            &lt;!&ndash; single item &ndash;&gt;-->
-<!--                                            <li>-->
-<!--                                                <a class="product-image" href="product-details.html">-->
-<!--                                                    <img alt="" src="/img/cart/1.jpg">-->
-<!--                                                </a>-->
-<!--                                                <div class="product-details">-->
-<!--                                                    <p class="cartproduct-name">-->
-<!--                                                        <a href="product-details.html">Pellentesque habitant </a>-->
-<!--                                                    </p>-->
-<!--                                                    <strong class="qty">qty:1</strong>-->
-<!--                                                    <span class="sig-price">$200.00</span>-->
-<!--                                                </div>-->
-<!--                                                <div class="pro-action">-->
-<!--                                                    <a class="btn-remove" href="#">remove</a>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
-<!--                                            &lt;!&ndash; single item &ndash;&gt;-->
-<!--                                            &lt;!&ndash; single item &ndash;&gt;-->
-<!--                                            <li>-->
-<!--                                                <a class="product-image" href="product-details.html">-->
-<!--                                                    <img alt="" src="/img/cart/2.jpg">-->
-<!--                                                </a>-->
-<!--                                                <div class="product-details">-->
-<!--                                                    <p class="cartproduct-name">-->
-<!--                                                        <a href="product-details.html">New catolog</a>-->
-<!--                                                    </p>-->
-<!--                                                    <strong class="qty">qty:1</strong>-->
-<!--                                                    <span class="sig-price">$222.00</span>-->
-<!--                                                </div>-->
-<!--                                                <div class="pro-action">-->
-<!--                                                    <a class="btn-remove" href="#">remove</a>-->
-<!--                                                </div>-->
-<!--                                            </li>-->
-<!--                                            &lt;!&ndash; single item &ndash;&gt;-->
+                        <!--                        <div class="shop-cart-area">-->
+                        <!--                            <div class="top-cart-wrapper">-->
+                        <!--                                <div class="block-cart">-->
+                        <!--                                    <div class="top-cart-title">-->
+                        <!--                                        <a href="#">-->
+                        <!--                                            <span class="title-cart">我的购物车</span>-->
+                        <!--                                            <span class="count-item">2 items</span>-->
+                        <!--                                            <span class="price">$444.00</span>-->
+                        <!--                                        </a>-->
+                        <!--                                    </div>-->
+                        <!--                                    <div class="top-cart-content">-->
+                        <!--                                        <ol class="mini-products-list">-->
+                        <!--                                            &lt;!&ndash; single item &ndash;&gt;-->
+                        <!--                                            <li>-->
+                        <!--                                                <a class="product-image" href="product-details.html">-->
+                        <!--                                                    <img alt="" src="/img/cart/1.jpg">-->
+                        <!--                                                </a>-->
+                        <!--                                                <div class="product-details">-->
+                        <!--                                                    <p class="cartproduct-name">-->
+                        <!--                                                        <a href="product-details.html">Pellentesque habitant </a>-->
+                        <!--                                                    </p>-->
+                        <!--                                                    <strong class="qty">qty:1</strong>-->
+                        <!--                                                    <span class="sig-price">$200.00</span>-->
+                        <!--                                                </div>-->
+                        <!--                                                <div class="pro-action">-->
+                        <!--                                                    <a class="btn-remove" href="#">remove</a>-->
+                        <!--                                                </div>-->
+                        <!--                                            </li>-->
+                        <!--                                            &lt;!&ndash; single item &ndash;&gt;-->
+                        <!--                                            &lt;!&ndash; single item &ndash;&gt;-->
+                        <!--                                            <li>-->
+                        <!--                                                <a class="product-image" href="product-details.html">-->
+                        <!--                                                    <img alt="" src="/img/cart/2.jpg">-->
+                        <!--                                                </a>-->
+                        <!--                                                <div class="product-details">-->
+                        <!--                                                    <p class="cartproduct-name">-->
+                        <!--                                                        <a href="product-details.html">New catolog</a>-->
+                        <!--                                                    </p>-->
+                        <!--                                                    <strong class="qty">qty:1</strong>-->
+                        <!--                                                    <span class="sig-price">$222.00</span>-->
+                        <!--                                                </div>-->
+                        <!--                                                <div class="pro-action">-->
+                        <!--                                                    <a class="btn-remove" href="#">remove</a>-->
+                        <!--                                                </div>-->
+                        <!--                                            </li>-->
+                        <!--                                            &lt;!&ndash; single item &ndash;&gt;-->
 
-<!--                                        </ol>-->
-<!--                                        <div class="top-subtotal">-->
-<!--                                            Subtotal: <span class="sig-price">$444.00</span>-->
-<!--                                        </div>-->
-<!--                                        <div class="cart-actions">-->
-<!--                                            <button><span>Checkout</span></button>-->
-<!--                                        </div>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                        <!--                                        </ol>-->
+                        <!--                                        <div class="top-subtotal">-->
+                        <!--                                            Subtotal: <span class="sig-price">$444.00</span>-->
+                        <!--                                        </div>-->
+                        <!--                                        <div class="cart-actions">-->
+                        <!--                                            <button><span>Checkout</span></button>-->
+                        <!--                                        </div>-->
+                        <!--                                    </div>-->
+                        <!--                                </div>-->
+                        <!--                            </div>-->
+                        <!--                        </div>-->
                     </div>
                 </div>
             </div>
@@ -201,7 +218,7 @@
                                 <a href="#" class="hover-icon" th:text="${c.className}"
                                    style="font-size:17px;margin:10% auto;text-align: center;font-weight: bold;letter-spacing: 20px;">
                                     小&emsp;说
-                                    <img src="/img/menu-l/6.png" alt=""/>
+
                                 </a>
                                 <div class="vmegamenu">
 											<span th:each="tow : ${c.classificationInfos}">
@@ -554,10 +571,26 @@
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/carts.js"></script>
+<script>
+    $(function () {
+        $(".hover-icon").click(function () {
+            var className = $(this).text();
+            $("[name=classname]").val(className);
+            $("#allSearch").submit();
+        });
+        $(".vgema-title").click(function () {
+            var className = $(this).text();
+            $("[name=classname]").val(className);
+            $("#allSearch").submit();
+        });
+    })
+</script>
+
 
 <script layout:fragment="script">
 
 </script>
+
 
 </body>
 </html>

@@ -11,7 +11,7 @@ import java.util.List;
  * @create: 2019-05-29 11:45
  **/
 @Data
-public class AllBookMessage {
+public class AllBookMessage{
     private Long bookId;
 
     /**
@@ -100,5 +100,6 @@ public class AllBookMessage {
      * 0：正常。1：审核中。2：冻结
      */
     private String state;
+
 
 }
