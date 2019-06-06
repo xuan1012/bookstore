@@ -77,7 +77,7 @@ public class UserController {
             session.setAttribute("username", registerFrom.getUsername());
         }
         getClassification(modelMap);
-        return "store/index";
+        return "redirect:/";
     }
 
     @RequestMapping("/logout")
