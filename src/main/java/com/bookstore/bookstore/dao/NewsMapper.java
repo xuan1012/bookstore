@@ -1,9 +1,9 @@
 package com.bookstore.bookstore.dao;
 
-import com.bookstore.bookstore.dao.model.News;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-
-import java.util.List;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.bookstore.bookstore.dao.model.News;
 
 /**
  * <p>
@@ -14,5 +14,5 @@ import java.util.List;
  * @since 2019-05-29
  */
 public interface NewsMapper extends BaseMapper<News> {
-    List<News> findAll();
+    IPage<News> findAll(Page page);
 }

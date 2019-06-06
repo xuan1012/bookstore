@@ -22,7 +22,9 @@ public class BookInfo {
     /**
      * 单价
      */
-    private BigDecimal bookPrice;
+    private BigDecimal minBookPrice;
+
+    private BigDecimal maxBookPrice;
 
     /**
      * 作者
@@ -42,20 +44,18 @@ public class BookInfo {
     /**
      * 销量
      */
-    private Long sales;
+    private String sales;
 
     /**
      * 出版日期
      */
     private LocalDate publicationDate;
 
-    /**
-     * 余量
-     */
-    private Integer count;
 
-    /**
-     * 评分
-     */
-    private BigDecimal score;
+
+    private String classname;
+
+    private Long page;
+
+    private String desc;
 }

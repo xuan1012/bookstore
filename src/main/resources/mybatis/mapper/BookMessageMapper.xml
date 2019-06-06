@@ -7,17 +7,71 @@
         <where>
             t1.store_id=t2.store_id
             <if test="bookName!=null and bookName!=''">
-                and t1.book_name LIKE CONCAT('%',#{bookName},'%')
+                and t1.book_name LIKE CONCAT('%',#{bookName},'%') or t1.author LIKE CONCAT('%',#{bookName},'%')
             </if>
         </where>
     </select>
     <select id="findById" resultType="com.bookstore.bookstore.dao.model.AllBookMessage">
-       select * from book t1,store t2
+        select * from book t1,store t2
         <where>
             t1.store_id=t2.store_id
             <if test="bookId!=null and bookId!=''">
                 and t1.book_id=#{bookId}
             </if>
         </where>
+
+    </select>
+    <select id="findByAllSearch" resultType="com.bookstore.bookstore.dao.model.AllBookMessage"
+            parameterType="com.bookstore.bookstore.service.info.BookInfo">
+        select * from book t1,store t2
+        <if test="bookInfo.classname!=null and bookInfo.classname!=''">
+            ,bookrelation t3,classification t4
+        </if>
+        <where>
+            t1.store_id=t2.store_id
+            <if test="bookInfo.classname!=null and bookInfo.classname!=''">
+                and t1.book_id=t3.book_id and t3.class_id=t4.class_id
+            </if>
+            <if test="bookInfo.bookName!=null and bookInfo.bookName!=''">
+                and t1.book_name LIKE CONCAT('%',#{bookInfo.bookName},'%') or t1.author LIKE
+                CONCAT('%',#{bookInfo.bookName},'%')
+            </if>
+            <if test="bookInfo.minBookPrice!=null and bookInfo.minBookPrice!=''">
+                and t1.book_price &gt;= #{bookInfo.minBookPrice}
+            </if>
+            <if test="bookInfo.maxBookPrice!=null and bookInfo.maxBookPrice!=''">
+                and t1.book_price &lt;= #{bookInfo.maxBookPrice}
+            </if>
+            <if test="bookInfo.classname!=null and bookInfo.classname!=''">
+                and t4.classname=#{bookInfo.classname}
+            </if>
+        </where>
+        <if test="bookInfo.desc!=null and bookInfo.desc!=''">
+            order by t1.book_price
+            <if test="bookInfo.desc=='down'">
+                desc
+            </if>
+        </if>
+        <if test="bookInfo.sales!=null and bookInfo.sales!=''">
+            order by t1.sales
+            <if test="bookInfo.sales=='down'">
+                desc
+            </if>
+        </if>
+    </select>
+    <select id="findBySales" resultType="com.bookstore.bookstore.dao.model.AllBookMessage">
+        select * from book t1,store t2
+        <where>
+            t1.store_id=t2.store_id
+
+        </where>
+        order by t1.sales desc
+    </select>
+    <select id="findNewBook" resultType="com.bookstore.bookstore.dao.model.AllBookMessage">
+        select * from book t1,store t2
+        <where>
+            t1.store_id=t2.store_id
+        </where>
+        order by t1.publication_date desc
     </select>
 </mapper>

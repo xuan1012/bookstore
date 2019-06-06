@@ -13,12 +13,10 @@
 
 
 -- 导出 bookstore 的数据库结构
-DROP DATABASE IF EXISTS `bookstore`;
 CREATE DATABASE IF NOT EXISTS `bookstore` /*!40100 DEFAULT CHARACTER SET utf8 */;
 USE `bookstore`;
 
 -- 导出  表 bookstore.address 结构
-DROP TABLE IF EXISTS `address`;
 CREATE TABLE IF NOT EXISTS `address` (
   `address_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '地址Id',
   `user_id` bigint(255) NOT NULL COMMENT '用户Id',
@@ -27,16 +25,21 @@ CREATE TABLE IF NOT EXISTS `address` (
   `postcode` int(11) NOT NULL COMMENT '邮编',
   `default_address` char(1) NOT NULL DEFAULT 'F' COMMENT '是否为默认地址',
   `phone` int(11) NOT NULL COMMENT '手机号',
+  `people` varchar(50) NOT NULL COMMENT '收件人',
   PRIMARY KEY (`address_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='用户地址表';
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8 COMMENT='用户地址表';
 
--- 正在导出表  bookstore.address 的数据：~0 rows (大约)
+-- 正在导出表  bookstore.address 的数据：~4 rows (大约)
 DELETE FROM `address`;
 /*!40000 ALTER TABLE `address` DISABLE KEYS */;
+INSERT INTO `address` (`address_id`, `user_id`, `content`, `area`, `postcode`, `default_address`, `phone`, `people`) VALUES
+	(1, 1, '重庆市涪陵区黎明北路', '重庆', 4008000, 'T', 188, '胡'),
+	(2, 1, '重庆沙坪坝', '重庆', 4008000, 'T', 1111, '轩'),
+	(3, 2, 's', '重庆', 2, 'T', 8848, '8848'),
+	(4, 10, '湖南省长沙市', '涵江区', 8848, 'F', 8848, '8848');
 /*!40000 ALTER TABLE `address` ENABLE KEYS */;
 
 -- 导出  表 bookstore.administrator 结构
-DROP TABLE IF EXISTS `administrator`;
 CREATE TABLE IF NOT EXISTS `administrator` (
   `id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '管理员Id',
   `login_name` varchar(50) NOT NULL COMMENT '登陆账号',
@@ -54,7 +57,6 @@ DELETE FROM `administrator`;
 /*!40000 ALTER TABLE `administrator` ENABLE KEYS */;
 
 -- 导出  表 bookstore.book 结构
-DROP TABLE IF EXISTS `book`;
 CREATE TABLE IF NOT EXISTS `book` (
   `book_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '书籍Id',
   `book_name` varchar(100) NOT NULL COMMENT '书名',
@@ -66,23 +68,27 @@ CREATE TABLE IF NOT EXISTS `book` (
   `publication_date` date NOT NULL COMMENT '出版日期',
   `count` int(11) NOT NULL COMMENT '余量',
   `score` decimal(2,1) NOT NULL COMMENT '评分',
+  `classification` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`book_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='书籍管理表';
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='书籍管理表';
 
--- 正在导出表  bookstore.book 的数据：~6 rows (大约)
+-- 正在导出表  bookstore.book 的数据：~10 rows (大约)
 DELETE FROM `book`;
 /*!40000 ALTER TABLE `book` DISABLE KEYS */;
-INSERT INTO `book` (`book_id`, `book_name`, `book_price`, `author`, `publishing`, `store_id`, `sales`, `publication_date`, `count`, `score`) VALUES
-	(1, '白夜行', 68.40, '东野圭吾', '天南地北出版社', 0, 0, '2019-05-29', 50, 5.0),
-	(2, '白夜行', 80.00, '东野圭吾', '地下出版社', 0, 0, '2012-05-29', 50, 5.0),
-	(3, '悟空传', 43.00, '今何在', '光明日报出版社', 0, 0, '2001-04-01', 50, 5.0),
-	(4, '冰与火之歌', 200.00, '马丁', '国外', 0, 0, '2012-05-29', 50, 5.0),
-	(5, 'JAVA:从入门到放弃', 999.00, 'mmm', '入土出版社', 0, 999, '2019-05-31', 999, 5.0),
-	(6, '十万个为什么', 100.00, '麦子哥', '麦子出版社', 0, 999, '2019-05-31', 999, 5.0);
+INSERT INTO `book` (`book_id`, `book_name`, `book_price`, `author`, `publishing`, `store_id`, `sales`, `publication_date`, `count`, `score`, `classification`) VALUES
+	(1, '白夜行', 68.40, '东野圭吾', '天南地北出版社', 0, 0, '2019-05-29', 50, 5.0, ' 小说'),
+	(2, '白夜行', 80.00, '东野圭吾', '地下出版社', 0, 0, '2012-05-29', 50, 5.0, '小说'),
+	(3, '悟空传', 43.00, '今何在', '光明日报出版社', 0, 0, '2001-04-01', 50, 5.0, '小说'),
+	(4, '冰与火之歌', 200.00, '马丁', '国外', 0, 0, '2012-05-29', 50, 5.0, '小说'),
+	(5, 'JAVA:从入门到放弃', 999.00, 'mmm', '入土出版社', 0, 555, '2019-05-31', 999, 5.0, '小说'),
+	(6, '十万个为什么', 100.00, '麦子哥', '麦子出版社', 0, 999, '2019-05-31', 999, 5.0, '益智'),
+	(7, '老人与海', 66.00, '海明威', '新华出版社', 0, 102, '2019-06-05', 666, 5.0, '心灵鸡汤'),
+	(8, 'effective', 99.00, 'joshua Bioch', '新华出版社', 0, 100, '2019-06-05', 666, 5.0, 'java'),
+	(9, '算法', 67.00, '不知道', '新华出版社', 0, 100, '2019-06-05', 666, 5.0, 'java'),
+	(10, '简爱', 32.00, '不知道', '新华出版社', 0, 100, '2019-06-05', 666, 5.0, '小说');
 /*!40000 ALTER TABLE `book` ENABLE KEYS */;
 
 -- 导出  表 bookstore.bookmark 结构
-DROP TABLE IF EXISTS `bookmark`;
 CREATE TABLE IF NOT EXISTS `bookmark` (
   `mark_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '收藏Id',
   `user_id` bigint(255) NOT NULL COMMENT '用户Id',
@@ -96,8 +102,32 @@ DELETE FROM `bookmark`;
 /*!40000 ALTER TABLE `bookmark` DISABLE KEYS */;
 /*!40000 ALTER TABLE `bookmark` ENABLE KEYS */;
 
+-- 导出  表 bookstore.bookrelation 结构
+CREATE TABLE IF NOT EXISTS `bookrelation` (
+  `relation_id` bigint(111) NOT NULL AUTO_INCREMENT,
+  `book_id` bigint(111) NOT NULL,
+  `class_id` bigint(111) NOT NULL,
+  PRIMARY KEY (`relation_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  bookstore.bookrelation 的数据：~11 rows (大约)
+DELETE FROM `bookrelation`;
+/*!40000 ALTER TABLE `bookrelation` DISABLE KEYS */;
+INSERT INTO `bookrelation` (`relation_id`, `book_id`, `class_id`) VALUES
+	(1, 1, 1),
+	(2, 1, 7),
+	(3, 2, 1),
+	(4, 2, 7),
+	(5, 3, 1),
+	(6, 4, 1),
+	(7, 5, 2),
+	(8, 6, 2),
+	(9, 8, 2),
+	(10, 9, 2),
+	(11, 10, 1);
+/*!40000 ALTER TABLE `bookrelation` ENABLE KEYS */;
+
 -- 导出  表 bookstore.categorie 结构
-DROP TABLE IF EXISTS `categorie`;
 CREATE TABLE IF NOT EXISTS `categorie` (
   `categories_id` bigint(111) NOT NULL AUTO_INCREMENT COMMENT 'id',
   `one_categories` varchar(50) NOT NULL COMMENT '一级分类名',
@@ -116,7 +146,6 @@ INSERT INTO `categorie` (`categories_id`, `one_categories`, `two_categories`, `b
 /*!40000 ALTER TABLE `categorie` ENABLE KEYS */;
 
 -- 导出  表 bookstore.category 结构
-DROP TABLE IF EXISTS `category`;
 CREATE TABLE IF NOT EXISTS `category` (
   `noe_id` int(11) NOT NULL COMMENT '一级',
   `category_name` varchar(600) NOT NULL COMMENT '名称',
@@ -133,28 +162,28 @@ INSERT INTO `category` (`noe_id`, `category_name`, `two_id`) VALUES
 /*!40000 ALTER TABLE `category` ENABLE KEYS */;
 
 -- 导出  表 bookstore.classification 结构
-DROP TABLE IF EXISTS `classification`;
 CREATE TABLE IF NOT EXISTS `classification` (
-  `classid` int(11) NOT NULL COMMENT '类的id',
+  `class_id` bigint(111) NOT NULL COMMENT '类的id',
   `classname` varchar(500) DEFAULT NULL COMMENT '名称',
-  `two_stage` int(11) DEFAULT NULL COMMENT '二级id',
-  PRIMARY KEY (`classid`)
+  `two_stage` bigint(111) DEFAULT NULL COMMENT '二级id',
+  PRIMARY KEY (`class_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='分类-h';
 
--- 正在导出表  bookstore.classification 的数据：~0 rows (大约)
+-- 正在导出表  bookstore.classification 的数据：~7 rows (大约)
 DELETE FROM `classification`;
 /*!40000 ALTER TABLE `classification` DISABLE KEYS */;
-INSERT INTO `classification` (`classid`, `classname`, `two_stage`) VALUES
+INSERT INTO `classification` (`class_id`, `classname`, `two_stage`) VALUES
 	(1, '小说', -1),
 	(2, '学习', -1),
 	(3, '恐怖', 1),
 	(4, 'c++', 2),
 	(5, 'ASP.net', 2),
-	(6, 'c#', 2);
+	(6, 'c#', 2),
+	(7, '刑侦', 1),
+	(8, ' 本子', -1);
 /*!40000 ALTER TABLE `classification` ENABLE KEYS */;
 
 -- 导出  表 bookstore.comment 结构
-DROP TABLE IF EXISTS `comment`;
 CREATE TABLE IF NOT EXISTS `comment` (
   `comment_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '评论Id',
   `user_id` bigint(255) NOT NULL COMMENT '用户Id',
@@ -164,15 +193,16 @@ CREATE TABLE IF NOT EXISTS `comment` (
   `comment_date` timestamp NOT NULL COMMENT '评论日期',
   `level` int(1) NOT NULL DEFAULT '0' COMMENT '评论级别（0：好评，1：中评，2：差评，3：卖家回复）',
   PRIMARY KEY (`comment_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='评论表';
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='评论表';
 
 -- 正在导出表  bookstore.comment 的数据：~0 rows (大约)
 DELETE FROM `comment`;
 /*!40000 ALTER TABLE `comment` DISABLE KEYS */;
+INSERT INTO `comment` (`comment_id`, `user_id`, `book_id`, `order_id`, `content`, `comment_date`, `level`) VALUES
+	(1, 2, 3, 4, '你好呀', '2019-06-06 15:01:23', 0);
 /*!40000 ALTER TABLE `comment` ENABLE KEYS */;
 
 -- 导出  表 bookstore.myuser 结构
-DROP TABLE IF EXISTS `myuser`;
 CREATE TABLE IF NOT EXISTS `myuser` (
   `user_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '用户Id',
   `username` varchar(255) NOT NULL COMMENT '用户名',
@@ -183,22 +213,23 @@ CREATE TABLE IF NOT EXISTS `myuser` (
   `identity_card` varchar(18) DEFAULT NULL COMMENT '身份证号',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像',
   `state` char(1) NOT NULL DEFAULT '0' COMMENT '0：正常。1：审核中。2：冻结',
+  `nicname` varchar(50) DEFAULT 'username',
   PRIMARY KEY (`user_id`),
   UNIQUE KEY `username` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8 COMMENT='用户表';
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8 COMMENT='用户表';
 
--- 正在导出表  bookstore.myuser 的数据：~3 rows (大约)
+-- 正在导出表  bookstore.myuser 的数据：~5 rows (大约)
 DELETE FROM `myuser`;
 /*!40000 ALTER TABLE `myuser` DISABLE KEYS */;
-INSERT INTO `myuser` (`user_id`, `username`, `password`, `phone`, `sex`, `email`, `identity_card`, `avatar`, `state`) VALUES
-	(1, 'xuan', 'xuan', '111', 'M', '50', '500', '', '0'),
-	(2, '123456', '123456', '18185492609', 'M', NULL, NULL, NULL, '0'),
-	(9, 'hmx', '123456', '18883164312', 'M', NULL, NULL, NULL, '0'),
-	(10, '李四', '123456', '55', 'M', NULL, NULL, NULL, '0');
+INSERT INTO `myuser` (`user_id`, `username`, `password`, `phone`, `sex`, `email`, `identity_card`, `avatar`, `state`, `nicname`) VALUES
+	(1, 'xuan', '1234', '111', 'M', '50', '500', '', '0', 'aaa'),
+	(2, '123456', '1234', '18185492609', 'M', NULL, NULL, NULL, '0', 'aaa'),
+	(9, 'hmx', '1234', '18883164312', 'M', NULL, NULL, NULL, '0', 'aaa'),
+	(10, 'hzy', '123', 'a', 'M', '', NULL, NULL, '0', '456***'),
+	(11, '123456a', '1234', '', 'M', NULL, NULL, NULL, '0', 'aaa');
 /*!40000 ALTER TABLE `myuser` ENABLE KEYS */;
 
 -- 导出  表 bookstore.news 结构
-DROP TABLE IF EXISTS `news`;
 CREATE TABLE IF NOT EXISTS `news` (
   `news_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '新闻Id',
   `news_content` varchar(255) NOT NULL COMMENT '新闻内容',
@@ -218,35 +249,59 @@ INSERT INTO `news` (`news_id`, `news_content`, `news_date`, `news_picture`, `boo
 /*!40000 ALTER TABLE `news` ENABLE KEYS */;
 
 -- 导出  表 bookstore.orderbuy 结构
-DROP TABLE IF EXISTS `orderbuy`;
 CREATE TABLE IF NOT EXISTS `orderbuy` (
   `order_id` bigint(255) NOT NULL AUTO_INCREMENT COMMENT '订单Id',
   `order_date` timestamp NOT NULL COMMENT '下单日期',
   `order_price` decimal(20,2) NOT NULL COMMENT '订单价格',
-  `order_content` bigint(111) NOT NULL COMMENT '订单商品',
+  `book_id` bigint(111) NOT NULL COMMENT '订单商品',
   `order_count` int(100) NOT NULL COMMENT '订单数量',
   `user_id` bigint(255) NOT NULL COMMENT '下单用户Id',
   `user_address` varchar(255) NOT NULL COMMENT '用户地址',
   `state` varchar(50) NOT NULL COMMENT '订单状态',
   `store_id` bigint(111) NOT NULL COMMENT '店铺Id',
+  `level` bigint(111) NOT NULL,
   PRIMARY KEY (`order_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8 COMMENT='订单表';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='订单表';
 
--- 正在导出表  bookstore.orderbuy 的数据：~0 rows (大约)
+-- 正在导出表  bookstore.orderbuy 的数据：~2 rows (大约)
 DELETE FROM `orderbuy`;
 /*!40000 ALTER TABLE `orderbuy` DISABLE KEYS */;
+INSERT INTO `orderbuy` (`order_id`, `order_date`, `order_price`, `book_id`, `order_count`, `user_id`, `user_address`, `state`, `store_id`, `level`) VALUES
+	(12, '2019-06-06 09:35:06', 999.00, 5, 1, 1, '1', '待支付', 0, 11),
+	(13, '2019-06-06 09:56:01', 86.00, 3, 2, 1, '1', '已支付', 0, 12),
+	(14, '2019-06-06 11:46:49', 66.00, 7, 1, 1, '1', '待支付', 0, 13),
+	(15, '2019-06-06 11:48:24', 66.00, 7, 1, 1, '1', '待支付', 0, 14);
 /*!40000 ALTER TABLE `orderbuy` ENABLE KEYS */;
 
+-- 导出  表 bookstore.ordergroup 结构
+CREATE TABLE IF NOT EXISTS `ordergroup` (
+  `group_id` bigint(111) NOT NULL AUTO_INCREMENT,
+  `group_content` varchar(111) NOT NULL,
+  `money` decimal(20,2) NOT NULL,
+  `creat_date` timestamp NOT NULL,
+  `order_number` bigint(255) NOT NULL,
+  PRIMARY KEY (`group_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8;
+
+-- 正在导出表  bookstore.ordergroup 的数据：~2 rows (大约)
+DELETE FROM `ordergroup`;
+/*!40000 ALTER TABLE `ordergroup` DISABLE KEYS */;
+INSERT INTO `ordergroup` (`group_id`, `group_content`, `money`, `creat_date`, `order_number`) VALUES
+	(10, 'JAVA:从入门到放弃', 999.00, '2019-06-06 09:35:06', 0),
+	(11, '悟空传', 86.00, '2019-06-06 09:56:01', 0),
+	(12, '老人与海数量:1;', 66.00, '2019-06-06 11:46:49', 0),
+	(13, '老人与海数量:1;', 66.00, '2019-06-06 11:48:24', 0);
+/*!40000 ALTER TABLE `ordergroup` ENABLE KEYS */;
+
 -- 导出  表 bookstore.picture 结构
-DROP TABLE IF EXISTS `picture`;
 CREATE TABLE IF NOT EXISTS `picture` (
   `picture_id` int(111) NOT NULL AUTO_INCREMENT COMMENT 'Id',
   `picture_content` varchar(1111) NOT NULL COMMENT '图片内容（地址）',
   `book_id` varchar(50) NOT NULL COMMENT '书的Id',
   PRIMARY KEY (`picture_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COMMENT='图片表';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='图片表';
 
--- 正在导出表  bookstore.picture 的数据：~5 rows (大约)
+-- 正在导出表  bookstore.picture 的数据：~7 rows (大约)
 DELETE FROM `picture`;
 /*!40000 ALTER TABLE `picture` DISABLE KEYS */;
 INSERT INTO `picture` (`picture_id`, `picture_content`, `book_id`) VALUES
@@ -254,11 +309,12 @@ INSERT INTO `picture` (`picture_id`, `picture_content`, `book_id`) VALUES
 	(2, 'https://i.loli.net/2019/05/29/5cedfdf000fde62891.jpg', '1'),
 	(3, 'https://i.loli.net/2019/05/29/5cedfdf000fde62891.jpg', '2'),
 	(4, 'https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg', '0'),
-	(5, 'https://i.loli.net/2019/05/31/5cf0cdbdcc0f923810.jpg', '5');
+	(5, 'https://i.loli.net/2019/05/31/5cf0cdbdcc0f923810.jpg', '5'),
+	(6, 'https://i.loli.net/2019/05/31/5cf0df04cb8ee28477.jpg', '4'),
+	(7, 'https://i.loli.net/2019/05/31/5cf0def2c821e56383.jpg', '3');
 /*!40000 ALTER TABLE `picture` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_blob_triggers 结构
-DROP TABLE IF EXISTS `qrtz_blob_triggers`;
 CREATE TABLE IF NOT EXISTS `qrtz_blob_triggers` (
   `sched_name` varchar(120) NOT NULL,
   `trigger_name` varchar(200) NOT NULL,
@@ -274,7 +330,6 @@ DELETE FROM `qrtz_blob_triggers`;
 /*!40000 ALTER TABLE `qrtz_blob_triggers` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_calendars 结构
-DROP TABLE IF EXISTS `qrtz_calendars`;
 CREATE TABLE IF NOT EXISTS `qrtz_calendars` (
   `sched_name` varchar(120) NOT NULL,
   `calendar_name` varchar(200) NOT NULL,
@@ -288,7 +343,6 @@ DELETE FROM `qrtz_calendars`;
 /*!40000 ALTER TABLE `qrtz_calendars` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_cron_triggers 结构
-DROP TABLE IF EXISTS `qrtz_cron_triggers`;
 CREATE TABLE IF NOT EXISTS `qrtz_cron_triggers` (
   `sched_name` varchar(120) NOT NULL,
   `trigger_name` varchar(200) NOT NULL,
@@ -308,7 +362,6 @@ INSERT INTO `qrtz_cron_triggers` (`sched_name`, `trigger_name`, `trigger_group`,
 /*!40000 ALTER TABLE `qrtz_cron_triggers` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_fired_triggers 结构
-DROP TABLE IF EXISTS `qrtz_fired_triggers`;
 CREATE TABLE IF NOT EXISTS `qrtz_fired_triggers` (
   `sched_name` varchar(120) NOT NULL,
   `entry_id` varchar(95) NOT NULL,
@@ -332,7 +385,6 @@ DELETE FROM `qrtz_fired_triggers`;
 /*!40000 ALTER TABLE `qrtz_fired_triggers` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_job_details 结构
-DROP TABLE IF EXISTS `qrtz_job_details`;
 CREATE TABLE IF NOT EXISTS `qrtz_job_details` (
   `sched_name` varchar(120) NOT NULL,
   `job_name` varchar(200) NOT NULL,
@@ -356,7 +408,6 @@ INSERT INTO `qrtz_job_details` (`sched_name`, `job_name`, `job_group`, `descript
 /*!40000 ALTER TABLE `qrtz_job_details` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_locks 结构
-DROP TABLE IF EXISTS `qrtz_locks`;
 CREATE TABLE IF NOT EXISTS `qrtz_locks` (
   `sched_name` varchar(120) NOT NULL,
   `lock_name` varchar(40) NOT NULL,
@@ -372,7 +423,6 @@ INSERT INTO `qrtz_locks` (`sched_name`, `lock_name`) VALUES
 /*!40000 ALTER TABLE `qrtz_locks` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_paused_trigger_grps 结构
-DROP TABLE IF EXISTS `qrtz_paused_trigger_grps`;
 CREATE TABLE IF NOT EXISTS `qrtz_paused_trigger_grps` (
   `sched_name` varchar(120) NOT NULL,
   `trigger_group` varchar(200) NOT NULL,
@@ -385,7 +435,6 @@ DELETE FROM `qrtz_paused_trigger_grps`;
 /*!40000 ALTER TABLE `qrtz_paused_trigger_grps` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_scheduler_state 结构
-DROP TABLE IF EXISTS `qrtz_scheduler_state`;
 CREATE TABLE IF NOT EXISTS `qrtz_scheduler_state` (
   `sched_name` varchar(120) NOT NULL,
   `instance_name` varchar(200) NOT NULL,
@@ -402,7 +451,6 @@ INSERT INTO `qrtz_scheduler_state` (`sched_name`, `instance_name`, `last_checkin
 /*!40000 ALTER TABLE `qrtz_scheduler_state` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_simple_triggers 结构
-DROP TABLE IF EXISTS `qrtz_simple_triggers`;
 CREATE TABLE IF NOT EXISTS `qrtz_simple_triggers` (
   `sched_name` varchar(120) NOT NULL,
   `trigger_name` varchar(200) NOT NULL,
@@ -420,7 +468,6 @@ DELETE FROM `qrtz_simple_triggers`;
 /*!40000 ALTER TABLE `qrtz_simple_triggers` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_simprop_triggers 结构
-DROP TABLE IF EXISTS `qrtz_simprop_triggers`;
 CREATE TABLE IF NOT EXISTS `qrtz_simprop_triggers` (
   `sched_name` varchar(120) NOT NULL,
   `trigger_name` varchar(200) NOT NULL,
@@ -446,7 +493,6 @@ DELETE FROM `qrtz_simprop_triggers`;
 /*!40000 ALTER TABLE `qrtz_simprop_triggers` ENABLE KEYS */;
 
 -- 导出  表 bookstore.qrtz_triggers 结构
-DROP TABLE IF EXISTS `qrtz_triggers`;
 CREATE TABLE IF NOT EXISTS `qrtz_triggers` (
   `sched_name` varchar(120) NOT NULL,
   `trigger_name` varchar(200) NOT NULL,
@@ -478,31 +524,25 @@ INSERT INTO `qrtz_triggers` (`sched_name`, `trigger_name`, `trigger_group`, `job
 /*!40000 ALTER TABLE `qrtz_triggers` ENABLE KEYS */;
 
 -- 导出  表 bookstore.shoppingcart 结构
-DROP TABLE IF EXISTS `shoppingcart`;
 CREATE TABLE IF NOT EXISTS `shoppingcart` (
   `cart_id` bigint(111) NOT NULL AUTO_INCREMENT COMMENT '购物车id',
   `user_id` bigint(111) NOT NULL COMMENT '用户id',
   `book_id` bigint(111) NOT NULL COMMENT '书id',
   `count` bigint(111) NOT NULL COMMENT '数量',
   PRIMARY KEY (`cart_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='购物车表';
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8 COMMENT='购物车表';
 
--- 正在导出表  bookstore.shoppingcart 的数据：~6 rows (大约)
+-- 正在导出表  bookstore.shoppingcart 的数据：~4 rows (大约)
 DELETE FROM `shoppingcart`;
 /*!40000 ALTER TABLE `shoppingcart` DISABLE KEYS */;
 INSERT INTO `shoppingcart` (`cart_id`, `user_id`, `book_id`, `count`) VALUES
-	(1, 1, 1, 5),
-	(2, 1, 3, 1),
-	(3, 1, 4, 4),
-	(5, 1, 2, 1),
 	(7, 9, 5, 1),
-	(8, 1, 5, 1),
-	(11, 10, 1, 6),
-	(12, 10, 2, 1);
+	(14, 10, 1, 1),
+	(18, 1, 5, 1),
+	(19, 1, 4, 1);
 /*!40000 ALTER TABLE `shoppingcart` ENABLE KEYS */;
 
 -- 导出  表 bookstore.store 结构
-DROP TABLE IF EXISTS `store`;
 CREATE TABLE IF NOT EXISTS `store` (
   `store_id` int(100) NOT NULL AUTO_INCREMENT COMMENT '店铺Id',
   `store_name` varchar(255) NOT NULL COMMENT '店铺名',
@@ -523,7 +563,6 @@ INSERT INTO `store` (`store_id`, `store_name`, `store_address`, `store_level`, `
 /*!40000 ALTER TABLE `store` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_config 结构
-DROP TABLE IF EXISTS `sys_config`;
 CREATE TABLE IF NOT EXISTS `sys_config` (
   `config_id` int(5) NOT NULL AUTO_INCREMENT COMMENT '参数主键',
   `config_name` varchar(100) DEFAULT '' COMMENT '参数名称',
@@ -547,7 +586,6 @@ INSERT INTO `sys_config` (`config_id`, `config_name`, `config_key`, `config_valu
 /*!40000 ALTER TABLE `sys_config` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_dept 结构
-DROP TABLE IF EXISTS `sys_dept`;
 CREATE TABLE IF NOT EXISTS `sys_dept` (
   `dept_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '部门id',
   `parent_id` bigint(20) DEFAULT '0' COMMENT '父部门id',
@@ -583,7 +621,6 @@ INSERT INTO `sys_dept` (`dept_id`, `parent_id`, `ancestors`, `dept_name`, `order
 /*!40000 ALTER TABLE `sys_dept` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_dict_data 结构
-DROP TABLE IF EXISTS `sys_dict_data`;
 CREATE TABLE IF NOT EXISTS `sys_dict_data` (
   `dict_code` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典编码',
   `dict_sort` int(4) DEFAULT '0' COMMENT '字典排序',
@@ -635,7 +672,6 @@ INSERT INTO `sys_dict_data` (`dict_code`, `dict_sort`, `dict_label`, `dict_value
 /*!40000 ALTER TABLE `sys_dict_data` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_dict_type 结构
-DROP TABLE IF EXISTS `sys_dict_type`;
 CREATE TABLE IF NOT EXISTS `sys_dict_type` (
   `dict_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '字典主键',
   `dict_name` varchar(100) DEFAULT '' COMMENT '字典名称',
@@ -666,7 +702,6 @@ INSERT INTO `sys_dict_type` (`dict_id`, `dict_name`, `dict_type`, `status`, `cre
 /*!40000 ALTER TABLE `sys_dict_type` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_job 结构
-DROP TABLE IF EXISTS `sys_job`;
 CREATE TABLE IF NOT EXISTS `sys_job` (
   `job_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务ID',
   `job_name` varchar(64) NOT NULL DEFAULT '' COMMENT '任务名称',
@@ -694,7 +729,6 @@ INSERT INTO `sys_job` (`job_id`, `job_name`, `job_group`, `method_name`, `method
 /*!40000 ALTER TABLE `sys_job` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_job_log 结构
-DROP TABLE IF EXISTS `sys_job_log`;
 CREATE TABLE IF NOT EXISTS `sys_job_log` (
   `job_log_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '任务日志ID',
   `job_name` varchar(64) NOT NULL COMMENT '任务名称',
@@ -714,7 +748,6 @@ DELETE FROM `sys_job_log`;
 /*!40000 ALTER TABLE `sys_job_log` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_logininfor 结构
-DROP TABLE IF EXISTS `sys_logininfor`;
 CREATE TABLE IF NOT EXISTS `sys_logininfor` (
   `info_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '访问ID',
   `login_name` varchar(50) DEFAULT '' COMMENT '登录账号',
@@ -738,7 +771,6 @@ INSERT INTO `sys_logininfor` (`info_id`, `login_name`, `ipaddr`, `login_location
 /*!40000 ALTER TABLE `sys_logininfor` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_menu 结构
-DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE IF NOT EXISTS `sys_menu` (
   `menu_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '菜单ID',
   `menu_name` varchar(50) NOT NULL COMMENT '菜单名称',
@@ -848,7 +880,7 @@ INSERT INTO `sys_menu` (`menu_id`, `menu_name`, `parent_id`, `order_num`, `url`,
 	(2005, '类别管理', 2000, 1, '/system/categorie', 'C', '0', 'system:categorie:view', '#', 'admin', '2019-05-30 15:13:47', '', NULL, ''),
 	(2006, '评论管理', 2000, 1, '/system/comment', 'C', '0', 'system:comment:view', '#', 'admin', '2019-05-30 15:14:08', '', NULL, ''),
 	(2007, '新闻管理', 2000, 1, '/system/news', 'C', '0', 'system:news:view', '#', 'admin', '2019-05-30 15:14:48', '', NULL, ''),
-	(2008, '订单管理', 2000, 1, '/system/orderbuy', 'C', '0', 'system:orderbuy:view', '#', 'admin', '2019-05-30 15:15:12', '', NULL, ''),
+	(2008, '订单管理', 2000, 1, '/system/order', 'C', '0', 'system:order:view', '#', 'admin', '2019-05-30 15:15:12', '', NULL, ''),
 	(2009, '图片管理', 2000, 1, '/system/picture', 'C', '0', 'system:picture:view', '#', 'admin', '2019-05-30 15:15:37', '', NULL, ''),
 	(2010, '购物车管理', 2000, 1, '/system/shoppingcart', 'C', '0', 'system:shoppingcart:view', '#', 'admin', '2019-05-30 15:15:59', '', NULL, ''),
 	(2011, '商铺管理', 2000, 1, '/system/store', 'C', '0', 'system:store:view', '#', 'admin', '2019-05-30 15:16:17', '', NULL, ''),
@@ -857,7 +889,6 @@ INSERT INTO `sys_menu` (`menu_id`, `menu_name`, `parent_id`, `order_num`, `url`,
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_notice 结构
-DROP TABLE IF EXISTS `sys_notice`;
 CREATE TABLE IF NOT EXISTS `sys_notice` (
   `notice_id` int(4) NOT NULL AUTO_INCREMENT COMMENT '公告ID',
   `notice_title` varchar(50) NOT NULL COMMENT '公告标题',
@@ -881,7 +912,6 @@ INSERT INTO `sys_notice` (`notice_id`, `notice_title`, `notice_type`, `notice_co
 /*!40000 ALTER TABLE `sys_notice` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_oper_log 结构
-DROP TABLE IF EXISTS `sys_oper_log`;
 CREATE TABLE IF NOT EXISTS `sys_oper_log` (
   `oper_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '日志主键',
   `title` varchar(50) DEFAULT '' COMMENT '模块标题',
@@ -904,10 +934,10 @@ CREATE TABLE IF NOT EXISTS `sys_oper_log` (
 DELETE FROM `sys_oper_log`;
 /*!40000 ALTER TABLE `sys_oper_log` DISABLE KEYS */;
 INSERT INTO `sys_oper_log` (`oper_id`, `title`, `business_type`, `method`, `operator_type`, `oper_name`, `dept_name`, `oper_url`, `oper_ip`, `oper_location`, `oper_param`, `status`, `error_msg`, `oper_time`) VALUES
-	(100, '代码生成', 8, 'com.ruoyi.project.tool.gen.controller.GenController.batchGenCode()', 1, 'admin', '研发部门', '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{"tables":["verification,user,store,shoppingcart,picture,orderbuy,news,comment,categorie,bookmark,book,administrator,address"]}', 0, NULL, '2019-05-30 14:50:26'),
+	(100, '代码生成', 8, 'com.ruoyi.project.tool.gen.controller.GenController.batchGenCode()', 1, 'admin', '研发部门', '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{"tables":["verification,user,store,shoppingcart,picture,order,news,comment,categorie,bookmark,book,administrator,address"]}', 0, NULL, '2019-05-30 14:50:26'),
 	(101, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["0"],"menuType":["M"],"menuName":["万卷阁管理系统"],"url":[""],"perms":[""],"orderNum":["1"],"icon":["fa fa-arrows"],"visible":["0"]}', 0, NULL, '2019-05-30 14:52:08'),
 	(102, '重置密码', 2, 'com.ruoyi.project.system.user.controller.ProfileController.resetPwd()', 1, 'admin', '研发部门', '/system/user/profile/resetPwd', '127.0.0.1', '内网IP', '{"userId":["1"],"loginName":["admin"],"oldPassword":["admin123"],"newPassword":["xuan1012"],"confirm":["xuan1012"]}', 0, NULL, '2019-05-30 15:06:21'),
-	(103, '代码生成', 8, 'com.ruoyi.project.tool.gen.controller.GenController.batchGenCode()', 1, 'admin', '研发部门', '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{"tables":["comment,verification,myuser,store,shoppingcart,picture,orderbuy,news,categorie,bookmark,book,administrator,address"]}', 0, NULL, '2019-05-30 15:08:12'),
+	(103, '代码生成', 8, 'com.ruoyi.project.tool.gen.controller.GenController.batchGenCode()', 1, 'admin', '研发部门', '/tool/gen/batchGenCode', '127.0.0.1', '内网IP', '{"tables":["comment,verification,myuser,store,shoppingcart,picture,order,news,categorie,bookmark,book,administrator,address"]}', 0, NULL, '2019-05-30 15:08:12'),
 	(104, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["用户地址"],"url":["/system/address"],"perms":["system:address:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:09:21'),
 	(105, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["管理员"],"url":["/system/administrator"],"perms":["system:administrator:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:09:50'),
 	(106, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["书籍表"],"url":["/system/book"],"perms":["system:book:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:12:42'),
@@ -915,15 +945,15 @@ INSERT INTO `sys_oper_log` (`oper_id`, `title`, `business_type`, `method`, `oper
 	(108, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["类别管理"],"url":["/system/categorie"],"perms":["system:categorie:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:13:47'),
 	(109, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["评论管理"],"url":["/system/comment"],"perms":["system:comment:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:14:08'),
 	(110, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["新闻管理"],"url":["/system/news"],"perms":["system:news:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:14:48'),
-	(111, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["订单管理"],"url":["/system/orderbuy"],"perms":["system:orderbuy:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:15:12'),
+	(111, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["订单管理"],"url":["/system/order"],"perms":["system:order:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:15:12'),
 	(112, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["图片管理"],"url":["/system/picture"],"perms":["system:picture:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:15:37'),
 	(113, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["购物车管理"],"url":["/system/shoppingcart"],"perms":["system:shoppingcart:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:15:59'),
 	(114, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["商铺管理"],"url":["/system/store"],"perms":["system:store:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:16:17'),
 	(115, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["验证码管理"],"url":["/system/verification"],"perms":["system:verification:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:16:48'),
 	(116, '菜单管理', 1, 'com.ruoyi.project.system.menu.controller.MenuController.addSave()', 1, 'admin', '研发部门', '/system/menu/add', '127.0.0.1', '内网IP', '{"parentId":["2000"],"menuType":["C"],"menuName":["用户管理"],"url":["/system/myuser"],"perms":["system:myuser:view"],"orderNum":["1"],"icon":[""],"visible":["0"]}', 0, NULL, '2019-05-30 15:17:26'),
-	(117, '订单', 1, 'com.ruoyi.project.system.orderbuy.controller.OrderController.addSave()', 1, 'admin', '研发部门', '/system/orderbuy/add', '127.0.0.1', '内网IP', '{"orderDate":[""],"orderPrice":[""],"orderContent":[""],"orderCount":[""],"userId":[""],"userAddress":[""],"state":[""],"storeId":[""]}', 1, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'orderbuy\' at line 1\r\n### The error may involve com.ruoyi.project.system.orderbuy.mapper.OrderMapper.insertOrder-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into orderbuy\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'orderbuy\' at line 1\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'orderbuy\' at line 1', '2019-05-30 15:27:48'),
+	(117, '订单', 1, 'com.ruoyi.project.system.order.controller.OrderController.addSave()', 1, 'admin', '研发部门', '/system/order/add', '127.0.0.1', '内网IP', '{"orderDate":[""],"orderPrice":[""],"orderContent":[""],"orderCount":[""],"userId":[""],"userAddress":[""],"state":[""],"storeId":[""]}', 1, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'order\' at line 1\r\n### The error may involve com.ruoyi.project.system.order.mapper.OrderMapper.insertOrder-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into order\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'order\' at line 1\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'order\' at line 1', '2019-05-30 15:27:48'),
 	(118, '分类', 1, 'com.ruoyi.project.system.categorie.controller.CategorieController.addSave()', 1, 'admin', '研发部门', '/system/categorie/add', '127.0.0.1', '内网IP', '{"oneCategories":[""],"twoCategories":[""],"bookId":[""]}', 1, '\r\n### Error updating database.  Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'\' at line 1\r\n### The error may involve com.ruoyi.project.system.categorie.mapper.CategorieMapper.insertCategorie-Inline\r\n### The error occurred while setting parameters\r\n### SQL: insert into categorie\r\n### Cause: java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'\' at line 1\n; bad SQL grammar []; nested exception is java.sql.SQLSyntaxErrorException: You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near \'\' at line 1', '2019-05-30 15:27:53'),
-	(119, '代码生成', 8, 'com.ruoyi.project.tool.gen.controller.GenController.genCode()', 1, 'admin', '研发部门', '/tool/gen/genCode/orderbuy', '127.0.0.1', '内网IP', '{}', 0, NULL, '2019-05-30 15:32:28'),
+	(119, '代码生成', 8, 'com.ruoyi.project.tool.gen.controller.GenController.genCode()', 1, 'admin', '研发部门', '/tool/gen/genCode/order', '127.0.0.1', '内网IP', '{}', 0, NULL, '2019-05-30 15:32:28'),
 	(120, '代码生成', 8, 'com.ruoyi.project.tool.gen.controller.GenController.genCode()', 1, 'admin', '研发部门', '/tool/gen/genCode/myuser', '127.0.0.1', '内网IP', '{}', 0, NULL, '2019-05-30 15:47:16'),
 	(121, '书籍', 1, 'com.ruoyi.project.system.book.controller.BookController.addSave()', 1, 'admin', '研发部门', '/system/book/add', '127.0.0.1', '内网IP', '{"bookName":["JAVA:从入门到放弃"],"bookPrice":["999"],"author":["mmm"],"publishing":["入土出版社"],"storeId":["0"],"sales":["999"],"publicationDate":["2019-5-31"],"count":["999"],"score":["5"]}', 0, NULL, '2019-05-31 14:41:32'),
 	(122, '图片', 1, 'com.ruoyi.project.system.picture.controller.PictureController.addSave()', 1, 'admin', '研发部门', '/system/picture/add', '127.0.0.1', '内网IP', '{"pictureContent":["http://imgsrc.baidu.com/forum/pic/item/3ea6c295d143ad4be8c0ca5988025aafa60f06d6.jpg"],"bookId":["5"]}', 0, NULL, '2019-05-31 14:43:51'),
@@ -943,7 +973,6 @@ INSERT INTO `sys_oper_log` (`oper_id`, `title`, `business_type`, `method`, `oper
 /*!40000 ALTER TABLE `sys_oper_log` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_post 结构
-DROP TABLE IF EXISTS `sys_post`;
 CREATE TABLE IF NOT EXISTS `sys_post` (
   `post_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '岗位ID',
   `post_code` varchar(64) NOT NULL COMMENT '岗位编码',
@@ -969,7 +998,6 @@ INSERT INTO `sys_post` (`post_id`, `post_code`, `post_name`, `post_sort`, `statu
 /*!40000 ALTER TABLE `sys_post` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_role 结构
-DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE IF NOT EXISTS `sys_role` (
   `role_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '角色ID',
   `role_name` varchar(30) NOT NULL COMMENT '角色名称',
@@ -995,7 +1023,6 @@ INSERT INTO `sys_role` (`role_id`, `role_name`, `role_key`, `role_sort`, `data_s
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_role_dept 结构
-DROP TABLE IF EXISTS `sys_role_dept`;
 CREATE TABLE IF NOT EXISTS `sys_role_dept` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `dept_id` bigint(20) NOT NULL COMMENT '部门ID',
@@ -1012,7 +1039,6 @@ INSERT INTO `sys_role_dept` (`role_id`, `dept_id`) VALUES
 /*!40000 ALTER TABLE `sys_role_dept` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_role_menu 结构
-DROP TABLE IF EXISTS `sys_role_menu`;
 CREATE TABLE IF NOT EXISTS `sys_role_menu` (
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
   `menu_id` bigint(20) NOT NULL COMMENT '菜单ID',
@@ -1105,7 +1131,6 @@ INSERT INTO `sys_role_menu` (`role_id`, `menu_id`) VALUES
 /*!40000 ALTER TABLE `sys_role_menu` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_user 结构
-DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE IF NOT EXISTS `sys_user` (
   `user_id` bigint(20) NOT NULL AUTO_INCREMENT COMMENT '用户ID',
   `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
@@ -1139,7 +1164,6 @@ INSERT INTO `sys_user` (`user_id`, `dept_id`, `login_name`, `user_name`, `user_t
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_user_online 结构
-DROP TABLE IF EXISTS `sys_user_online`;
 CREATE TABLE IF NOT EXISTS `sys_user_online` (
   `sessionId` varchar(50) NOT NULL DEFAULT '' COMMENT '用户会话id',
   `login_name` varchar(50) DEFAULT '' COMMENT '登录账号',
@@ -1161,7 +1185,6 @@ DELETE FROM `sys_user_online`;
 /*!40000 ALTER TABLE `sys_user_online` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_user_post 结构
-DROP TABLE IF EXISTS `sys_user_post`;
 CREATE TABLE IF NOT EXISTS `sys_user_post` (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `post_id` bigint(20) NOT NULL COMMENT '岗位ID',
@@ -1177,7 +1200,6 @@ INSERT INTO `sys_user_post` (`user_id`, `post_id`) VALUES
 /*!40000 ALTER TABLE `sys_user_post` ENABLE KEYS */;
 
 -- 导出  表 bookstore.sys_user_role 结构
-DROP TABLE IF EXISTS `sys_user_role`;
 CREATE TABLE IF NOT EXISTS `sys_user_role` (
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
   `role_id` bigint(20) NOT NULL COMMENT '角色ID',
@@ -1193,7 +1215,6 @@ INSERT INTO `sys_user_role` (`user_id`, `role_id`) VALUES
 /*!40000 ALTER TABLE `sys_user_role` ENABLE KEYS */;
 
 -- 导出  表 bookstore.verification 结构
-DROP TABLE IF EXISTS `verification`;
 CREATE TABLE IF NOT EXISTS `verification` (
   `verification_id` int(11) NOT NULL AUTO_INCREMENT COMMENT '验证码',
   `verification_content` int(6) NOT NULL,
