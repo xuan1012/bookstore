@@ -38,6 +38,7 @@ public class BookController {
     @Resource
     IClassificationService classification;
 
+
     @RequestMapping("/search")
     public String searchByname(String bookName, ModelMap model, RedirectAttributes attr) {
         attr.addAttribute("bookName", bookName);
@@ -58,7 +59,7 @@ public class BookController {
             bookForm.setPage(1L);
         }
         BeanUtils.copyProperties(bookForm, bookInfo);
-        List<AllBookMessage> byAllSearch = bookService.findByAllSearch(bookInfo,model);
+        List<AllBookMessage> byAllSearch = bookService.findByAllSearch(bookInfo, model);
         model.addAttribute("books", byAllSearch);
         model.addAttribute("bookForm", bookForm);
         model.addAttribute("bookName", bookForm.getBookName());
@@ -71,7 +72,7 @@ public class BookController {
         if (bookName == null) {
             bookName = "";
         }
-        List<AllBookMessage> books = bookService.searchByName(bookName.trim(),model);
+        List<AllBookMessage> books = bookService.searchByName(bookName.trim(), model);
         model.addAttribute("books", books);
         model.addAttribute("bookName", bookName.trim());
         getNews(model);

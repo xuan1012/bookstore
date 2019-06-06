@@ -37,19 +37,33 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     @Resource
     NewsMapper newsMapper;
 
+    @Override
+    public List<AllBookMessage> findBySales(int i, ModelMap model) {
+        Page<AllBookMessage> page = new Page<>(i, 5);
+        IPage<AllBookMessage> bySales = bookMessageMapper.findBySales(page);
+        return getAllBookMessages(model, bySales);
+    }
+
+    @Override
+    public List<AllBookMessage> findNewBooks(ModelMap model) {
+        Page<AllBookMessage> page = new Page<>(1, 9);
+        IPage<AllBookMessage> bySales = bookMessageMapper.findNewBook(page);
+        return getAllBookMessages(model, bySales);
+    }
 
     @Override
     public List<AllBookMessage> searchByName(String bookName, ModelMap model) {
         Page<AllBookMessage> page = new Page<>(1, 9);
         IPage<AllBookMessage> bookPage = bookMessageMapper.findByName(page, bookName);
-        List<AllBookMessage> books = getAllBookMessages(model, bookPage);
-        return books;
+        return getAllBookMessages(model, bookPage);
     }
 
 
     @Override
     public List<News> findAllNews() {
-        List<News> news = newsMapper.findAll();
+        Page<AllBookMessage> page = new Page<>(1, 5);
+        IPage<News> allNews = newsMapper.findAll(page);
+        List<News> news = allNews.getRecords();
         for (News news1 : news) {
             AllBookMessage book = bookMessageMapper.findById(news1.getNewsId());
             news1.setPrice(book.getBookPrice());
@@ -61,9 +75,16 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     public List<AllBookMessage> findByAllSearch(BookInfo bookInfo, ModelMap model) {
 
         Page<AllBookMessage> page = new Page<>(bookInfo.getPage(), 9);
+        String desc = "价格降序↓";
+        String sales = "销量降序↓";
+        if (desc.equals(bookInfo.getDesc())) {
+            bookInfo.setDesc("down");
+        }
+        if (sales.equals(bookInfo.getSales())) {
+            bookInfo.setSales("down");
+        }
         IPage<AllBookMessage> bookPage = bookMessageMapper.findByAllSearch(page, bookInfo);
-        List<AllBookMessage> allSearch = getAllBookMessages(model, bookPage);
-        return allSearch;
+        return getAllBookMessages(model, bookPage);
     }
 
     public List<AllBookMessage> getAllBookMessages(ModelMap model, IPage<AllBookMessage> bookPage) {

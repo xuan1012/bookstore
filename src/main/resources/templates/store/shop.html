@@ -13,8 +13,8 @@
     <div class="breadcrumb-area">
         <div class="container">
             <ol class="breadcrumb">
-                <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
-                <li class="active">Shop</li>
+                <li><a href="/"><i class="fa fa-home"></i>主页</a></li>
+                <li class="active">所有书籍</li>
             </ol>
         </div>
     </div>
@@ -25,134 +25,97 @@
             <div class="row">
                 <div class="col-md-3 col-sm-4">
                     <div class="column mt-55">
-                        <h2 class="title-block">Catalog</h2>
+                        <h2 class="title-block">筛选</h2>
                         <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Availability</h3>
+                            <h3 class="sidebar-title">价格区间</h3>
                             <ul class="sidebar-menu">
-                                <li><a href="#">In stock <span>(13)</span></a></li>
-                                <li><a href="#">In stock <span>(13)</span></a></li>
+                                <div th:unless="${#lists.isEmpty(bookForm)}">
+                                    <li>最小价格:<input type="number" id="minMoney" th:value="${bookForm.minBookPrice}"/>
+                                    </li>
+                                    <li>最大价格:<input type="number" id="maxMoney" th:value="${bookForm.maxBookPrice}"/>
+                                    </li>
+                                </div>
+                                <div th:if="${#lists.isEmpty(bookForm)}">
+                                    <li>最小价格:<input type="number" id="minMoney"/></li>
+                                    <li>最大价格:<input type="number" id="maxMoney"/></li>
+                                </div>
+                                <li style="text-align:right">
+                                    <button onclick="findByPrice(this)">确定</button>
+                                </li>
                             </ul>
                         </div>
                         <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Condition</h3>
+                            <h3 class="sidebar-title">排序</h3>
                             <ul class="sidebar-menu">
-                                <li><a href="#">New <span>(11)</span></a></li>
+                                <li class="row"><a class="col-md-8" onclick="orderDesc(this)">价格升序↑</a> <a
+                                        onclick="orderDesc(this)">价格降序↓</a></li>
+                                <li></li>
+                            </ul>
+                            <ul class="sidebar-menu">
+                                <li class="row"><a class="col-md-8" onclick="salesDesc(this)">销量升序↑</a> <a
+                                        onclick="salesDesc(this)">销量降序↓</a></li>
+                                <li></li>
                             </ul>
                         </div>
-                        <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Manufacturer</h3>
-                            <ul class="sidebar-menu">
-                                <li><a href="#"> Fashion Manufacturer <span>(13)</span></a></li>
-                            </ul>
+
+                    </div>
+                    <br>
+                    <br>
+                    <div class="slider-sidebar">
+                        <div class="slider-single-img mb-20">
+                            <a>
+                                <img class="img_a"
+                                     src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2653148212,3082258899&fm=26&gp=0.jpg"
+                                     alt="" style="width: 262px;height:143px;"/>
+                                <img class="img_b"
+                                     src="https://ss3.bdstatic.com/70cFv8Sh_Q1YnxGkpoWK1HF6hhy/it/u=2653148212,3082258899&fm=26&gp=0.jpg"
+                                     alt="" style="width: 262px;height:143px;"/>
+                            </a>
                         </div>
-                        <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Manufacturer</h3>
-                            <div class="price-filter">
-                                <p>
-                                    <label for="amount">Range:</label>
-                                    <input type="text" id="amount" readonly
-                                           style="border:0; color:#f6931f; font-weight:bold;">
-                                </p>
-                                <div id="slider-range"></div>
-                            </div>
+                        <div class="slider-single-img none-sm">
+                            <a>
+                                <img class="img_a"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559814172228&di=9528664565658ef3afd5e94c897a6ccf&imgtype=0&src=http%3A%2F%2Fpic11.nipic.com%2F20101123%2F2457331_112655897479_2.jpg"
+                                     alt="" style="width: 262px;height:408px;"/>
+                                <img class="img_b"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559814172228&di=9528664565658ef3afd5e94c897a6ccf&imgtype=0&src=http%3A%2F%2Fpic11.nipic.com%2F20101123%2F2457331_112655897479_2.jpg"
+                                     alt="" style="width: 262px;height:408px;"/>
+                            </a>
                         </div>
-                        <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Size</h3>
-                            <ul class="sidebar-menu">
-                                <li><a href="#"> S <span>(13)</span></a></li>
-                                <li><a href="#"> M <span>(15)</span></a></li>
-                                <li><a href="#"> L <span>(6)</span></a></li>
-                            </ul>
+                        <br>
+                        <br>
+                        <div class="slider-single-img none-sm">
+                            <a>
+                                <img class="img_a"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559818475503&di=4a2b8703869f0b718cf7633bcc78d425&imgtype=0&src=http%3A%2F%2Fimg4.ph.126.net%2F5zYuZDAih-JOWIWqwK3Ypg%3D%3D%2F645140646637995944.jpg"
+                                     alt="" style="width: 262px;height:408px;"/>
+                                <img class="img_b"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559818475503&di=4a2b8703869f0b718cf7633bcc78d425&imgtype=0&src=http%3A%2F%2Fimg4.ph.126.net%2F5zYuZDAih-JOWIWqwK3Ypg%3D%3D%2F645140646637995944.jpg"
+                                     alt="" style="width: 262px;height:408px;"/>
+                            </a>
                         </div>
-                        <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Size</h3>
-                            <ul class="sidebar-menu">
-                                <li><a href="#"> Beige <span>(2)</span></a></li>
-                                <li><a href="#"> White <span>(4)</span></a></li>
-                                <li><a href="#"> Black <span>(4)</span></a></li>
-                                <li><a href="#"> Orange <span>(6)</span></a></li>
-                                <li><a href="#"> Blue <span>(4)</span></a></li>
-                                <li><a href="#"> Green <span>(1)</span></a></li>
-                                <li><a href="#"> Yellow <span>(5)</span></a></li>
-                                <li><a href="#"> Pink <span>(2)</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Compositions</h3>
-                            <ul class="sidebar-menu">
-                                <li><a href="#"> Cotton <span>(2)</span></a></li>
-                                <li><a href="#"> Polyester <span>(4)</span></a></li>
-                                <li><a href="#"> Viscose <span>(4)</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Styles</h3>
-                            <ul class="sidebar-menu">
-                                <li><a href="#"> Casual <span>(2)</span></a></li>
-                                <li><a href="#"> Dressy <span>(4)</span></a></li>
-                                <li><a href="#"> Girly <span>(4)</span></a></li>
-                            </ul>
-                        </div>
-                        <div class="sidebar-widget">
-                            <h3 class="sidebar-title">Properties</h3>
-                            <ul class="sidebar-menu">
-                                <li><a href="#">Colorful Dress <span>(2)</span></a></li>
-                                <li><a href="#">Maxi Dress <span>(4)</span></a></li>
-                                <li><a href="#">Midi Dress <span>(4)</span></a></li>
-                                <li><a href="#">Short Dress <span>(3)</span></a></li>
-                                <li><a href="#">Short Sleeve <span>(2)</span></a></li>
-                            </ul>
+                        <br>
+                        <br>
+                        <div class="slider-single-img none-sm">
+                            <a>
+                                <img class="img_a"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559818572674&di=4a82a27733d995eb816afb0b88b0fdc8&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20130616%2F20130616174211-1497754337.jpg"
+                                     alt="" style="width: 262px;height:408px;"/>
+                                <img class="img_b"
+                                     src="https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1559818572674&di=4a82a27733d995eb816afb0b88b0fdc8&imgtype=0&src=http%3A%2F%2Fpic.baike.soso.com%2Fp%2F20130616%2F20130616174211-1497754337.jpg"
+                                     alt="" style="width: 262px;height:408px;"/>
+                            </a>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-9 col-sm-8">
                     <h2 class="page-heading mt-40">
-                        <span class="cat-name">Sofa</span>
+                        <span class="cat-name">相关书籍</span>
                         <span class="heading-counter" th:text="找到共+${bookPage.total}+本书"></span>
                     </h2>
                     <div class="shop-page-bar">
                         <div>
-                            <div class="shop-bar">
-                                <!-- Nav tabs -->
-                                <ul class="shop-tab f-left" role="tablist">
-                                    <li role="presentation" class="active"><a href="#home" data-toggle="tab"><i
-                                            class="fa fa-th-large" aria-hidden="true"></i></a></li>
-                                    <li role="presentation"><a href="#profile" data-toggle="tab"><i
-                                            class="fa fa-th-list"
-                                            aria-hidden="true"></i></a>
-                                    </li>
-                                </ul>
-                                <div class="selector-field f-left ml-20 hidden-xs">
-                                    <form action="#">
-                                        <!--                                        <label>Sort by</label>-->
-                                        <!--                                        <select name="select">-->
-                                        <!--                                            <option value="">&#45;&#45;&#45;&#45;</option>-->
-                                        <!--                                            <option value="">Price: Lowest first</option>-->
-                                        <!--                                            <option value="">Price: Highest first</option>-->
-                                        <!--                                            <option value="">Product Name: A to Z</option>-->
-                                        <!--                                            <option value="">Product Name: Z to A</option>-->
-                                        <!--                                            <option value="">In stock</option>-->
-                                        <!--                                            <option value="">Reference: Lowest first</option>-->
-                                        <!--                                            <option value="">Reference: Highest first</option>-->
-                                        <!--                                        </select>-->
-                                    </form>
-                                </div>
-                                <div class="selector-field f-left ml-30 hidden-xs">
-                                    <form action="#">
-                                        <!--                                        <label>Show</label>-->
-                                        <!--                                        <select name="select">-->
-                                        <!--                                            <option value="">12</option>-->
-                                        <!--                                            <option value="">13</option>-->
-                                        <!--                                            <option value="">14</option>-->
-                                        <!--                                        </select>-->
-                                    </form>
-                                </div>
-                                <div class="selector-field f-right ml-30">
-                                    <form action="#">
-                                        <button class="compare">Compare (1)</button>
-                                    </form>
-                                </div>
-                            </div>
+
                             <!-- Tab panes -->
                             <div class="tab-content">
                                 <div role="tabpanel" class="tab-pane active" id="home">
@@ -166,7 +129,7 @@
                                                              style="width: 260.48px;height:260.48px; " alt=""/>
                                                         <img th:if="${#lists.isEmpty(book.pictureContent)}"
                                                              src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
-                                                             alt=""/>
+                                                             alt="" style="width: 260.48px;height:260.48px;"/>
                                                     </a>
                                                 </div>
                                                 <div class="product-content product-i">
@@ -191,16 +154,14 @@
                                                         <div class="product-icon-left f-left">
                                                             <div>
                                                                 <input type="hidden" th:value="${book.bookId}"/>
-                                                                <a href="#" class="addToCart" onclick="addToCart(this)"><i
-                                                                        class="fa fa-shopping-cart"></i>加入购物车</a>
+                                                                <a href="#" class="addToCart" onclick="addToCart(this)">
+                                                                    <i class="fa fa-shopping-cart"></i>加入购物车</a>
                                                             </div>
 
                                                         </div>
                                                         <div class="product-icon-right floatright">
-                                                            <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                    class="fa fa-exchange"></i></a>
-                                                            <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                    class="fa fa-heart"></i></a>
+                                                            <a href="#" data-toggle="tooltip"><i
+                                                                    class="fa fa-heart-o" title="加入收藏夹"></i></a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -219,14 +180,13 @@
                                             <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                         </ul>
                                         <div class="selector-field f-right">
-                                            <form action="#">
-                                                <button class="compare">Compare (1)</button>
-                                            </form>
+
                                         </div>
                                     </div>
 
 
                                     <div role="tabpanel" class="tab-pane" id="profile">
+                                        <p>好书推荐</p>
                                         <div class="row">
                                             <div class="col-lg-12" th:each="a:${news}">
                                                 <div class="single-product  shop-single-product mb-30 white-bg">
@@ -237,7 +197,7 @@
                                                                  alt="" style="width: 260.48px;height:260.48px;"/>
                                                             <img th:if="${#lists.isEmpty(a.newsPicture)}"
                                                                  src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
-                                                                 alt=""/>
+                                                                 alt="" style="width: 260.48px;height:260.48px;"/>
                                                         </a>
                                                     </div>
                                                     <div class="product-content">
@@ -261,38 +221,18 @@
                                                         <div class="product-icon">
                                                             <div class="product-icon-left f-left">
                                                                 <a href="#" onclick="addToCart(this)"><i
-                                                                        class="fa fa-shopping-cart"></i>Add to
-                                                                    Cart</a>
+                                                                        class="fa fa-shopping-cart"></i>加入购物车</a>
                                                                 <input type="hidden" th:value="${a.bookId}">
                                                             </div>
                                                             <div class="product-icon-right floatright">
-                                                                <a href="#" data-toggle="tooltip" title="Compare"><i
-                                                                        class="fa fa-exchange"></i></a>
-                                                                <a href="#" data-toggle="tooltip" title="Wishlist"><i
-                                                                        class="fa fa-heart"></i></a>
+                                                                <a href="#" data-toggle="tooltip"><i
+                                                                        class="fa fa-heart" title="加入收藏夹"></i></a>
                                                             </div>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-
-                                            <div class="content-sortpagibar">
-                                                <div class="product-count display-inline">Showing 1 - 12 of 13 items
-                                                </div>
-                                                <ul class="shop-pagi display-inline">
-                                                    <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
-                                                    <li class="active"><a href="#">1</a></li>
-                                                    <li><a href="#">2</a></li>
-                                                    <li><a href="#">3</a></li>
-                                                    <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
-                                                </ul>
-                                                <div class="selector-field f-right">
-                                                    <form action="#">
-                                                        <button class="compare">Compare (1)</button>
-                                                    </form>
-                                                </div>
-                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -344,9 +284,23 @@
             }
         });
 
-    })
+    });
 
+    function findByPrice(e) {
+        $("[name=minBookPrice]").val($("#minMoney").val());
+        $("[name=maxBookPrice]").val($("#maxMoney").val());
+        $("#allSearch").submit();
+    }
 
+    function orderDesc(e) {
+        $("[name=desc]").val($(e).text());
+        $("#allSearch").submit();
+    }
+
+    function salesDesc(e) {
+        $("[name=sales]").val($(e).text());
+        $("#allSearch").submit();
+    }
 </script>
 
 </body>

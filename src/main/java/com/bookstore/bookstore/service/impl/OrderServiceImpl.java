@@ -43,6 +43,8 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
     OrdergroupMapper ordergroupMapper;
     @Resource
     ShoppingcartMapper shoppingcartMapper;
+    @Resource
+    BookMapper bookMapper;
 
     @Override
     public List<OrderForm> initOrder(List<OrderForm> orderForms) {
@@ -74,7 +76,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
     public Ordergroup addOrder(List<OrderForm> orderForms, HttpSession session) {
 //        LocalDateTime now = LocalDateTime.now();
         Date now = DateUtils.createNow().getTime();
-        List<Orderbuy> orderbuys=new ArrayList<>();
+        List<Orderbuy> orderbuys = new ArrayList<>();
         Iterator it = orderForms.iterator();
         Ordergroup ordergroup = new Ordergroup();
         Ordergroup maxId = ordergroupMapper.findMaxId();
@@ -94,6 +96,10 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
             next.setOrderPrice((next.getOnePrice()).multiply(new BigDecimal(next.getOrderCount())));
             Store store = storeMapper.findByName(next.getSellStore());
             AllBookMessage book = bookMessageMapper.findById(next.getBookId());
+            Book upBook = new Book();
+            BeanUtils.copyProperties(book, upBook);
+            upBook.setSales(upBook.getSales() + 1);
+            bookMapper.updateById(upBook);
             next.setBookName(book.getBookName());
             next.setStoreId(Long.valueOf(store.getStoreId()));
             Orderbuy orderbuy = new Orderbuy();
@@ -101,7 +107,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
             orderbuy.setState("待支付");
             orderbuy.setLevel(groupId);
             money = money.add(orderbuy.getOrderPrice());
-            stringBuilder.append(next.getBookName());
+            stringBuilder.append(next.getBookName()).append("数量:").append(next.getOrderCount()).append(";");
             shoppingcartMapper.deleteById(next.getCartId());
             orderbuys.add(orderbuy);
             orderbuyMapper.insert(orderbuy);
@@ -109,7 +115,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
         ordergroup.setGroupContent(stringBuilder.toString());
         ordergroup.setMoney(money);
         ordergroupMapper.insert(ordergroup);
-        session.setAttribute("ordersTodo",orderbuys);
+        session.setAttribute("ordersTodo", orderbuys);
         return ordergroup;
     }
 }

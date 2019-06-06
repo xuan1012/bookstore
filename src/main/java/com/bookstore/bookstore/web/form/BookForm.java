@@ -44,7 +44,7 @@ public class BookForm {
     /**
      * 销量
      */
-    private Long sales;
+    private String sales;
 
     /**
      * 出版日期
@@ -56,4 +56,6 @@ public class BookForm {
     private String classname;
 
     private Long page;
+
+    private String desc;
 }

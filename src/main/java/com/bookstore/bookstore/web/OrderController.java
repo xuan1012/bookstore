@@ -170,7 +170,7 @@ public class OrderController {
         //调用SDK验证签名
         boolean signVerified = AlipaySignature.rsaCheckV1(params, AlipayClientParam.alipay_public_key, AlipayClientParam.charset, AlipayClientParam.sign_type);
 //        ModelAndView mv = new ModelAndView("alipaySuccess");
-        ModelAndView mv = new ModelAndView("/user/orderList");
+        ModelAndView mv = new ModelAndView("/order/orderList");
         //——请在这里编写您的程序（以下代码仅作参考）——
         if (signVerified) {
             //商户订单号

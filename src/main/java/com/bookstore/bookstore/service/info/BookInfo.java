@@ -44,7 +44,7 @@ public class BookInfo {
     /**
      * 销量
      */
-    private Long sales;
+    private String sales;
 
     /**
      * 出版日期
@@ -56,4 +56,6 @@ public class BookInfo {
     private String classname;
 
     private Long page;
+
+    private String desc;
 }

@@ -20,8 +20,8 @@
     <!-- breadcrumb end -->
     <!-- cart-main-area start -->
     <div class="cart-main-area pt-0">
-
-        <section class="cartMain">
+        <div th:text="${msg}" style="color:red; text-align: center;"></div>
+        <section class="cartMain"  th:unless="${#lists.isEmpty(shops)}">
             <div class="cartMain_hd">
                 <ul class="order_lists cartTop">
                     <li class="list_chk">
@@ -105,7 +105,7 @@
 
                     </div>
                 </div>
-                <div th:text="${msg}" style="color:red; margin-left: 45%"></div>
+
 
                 <!--底部-->
                 <div class="bar-wrapper">

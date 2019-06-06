@@ -45,6 +45,9 @@ public class ShoppingcartController {
 
     private void getCartShops(Long userId, ModelMap map) {
         List<AllShops> allShops = shoppingCartService.getAllShops(userId);
+        if (allShops.size()==0){
+            map.addAttribute("msg", "您还没有添加商品到购物车，快去选购吧~");
+        }
         map.addAttribute("shops", allShops);
     }
 
