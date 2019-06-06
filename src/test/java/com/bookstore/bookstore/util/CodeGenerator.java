@@ -56,7 +56,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:mysql://localhost:3306/bookstore?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false");
+        dsc.setUrl("jdbc:mysql://172.18.22.185:3306/bookstore?useUnicode=true&characterEncoding=utf8&serverTimezone=GMT%2B8&useSSL=false");
 //         dsc.setSchemaName("public");
         dsc.setDriverName("com.mysql.cj.jdbc.Driver");
         dsc.setUsername("root");

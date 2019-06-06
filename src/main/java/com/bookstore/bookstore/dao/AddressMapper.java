@@ -15,5 +15,8 @@ import java.util.List;
  * @since 2019-06-03
  */
 public interface AddressMapper extends BaseMapper<Address> {
+
     List<Address> findByUserId(@Param("userId") Long userId);
+
+    void add(Address address);
 }

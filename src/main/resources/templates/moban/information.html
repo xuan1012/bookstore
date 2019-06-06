@@ -2,6 +2,7 @@
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="~{/layout/layout}">
+
 <head>
 <body>
 <div id="content" layout:fragment="content">
@@ -17,43 +18,15 @@
                     </li>
                     <li class="list-group-item">
                         <a href="#" class="list-group-item">
-                            个人信息
+                            密码修改
                         </a>
                     </li>
                     <li class="list-group-item">
                         <a href="#" class="list-group-item">
-                            个人信息
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" class="list-group-item">
-                            个人信息
-                        </a>
-                    </li>
-                    <li class="list-group-item">
-                        <a href="#" class="list-group-item">
-                            个人信息
+                            收货地址
                         </a>
                     </li>
                 </ul>
-                <!-- <div class="list-group">
-                    <ul>
-                        <li>
-                             <a href="#" class="list-group-item active">
-                                而退欧普【
-                              </a>
-                        </li>
-                        <li>
-                             <a href="#" class="list-group-item">飒飒大受打击偶奇偶基金会/a>
-                        </li>
-                        <li>
-                             <a href="#" class="list-group-item">飒飒大受打击偶奇偶基金会/a>
-                        </li>
-                        <li>
-                             <a href="#" class="list-group-item">飒飒大受打击偶奇偶基金会/a>
-                        </li>
-                    </ul>
-                </div> -->
             </div>
             <div class="col-lg-6 col-md-6 col-sm-12">
 
@@ -95,64 +68,13 @@
     </div>
 
 </div>
-
 <script layout:fragment="script">
-    var config = {pageTitle: "购物车", navActive: "navProduct"};
+    var config = {pageTitle: "个人信息", navActive: "navProduct"};
     var cartId = 0;
     $(function () {
         document.title = config.pageTitle;
         $("#" + config.navActive).addClass("active");
     });
-
-    function getCartId(e) {
-        cartId = $(e).parent().parent().children("input:first").val();
-    }
-
-    function delCart() {
-        $.ajax({
-            type: "post",
-            url: "/book/delCart",
-            data: {
-                cartId: cartId
-            },
-            dataType: "json",
-            success: function (json) {
-
-            }
-        });
-    }
-
-    function updateCount(carId, count) {
-        $.ajax({
-            type: "post",
-            url: "/book/updateCount",
-            data: {
-                cartId: carId,
-                count: count
-            },
-            dataType: "json",
-            success: function (json) {
-
-            }
-        });
-    }
-
-    function subCount(e) {
-        var count = $(e).parent().children("input:last").val();
-        count--;
-        var carId = $(e).parent().children("input:first").val();
-        if (count === 0) {
-            count = 1;
-        }
-        updateCount(carId, count);
-    }
-
-    function addCount(e) {
-        var count = $(e).parent().children("input:last").val();
-        count++;
-        var carId = $(e).parent().children("input:first").val();
-        updateCount(carId, count);
-    }
 </script>
 </body>
 </html>

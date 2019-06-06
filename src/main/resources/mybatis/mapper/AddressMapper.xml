@@ -5,4 +5,8 @@
     <select id="findByUserId" resultType="com.bookstore.bookstore.dao.model.Address">
         select * from address where user_id=#{userId}
     </select>
+
+    <insert id="add" parameterType="com.bookstore.bookstore.dao.model.Address">
+        insert into address(user_id,content,area,default_address,phone,people,postcode) value (#{userId},#{content},#{area},#{defaultAddress},#{phone},#{people},#{postcode})
+    </insert>
 </mapper>
