@@ -39,22 +39,24 @@
                     </div>
                         <button type="submit" class="btn btn-primary">保存</button>
                  </form> -->
+                <br>
                 <form action="/address/doaddress" method="post">
                     <div class="info">
+                        <br>
+                        <select class="form-control" id="s_province" name="s_province"></select>
+                        <br>
+                        <select class="form-control" id="s_city" name="s_city"></select>
+                        <br>
+                        <select class="form-control" id="s_county" name="area"></select>
 
-                        <select class="form-control" id="s_province" name="s_province"></select> 
-
-                        <select class="form-control" id="s_city" name="s_city" ></select>
-                         
-                        <select class="form-control"  id="s_county" name="area"></select>
                         <br>
-                        <input type="text" class="form-control" name="content" value=""  placeholder="详细地址:">
+                        <input type="text" class="form-control" name="content" value="" placeholder="详细地址:">
                         <br>
-                        <input type="text" class="form-control" name="postcode" value=""  placeholder="邮编:">
+                        <input type="text" class="form-control" name="postcode" value="" placeholder="邮编:">
                         <br>
-                        <input type="text" class="form-control" name="phone" value=""  placeholder="手机号:">
+                        <input type="text" class="form-control" name="phone" value="" placeholder="手机号:">
                         <br>
-                        <input type="text" class="form-control" name="people" value=""  placeholder="收件人:">
+                        <input type="text" class="form-control" name="people" value="" placeholder="收件人:">
                         <br>
 
                         <input type="checkbox" style="width: 20px;display: block;" name="defaultAddress">
@@ -63,17 +65,11 @@
 
                         <button type="submit" class="btn btn-primary" style="float: right;">保存</button>
 
-                        <script type="text/javascript">_init_area();</script>
+                        <script type="text/javascript"></script>
+                        <script src="/js/area.js"></script>
                         <div id="show"></div>
                     </div>
-                    <script type="text/javascript">
-                        var Gid  = document.getElementById;
-                        var showArea = function(){
-                            Gid('show').innerHTML = "<h3>省" + Gid('s_province').value + " - 市" +
-                                Gid('s_city').value + " - 县/区" +
-                                Gid('s_county').value + "</h3>"                     }
-                        Gid('s_county').setAttribute('onchange','showArea()');
-                    </script>
+
                 </form>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
@@ -107,6 +103,14 @@
         document.title = config.pageTitle;
         $("#" + config.navActive).addClass("active");
     });
+    _init_area();
+    var Gid = document.getElementById('s_county');
+    var showArea = function () {
+        document.getElementById('show').innerHTML = "<h3>省" + document.getElementById('s_province').value + " - 市" +
+            document.getElementById('s_city').value + " - 县/区" +
+            document.getElementById('s_county').value + "</h3>"
+    };
+    Gid.setAttribute('onchange', 'showArea()');
 </script>
 </body>
 </html>
