@@ -220,7 +220,7 @@
                     </div>
                     <div class="product_vmegamenu">
                         <ul>
-                            <li th:each="c : ${categories}">
+                            <li th:each="c:${session.categories}">
                                 <a href="#" class="hover-icon" th:text="${c.className}"
                                    style="font-size:17px;margin:10% auto;text-align: center;font-weight: bold;letter-spacing: 20px;">
                                     小&emsp;说

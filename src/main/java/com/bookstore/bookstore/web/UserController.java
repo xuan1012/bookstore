@@ -8,6 +8,7 @@ import com.bookstore.bookstore.service.IClassificationService;
 import com.bookstore.bookstore.service.IUserService;
 import com.bookstore.bookstore.service.info.ClassIficationInfo;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
+import com.bookstore.bookstore.service.uit.MailUtil;
 import com.bookstore.bookstore.web.form.ModifyForm;
 import com.bookstore.bookstore.web.form.RegisterFrom;
 import lombok.extern.slf4j.Slf4j;
@@ -18,7 +19,13 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 /**
@@ -49,8 +56,10 @@ public class UserController {
 
     @RequestMapping("/doReg")
     public String doReg(RegisterFrom registerFrom, ModelMap map) {
+
         Regisrelnfo lnfo = new Regisrelnfo();
         BeanUtils.copyProperties(registerFrom, lnfo);
+        log.info("123 {}", lnfo);
         iUserService.add(lnfo);
         map.addAttribute("msg", "注册成功！请登录");
         getClassification(map);
@@ -120,6 +129,7 @@ public class UserController {
         if (userId != null) {
 
             iUserService.modify(modifyForm);
+            log.info("测试{}", modifyForm);
 
         }
 
@@ -143,6 +153,44 @@ public class UserController {
         iUserService.modifyPassword(modifyForm);
 
         return "redirect:/user/information";
+    }
+
+    //邮箱验证
+    @RequestMapping("/emil")
+    public void addEmil(MailUtil mailUtil, HttpServletRequest request) throws Exception {
+
+        /*
+         * emailTitle 邮件标题
+         * toEmailAddress 目标邮箱地址
+         * emailContent 邮件内容
+         */
+        String i = request.getParameter("name");
+        log.info("ajax {}",i);
+        int random = (int) (1 + Math.random() * 100);
+        String number = Integer.toString(random);
+        String emailTitle = "欢迎！";
+        String emailContent = number;
+        mailUtil.sendEmail(emailTitle, emailContent);
+//        return "";
+    }
+
+    //找回密码
+    @RequestMapping("/doGetBack")
+    public String doGetBack(ModifyForm modifyForm, ModelMap model) {
+        return "store/getBack";
+    }
+    @RequestMapping("/getBack")
+    public String modifyUser(ModifyForm modifyForm, ModelMap model) {
+
+        String email = modifyForm.getEmail();
+        User getuser = iUserService.getBack(modifyForm);
+        String userName = getuser.getEmail();
+//        if (email!=userName) {
+//
+//            model.addAttribute("", "");
+//        }
+
+        return "store/index";
     }
 
 }

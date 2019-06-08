@@ -1,6 +1,7 @@
 package com.bookstore.bookstore.web;
 
 
+import com.bookstore.bookstore.dao.model.Address;
 import com.bookstore.bookstore.service.IAddressService;
 import com.bookstore.bookstore.web.form.AddressForm;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * <p>
@@ -45,8 +47,33 @@ public class AddressController {
         }else{
             addressForm.setDefaultAddress(t);
         }
-        modelMap.addAttribute("","");
+//        modelMap.addAttribute("","");
         iAddressService.add(addressForm);
+
+        return "store/address";
+    }
+    @RequestMapping("/doselect")
+    private String doSelect(){
+
+        return "store/displayAddress";
+    }
+    @RequestMapping("/selectaddress")
+    public String selectAddress(ModelMap modelMap,HttpSession session) {
+
+        Long userId = (long) session.getAttribute("userId");
+
+        List<Address> modifyAddress=iAddressService.selectAddress(userId);
+
+        modelMap.addAttribute("selectAddress",modifyAddress);
+
+        log.info("地址 {}", modifyAddress);
+
+        return "store/displayAddress";
+    }
+    @RequestMapping("/updateAddress")
+    public String updatetAddress(ModelMap modelMap,HttpSession session,AddressForm addressForm) {
+
+
 
         return "store/index";
     }

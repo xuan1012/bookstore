@@ -5,7 +5,9 @@ import lombok.Data;
 @Data
 public class AddressForm {
 
-     private Long userId;
+    private Long userId;
+
+    private Long addressId;
 
     private String content;
 
@@ -18,7 +20,6 @@ public class AddressForm {
     private String people;
 
     private Integer postcode;
-
 
 
 }

@@ -18,5 +18,7 @@ public interface AddressMapper extends BaseMapper<Address> {
 
     List<Address> findByUserId(@Param("userId") Long userId);
 
+    List<Address> select(Long i);
+
     void add(Address address);
 }

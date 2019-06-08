@@ -72,4 +72,16 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
             userMapper.modifyPassword(user);
 
     }
+
+    @Override
+    public User getBack(ModifyForm modifyForm) {
+
+        User user = new User();
+
+        BeanUtils.copyProperties(modifyForm,user);
+
+        User select = userMapper.getUser(user);
+
+        return null;
+    }
 }

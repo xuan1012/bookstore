@@ -10,4 +10,6 @@ public class Regisrelnfo {
     private String password;
 
     private String phone;
+
+    private String emil;
 }

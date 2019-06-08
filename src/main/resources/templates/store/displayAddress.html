@@ -1,7 +1,10 @@
 ﻿<!doctype html>
 <html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
-      layout:decorate="~{/layout/layout}">
+      layout:decorate="~{/layout/layout}" xmlns:font-size="http://www.w3.org/1999/xhtml">
+<style type="text/css">
+    .col-lg-6 col-md-6 col-sm-12 ul li{float: left;width: 500px;}
+</style>
 <head>
 <body>
 <div id="content" layout:fragment="content">
@@ -32,6 +35,9 @@
                 <!-- <label class="sr-only" for="inputHelpBlock">Input with help text</label>
                     <input type="text" id="inputHelpBlock" class="form-control" aria-describedby="helpBlock"> -->
                 <h3>收货地址</h3>
+                <br>
+                <button type="submit" class="btn btn-primary">新增地址</button>
+                <br>
                 <!-- <form >
                     <div class="control-group">
                       <label class="control-label" for="inputIcon">Email</label>
@@ -40,37 +46,29 @@
                         <button type="submit" class="btn btn-primary">保存</button>
                  </form> -->
                 <br>
-                <form action="/address/doaddress" method="post">
-                    <div class="info">
+                <from action="/address/doaddress" method="get">
+                <ul>
+                    <li th:each="s : ${selectAddress}" style="float: left;line-height:2em;padding-left: 20px;" id="li">
+                        <p style="font-size:1.5em;" s.>收件人：</p>
+                        <samp style="font-size: 1.5em;" th:text="${s.people}"></samp>
+                        <p style="font-size:1.5em;" s.>电话号码：</p>
+                        <samp style="font-size: 1.5em;" th:text="${s.phone}"></samp>
+                        <p style="font-size:1.5em;" s.>详细地址：</p>
+                        <samp style="font-size: 1.5em;" th:text="${s.content}"></samp>
                         <br>
-                        <select class="form-control" id="s_province" name="s_province"></select>
-                        <br>
-                        <select class="form-control" id="s_city" name="s_city"></select>
-                        <br>
-                        <select class="form-control" id="s_county" name="area"></select>
+                        <div>
+                            <div style="float: right;margin-top: 13px;">
+                                <button type="submit" class="btn btn-primary" id="modify">修改</button>
+                            </div>
 
-                        <br>
-                        <input type="text" class="form-control" name="content" value="" placeholder="详细地址:">
-                        <br>
-                        <input type="text" class="form-control" name="postcode" value="" placeholder="邮编:">
-                        <br>
-                        <input type="text" class="form-control" name="phone" value="" placeholder="手机号:">
-                        <br>
-                        <input type="text" class="form-control" name="people" value="" placeholder="收件人:">
-                        <br>
-
-                        <input type="checkbox" style="width: 20px;display: block;" name="defaultAddress">
-                        <p style="margin-top: -35px;margin-left: 26px;">设置为默认地址</p>
-
-
-                        <button type="submit" class="btn btn-primary" style="float: right;">保存</button>
-
-                        <script type="text/javascript"></script>
-                        <script src="/js/area.js"></script>
-                        <div id="show"></div>
-                    </div>
-
-                </form>
+                            <div style="float: left;padding-right: 50px;">
+                                <input type="checkbox" style="width: 20px;display: block; " name="defaultAddress">
+                                <p style="margin-top: -35px;margin-left: 26px;">设置为默认地址</p>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </from>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 
@@ -96,6 +94,18 @@
             document.getElementById('s_county').value + "</h3>"
     };
     Gid.setAttribute('onchange', 'showArea()');
+
+
+        // $.ajax({
+        //     type:"get",
+        //     url: //你的请求程序页面随便啦
+        //     data:"asd";//请求需要发送的处理数据
+        // success:function(msg){
+        //     if (msg) {//根据返回值进行跳转
+        //         window.location.href = '你的跳转的目标地址';
+        //     }
+        // }
+
 </script>
 </body>
 </html>

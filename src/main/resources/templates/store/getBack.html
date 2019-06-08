@@ -6,13 +6,15 @@
 
 </head>
 <body>
+
 <div id="content" layout:fragment="content">
+
     <!-- breadcrumb start -->
     <div class="breadcrumb-area">
         <div class="container">
             <ol class="breadcrumb">
-                <li><a href="../moban/index.html"><i class="fa fa-home"></i> Home</a></li>
-                <li class="active">register</li>
+                <li><a href="index.html"><i class="fa fa-home"></i> Home</a></li>
+                <li class="active">Login</li>
             </ol>
         </div>
     </div>
@@ -21,29 +23,28 @@
     <div class="account-area pt-30 log">
         <div class="container">
             <div class="row">
-                <form action="/user/doReg" method="post">
-                    <div class="form-fields">
-                        <h3 style="color:#A62F00;text-align: center;" th:text="${msg}">用户已存在</h3>
 
-                        <p>用户名：<span class="required">*</span> <input type="text" name="username"
-                                                                      class=""/></p>
+                <div class="col-md-12 col-lg-12 col-sm-12">
+                    <div class="account-info pb-30">
+                        <h3>找回密码</h3>
+                        <div class="form-fields" >
+                        <form action="user/getBack" method="post">
 
-                        <p>密码<span class="required">*</span><input type="password" name="password"
-                                                                   class=""/></p>
-                        <p>E-email<span class="required">*</span><input type="email" id="email" name="email"
-                                                                   class=""/>
-                            <input class=" btn-primary" style="width: 100px;float:right; background-color: #337ab7;margin: 0.5em;"  type="button" value="发送验证码" id="send">
-                        </p>
 
-                        <p>验证码：<span class="required">*</span><input type="text" name="verificationCode"
-                                                                        class=""/></p>
+                                <p>E-email<span class="required">*</span><input type="email" id="email" name="email"
+                                                                                class=""/>
+                                    <input class=" btn-primary" style="width: 100px;float:right; background-color: #337ab7;margin: 0.5em;"  type="button" value="发送验证码" id="send">
+                                </p>
+
+                                <p>验证码：<span class="required">*</span><input type="text" name="verificationCode"
+                                                                             class=""/></p>
+                            <button type="submit" class="btn btn-primary" style="float: right;margin-top: 2em;">确定</button>
+
+                        </form>
+                        </div>
                     </div>
-                    <div class="form-action">
+                </div>
 
-                        <input value="注册" type="submit">
-                    </div>
-
-                </form>
             </div>
         </div>
     </div>
@@ -56,9 +57,7 @@
         document.title = config.pageTitle;
         $("#" + config.navActive).addClass("active");
 
-    })
-
-//邮箱验证
+        //邮箱验证
         $("#send").click(function(){
             $("#send").attr("value","正在发送");
             $("#send").attr("disabled","true");
@@ -70,6 +69,8 @@
                 timeout:5000,
                 success:function(data){
                     $("#send").attr("value","验证码已发送");
+                    alert("发送了");
+
                 },
                 error:function(){
                     alert("出错了！！");
@@ -77,6 +78,8 @@
                 }
             });
         });
+
+    })
 </script>
 </body>
 </html>
