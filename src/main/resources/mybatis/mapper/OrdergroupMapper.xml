@@ -5,4 +5,7 @@
     <select id="findMaxId" resultType="com.bookstore.bookstore.dao.model.Ordergroup">
         select group_id from ordergroup ORDER by group_id desc LIMIT 1
     </select>
+    <select id="findAll" resultType="com.bookstore.bookstore.service.info.OrdergroupInfo">
+        select * from ordergroup
+    </select>
 </mapper>

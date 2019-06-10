@@ -1,0 +1,152 @@
+﻿<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+<body>
+<div id="content" layout:fragment="content">
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+                <ul class="list-group">
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            个人信息
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            密码修改
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            收货地址
+                        </a>
+                    </li>
+                    <li class="list-group-item">
+                        <a href="#" class="list-group-item">
+                            订单管理
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+                <div th:text="${msg}" style="color:red; text-align: center;"></div>
+                <section class="cartMain">
+                    <div class="cartMain_hd">
+                        <ul class="order_lists cartTop">
+
+                            <li class="list_con">商品信息</li>
+                            <li class="list_price">单价</li>
+                            <li class="list_amount">数量</li>
+                            <li class="list_sum">金额</li>
+                            <li class="list_info">订单状态</li>
+                            <li class="list_op">操作</li>
+                        </ul>
+                    </div>
+                    <form id="form1">
+                        <div class="cartBox" th:each="order:${allOrder}">
+                            <div class="shop_info" style="width: 99%;">
+                                <div class="all_check">
+                                    <!--店铺全选-->
+                                    <!--                            <input type="checkbox" id="shop_a" class="shopChoice" onclick="changeAll(this)">-->
+                                    <!--                            <label for="shop_a" class="shop"></label>-->
+                                </div>
+                                <div class="shop_name" th:unless="${#lists.isEmpty(allOrder)}"
+                                     th:text="${#dates.format(order.creatDate,'yyyy年MM月dd日 hh:mm:ss')}">
+                                    店铺：
+                                </div>
+                            </div>
+                            <div class="order_content" th:each="oneOrder:${order.orderbuys}" style="width: 99%;">
+                                <ul class="order_lists">
+                                    <li class="list_con" style="width: 312px;">
+                                        <a href="javascript:;" th:text="${oneOrder.book.bookName}"
+                                           style="text-align: center; margin-top: 50px;">书名</a>
+                                        <input type="hidden" name="bookId" th:value="${oneOrder.book.bookId}">
+                                    </li>
+                                    <li class="list_price" style="text-align: left;">
+                                        <br>
+                                        <p th:text="￥+${oneOrder.book.bookPrice}">单价：16*16*3(cm)</p>
+                                    </li>
+                                    <li class="list_amount">
+                                        <p th:text="${oneOrder.orderCount}"> 数量</p>
+                                    </li>
+                                    <li class="list_sum">
+                                        <div class="amount_box">
+                                            <p th:text="￥+${oneOrder.orderPrice}">总价</p>
+                                        </div>
+                                    </li>
+                                    <li class="list_info">
+                                        <p th:text="${oneOrder.state}"></p>
+                                    </li>
+                                    <li class="list_op">
+                                        <input type="hidden" th:value="${oneOrder.orderId}">
+                                        <p class="del">
+                                            <span th:unless="${oneOrder.state=='待支付' || oneOrder.state=='已取消'}">
+                                            <a onclick="reBuy(this)">退货</a>
+                                            </span>
+                                            <span th:if="${oneOrder.state=='待支付'}">
+                                            <a onclick="">支付</a>
+                                            <a onclick="delOrder(this)">取消订单</a>
+                                            </span>
+                                        </p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+
+
+                    </form>
+                </section>
+
+            </div>
+
+
+        </div>
+    </div>
+</div>
+<script layout:fragment="script">
+    var config = {pageTitle: "订单管理", navActive: "navProduct"};
+    var cartId = 0;
+    $(function () {
+        document.title = config.pageTitle;
+        $("#" + config.navActive).addClass("active");
+    });
+
+    function reBuy(e) {
+        orderId = $(e).parent().parent().parent().children("input:first").val();
+        orderState = $(e).parent().parent().parent().parent().children(".list_info").children("p:first");
+        $.ajax({
+            type: "post",
+            url: "/ordergroup/reBuy",
+            data: {
+                orderId: orderId
+            },
+            dataType: "json",
+            success: function (json) {
+                orderState.text("申请退货中");
+            }
+        });
+    }
+
+    function delOrder(e) {
+        orderId = $(e).parent().parent().parent().children("input:first").val();
+        orderState = $(e).parent().parent().parent().parent().children(".list_info").children("p:first");
+        $.ajax({
+            type: "post",
+            url: "/ordergroup/delOrder",
+            data: {
+                orderId: orderId
+            },
+            dataType: "json",
+            success: function (json) {
+                orderState.text("已取消");
+            }
+        });
+    }
+
+</script>
+</body>
+</html>

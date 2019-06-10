@@ -1,4 +1,4 @@
-package com.bookstore.bookstore.dao.model;
+package com.bookstore.bookstore.service.info;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -9,6 +9,7 @@ import lombok.experimental.Accessors;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -21,7 +22,7 @@ import java.util.Date;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-public class Ordergroup implements Serializable {
+public class OrdergroupInfo implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,5 +37,5 @@ public class Ordergroup implements Serializable {
 
     private Date creatDate;
 
-
+    private List<OrderMsg> orderbuys;
 }
