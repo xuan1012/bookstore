@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import javax.xml.ws.Action;
+import java.util.List;
 
 /**
  * <p>
@@ -40,4 +41,12 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
 
 
     }
+
+    @Override
+    public List<Address> selectAddress(Long i) {
+        List<Address> selectAddress =addressMapper.select(i);
+        return selectAddress;
+    }
+
+
 }

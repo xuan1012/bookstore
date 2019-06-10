@@ -23,4 +23,6 @@ public interface UserMapper extends BaseMapper<User> {
 
     void modifyPassword(User user);
 
+    User getUser(User user);
+
 }
