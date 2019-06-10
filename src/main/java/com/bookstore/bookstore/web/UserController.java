@@ -12,6 +12,13 @@ import com.bookstore.bookstore.web.form.ModifyForm;
 import com.bookstore.bookstore.web.form.RegisterFrom;
 import com.bookstore.bookstore.web.uit.MailUtil;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.authc.AuthenticationException;
+import org.apache.shiro.authc.IncorrectCredentialsException;
+import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.subject.Subject;
+import org.apache.shiro.web.util.SavedRequest;
+import org.apache.shiro.web.util.WebUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +28,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
+import javax.mail.MessagingException;
+import javax.mail.internet.AddressException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
 import java.util.List;
@@ -72,28 +84,52 @@ public class UserController {
     }
 
     @RequestMapping("/dolog")
-    public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session) {
+    public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session, HttpServletRequest request) {
         Regisrelnfo regisrelnfo = new Regisrelnfo();
+        String message;
+        UsernamePasswordToken token = new UsernamePasswordToken(registerFrom.getUsername(), registerFrom.getPassword());
+        token.setRememberMe(false);
+        Subject currUser = SecurityUtils.getSubject();
+        try {
+            currUser.login(token);
+
+            SavedRequest req = WebUtils.getAndClearSavedRequest(request);
+            if (req == null) {
+                return "redirect:/";
+            } else {
+                String requestUrl = req.getRequestUrl();
+                return "redirect:" + requestUrl;
+            }
+        } catch (IncorrectCredentialsException e) {
+            log.info("用户名或者密码错误");
+            message = "用户名或者密码错误";
+        } catch (AuthenticationException e) {
+            log.warn("登录失败", e);
+            message = "登录失败";
+        }
+        modelMap.addAttribute("msg", message);
+        session.setAttribute("username", registerFrom.getUsername());
+
         if (registerFrom != null) {
             BeanUtils.copyProperties(registerFrom, regisrelnfo);
             User select = iUserService.select(regisrelnfo);
-            if (select == null) {
-                modelMap.addAttribute("msg", "您的账号或者密码错误");
-                return "store/login";
-            }
+//            if (select == null) {
+//                modelMap.addAttribute("msg", "您的账号或者密码错误");
+//                return "store/login";
+//            }
             session.setAttribute("userId", select.getUserId());
             session.setAttribute("username", registerFrom.getUsername());
         }
         getClassification(modelMap);
-        return "redirect:/";
+        return "store/login";
     }
 
-    @RequestMapping("/logout")
-    public String logout(HttpSession session) {
-        session.invalidate();
-
-        return "redirect:/";
-    }
+//    @RequestMapping("/logout")
+//    public String logout(HttpSession session) {
+//        session.invalidate();
+//
+//        return "redirect:/";
+//    }
 
     public void getClassification(ModelMap model) {
         List<ClassIficationInfo> categories = classification.classification();

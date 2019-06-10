@@ -4,19 +4,21 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.bookstore.bookstore.dao.*;
 import com.bookstore.bookstore.dao.model.*;
 import com.bookstore.bookstore.service.IOrderService;
+import com.bookstore.bookstore.service.info.OrderMsg;
+import com.bookstore.bookstore.service.info.OrdergroupInfo;
+import com.bookstore.bookstore.util.RecordNoUtils;
 import com.bookstore.bookstore.web.form.OrderForm;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.ModelMap;
 import org.thymeleaf.util.DateUtils;
+
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -112,11 +114,47 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
             orderbuys.add(orderbuy);
             orderbuyMapper.insert(orderbuy);
         }
+        ordergroup.setOrderNumber(RecordNoUtils.getInstance().get());
         ordergroup.setGroupContent(stringBuilder.toString());
         ordergroup.setMoney(money);
         ordergroupMapper.insert(ordergroup);
         session.setAttribute("ordersTodo", orderbuys);
         return ordergroup;
+    }
+
+    @Override
+    public List<OrdergroupInfo> getAllOrder(ModelMap map, Long userId) {
+        Map<String, Object> findMap = new HashMap<>(5);
+        map.put("user_id", userId);
+        List<Orderbuy> orderbuys = orderbuyMapper.selectByMap(map);
+        List<OrdergroupInfo> allOrderGroup = ordergroupMapper.findAll();
+        for (OrdergroupInfo ordergroupInfo : allOrderGroup) {
+            List<OrderMsg> orderbuyList = new ArrayList<>();
+            for (Orderbuy orderbuy : orderbuys) {
+                OrderMsg orderMsg = new OrderMsg();
+                BeanUtils.copyProperties(orderbuy, orderMsg);
+                orderMsg.setBook(bookMapper.selectById(orderMsg.getBookId()));
+                if (orderMsg.getLevel().equals(ordergroupInfo.getGroupId())) {
+                    orderbuyList.add(orderMsg);
+                    ordergroupInfo.setOrderbuys(orderbuyList);
+                }
+            }
+        }
+        return allOrderGroup;
+    }
+
+    @Override
+    public void reBuy(Long orderId) {
+        Orderbuy orderbuy = orderbuyMapper.selectById(orderId);
+        orderbuy.setState("申请退货中");
+        orderbuyMapper.updateById(orderbuy);
+    }
+
+    @Override
+    public void delOrder(Long orderId) {
+        Orderbuy orderbuy = orderbuyMapper.selectById(orderId);
+        orderbuy.setState("已取消");
+        orderbuyMapper.updateById(orderbuy);
     }
 }
 

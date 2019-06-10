@@ -53,7 +53,7 @@ public class Book implements Serializable {
     /**
      * 卖家店铺
      */
-    private String sellStore;
+    private Long storeId;
 
     /**
      * 销量
