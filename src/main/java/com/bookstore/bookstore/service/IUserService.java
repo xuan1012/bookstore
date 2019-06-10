@@ -1,15 +1,10 @@
 package com.bookstore.bookstore.service;
 
-import com.bookstore.bookstore.dao.UserMapper;
-import com.bookstore.bookstore.dao.model.Address;
 import com.bookstore.bookstore.dao.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
-import com.bookstore.bookstore.service.info.SelectUesrInfo;
 import com.bookstore.bookstore.web.form.ModifyForm;
-import org.apache.ibatis.annotations.Param;
-
-import java.util.List;
+import com.bookstore.bookstore.web.uit.MailUtil;
 
 /**
  * <p>

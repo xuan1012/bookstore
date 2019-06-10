@@ -17,4 +17,6 @@ public class ModifyForm {
 
     private String password1;
 
+    private String verificationCode;
+
 }

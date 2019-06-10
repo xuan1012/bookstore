@@ -16,7 +16,7 @@
     </update>
 
     <select id="getUser" parameterType="com.bookstore.bookstore.dao.model.User" resultType="com.bookstore.bookstore.dao.model.User">
-        select * from myuser where username=#{username} and emil=#{emil}
+        select * from myuser where email=#{email}
     </select>
 
 </mapper>

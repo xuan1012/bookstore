@@ -28,7 +28,7 @@
                     <div class="account-info pb-30">
                         <h3>找回密码</h3>
                         <div class="form-fields" >
-                        <form action="user/getBack" method="post">
+                        <form action="/user/getBack" method="post">
 
 
                                 <p>E-email<span class="required">*</span><input type="email" id="email" name="email"
@@ -56,30 +56,27 @@
     $(function () {
         document.title = config.pageTitle;
         $("#" + config.navActive).addClass("active");
-
-        //邮箱验证
-        $("#send").click(function(){
-            $("#send").attr("value","正在发送");
-            $("#send").attr("disabled","true");
-            $.ajax({
-                url:"emil",
-                type:"post",
-                //发送数据的第一种格式，字符串...
-                data:$("#mail").val(),
-                timeout:5000,
-                success:function(data){
-                    $("#send").attr("value","验证码已发送");
-                    alert("发送了");
-
-                },
-                error:function(){
-                    alert("出错了！！");
-
-                }
-            });
-        });
-
     })
+    //邮箱验证
+    $("#send").click(function(){
+        var email = $("#email").val();
+        $("#send").attr("value","正在发送");
+        $("#send").attr("disabled","true");
+        $.ajax({
+            url:"getEmail",
+            type:"POST",
+            timeout:5000,
+            data: email,
+            contentType: 'application/json;charset=UTF-8',
+            async: false,
+            success:function(data){
+                $("#send").attr("value","验证码已发送");
+            },
+            error:function(){
+                alert("请重新输入！");
+            }
+        });
+    });
 </script>
 </body>
 </html>

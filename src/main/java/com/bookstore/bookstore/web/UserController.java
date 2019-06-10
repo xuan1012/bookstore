@@ -8,24 +8,21 @@ import com.bookstore.bookstore.service.IClassificationService;
 import com.bookstore.bookstore.service.IUserService;
 import com.bookstore.bookstore.service.info.ClassIficationInfo;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
-import com.bookstore.bookstore.service.uit.MailUtil;
 import com.bookstore.bookstore.web.form.ModifyForm;
 import com.bookstore.bookstore.web.form.RegisterFrom;
+import com.bookstore.bookstore.web.uit.MailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.net.URLDecoder;
 import java.util.List;
 
 /**
@@ -43,8 +40,10 @@ public class UserController {
 
     @Autowired
     private IUserService iUserService;
+
     @Autowired
     private IClassificationService classification;
+
     @Resource
     IBookService bookService;
 
@@ -127,19 +126,15 @@ public class UserController {
         Long userId = (Long) session.getAttribute("userId");
 
         if (userId != null) {
-
             iUserService.modify(modifyForm);
             log.info("测试{}", modifyForm);
-
         }
-
         return "redirect:/user/information";
     }
 
     //修改密码
     @RequestMapping("/to")
     public String toModify() {
-
         return "store/modifyPassword";
     }
 
@@ -156,41 +151,48 @@ public class UserController {
     }
 
     //邮箱验证
-    @RequestMapping("/emil")
-    public void addEmil(MailUtil mailUtil, HttpServletRequest request) throws Exception {
-
-        /*
-         * emailTitle 邮件标题
-         * toEmailAddress 目标邮箱地址
-         * emailContent 邮件内容
-         */
-        String i = request.getParameter("name");
-        log.info("ajax {}",i);
-        int random = (int) (1 + Math.random() * 100);
-        String number = Integer.toString(random);
-        String emailTitle = "欢迎！";
-        String emailContent = number;
-        mailUtil.sendEmail(emailTitle, emailContent);
-//        return "";
-    }
+//    @RequestMapping("/email")
+//    public String addEmil(MailUtil mailUtil) throws Exception {
+//        //随机数
+//        int random = (int) (1 + Math.random() * 10000);
+//        String number = Integer.toString(random);
+//        String emailContent = number;
+//        //标题
+//        String emailTitle = "欢迎！";
+//        //调用MailUtil
+//        mailUtil.sendEmail(emailTitle, emailContent);
+////        String toEmailAddress = InternetAddress.getLocalAddress();
+//        mailUtil.sendEmail(emailTitle, emailContent);
+//        return "store/index";
+//    }
 
     //找回密码
     @RequestMapping("/doGetBack")
-    public String doGetBack(ModifyForm modifyForm, ModelMap model) {
+    public String doGetBack() {
+
         return "store/getBack";
     }
+
     @RequestMapping("/getBack")
-    public String modifyUser(ModifyForm modifyForm, ModelMap model) {
-
-        String email = modifyForm.getEmail();
+    public String modifyUser(ModifyForm modifyForm, MailUtil mailUtil) throws Exception {
         User getuser = iUserService.getBack(modifyForm);
-        String userName = getuser.getEmail();
-//        if (email!=userName) {
-//
-//            model.addAttribute("", "");
-//        }
 
-        return "store/index";
+        return "redirect:/";
     }
 
+    @RequestMapping("/getEmail")
+    @ResponseBody
+    public String getmail(@RequestBody String email, MailUtil mailUtil) throws Exception {
+        email= URLDecoder.decode(email,"UTF-8");
+        //收件人地址
+        String get = email;
+        //邮件主题
+        String theme = "欢迎！你加入我们";
+        //随机数或者邮件内容
+        int random = (int) (1 + Math.random() * 10000);
+        String number = Integer.toString(random);
+        //发邮件调用的实体类
+        mailUtil.sendEmail(theme,get,number);
+        return "redirect:/user/doGetBack";
+    }
 }

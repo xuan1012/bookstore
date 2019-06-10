@@ -1,17 +1,18 @@
-package com.bookstore.bookstore.service.uit;
+package com.bookstore.bookstore.web.uit;
 
 import com.sun.mail.util.MailSSLSocketFactory;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Properties;
 
 public class MailUtil {
+
+
+
     //邮件服务器主机名
     // QQ邮箱的 SMTP 服务器地址为: smtp.qq.com
     private static String myEmailSMTPHost = "smtp.163.com";
@@ -27,11 +28,11 @@ public class MailUtil {
      * 邮件单发（自由编辑短信，并发送，适用于私信）
      *
      * @param toEmailAddress 收件箱地址
-     * @param emailTitle 邮件主题
-     * @param emailContent 邮件内容
+     * @param emailTitle     邮件主题
+     * @param emailContent   邮件内容
      * @throws Exception
      */
-    public static void sendEmail( String emailTitle, String emailContent) throws Exception{
+    public static void sendEmail(String emailTitle,String toEmailAddress,String emailContent) throws Exception {
 
         Properties props = new Properties();
 
@@ -90,7 +91,7 @@ public class MailUtil {
 
         //设置发件人邮箱
         // InternetAddress 的三个参数分别为: 发件人邮箱, 显示的昵称(只用于显示, 没有特别的要求), 昵称的字符集编码
-        msg.setFrom(new InternetAddress(myEmailAccount,"你好！", "UTF-8"));
+        msg.setFrom(new InternetAddress(myEmailAccount, "你好！", "UTF-8"));
 
         //得到邮差对象
         Transport transport = session.getTransport();
@@ -98,12 +99,10 @@ public class MailUtil {
         //连接自己的邮箱账户
         //密码不是自己QQ邮箱的密码，而是在开启SMTP服务时所获取到的授权码
         //connect(host, user, password)
-        transport.connect( myEmailSMTPHost, myEmailAccount, myEmailPassword);
+        transport.connect(myEmailSMTPHost, myEmailAccount, myEmailPassword);
 
         //发送邮件
-        transport.sendMessage(msg, new Address[] { new InternetAddress("yellowzy@163.com") });
-
-
+        transport.sendMessage(msg, new Address[]{new InternetAddress(toEmailAddress)});
 
         transport.close();
     }

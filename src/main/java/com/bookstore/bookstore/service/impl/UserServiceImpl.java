@@ -5,15 +5,13 @@ import com.bookstore.bookstore.dao.UserMapper;
 import com.bookstore.bookstore.dao.model.User;
 import com.bookstore.bookstore.service.IUserService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
-import com.bookstore.bookstore.service.info.SelectUesrInfo;
 import com.bookstore.bookstore.web.form.ModifyForm;
+import com.bookstore.bookstore.web.uit.MailUtil;
 import lombok.extern.slf4j.Slf4j;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
-import java.util.List;
 
 /**
  * <p>
@@ -82,6 +80,6 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         User select = userMapper.getUser(user);
 
-        return null;
+        return select;
     }
 }

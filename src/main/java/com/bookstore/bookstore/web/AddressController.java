@@ -50,7 +50,7 @@ public class AddressController {
 //        modelMap.addAttribute("","");
         iAddressService.add(addressForm);
 
-        return "store/address";
+        return "store/index";
     }
     @RequestMapping("/doselect")
     private String doSelect(){
