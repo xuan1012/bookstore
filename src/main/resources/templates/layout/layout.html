@@ -121,8 +121,8 @@
                                     <input type="hidden" name="minBookPrice" th:value="${bookForm.minBookPrice}">
                                     <input type="hidden" name="maxBookPrice" th:value="${bookForm.maxBookPrice}">
                                     <input type="hidden" name="page" value="1">
-                                    <input type="hidden" name="sales" th:value="${bookForm.sales}">
-                                    <input type="hidden" name="desc" th:value="${bookForm.desc}">
+                                    <input type="hidden" name="sales">
+                                    <input type="hidden" name="desc">
                                 </div>
                                 <div th:if="${#lists.isEmpty(bookForm)}">
                                     <input type="hidden" name="classname">
