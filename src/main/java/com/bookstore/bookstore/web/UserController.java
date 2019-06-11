@@ -62,13 +62,21 @@ public class UserController {
     }
 
     @RequestMapping("/doReg")
-    public String doReg(RegisterFrom registerFrom, ModelMap map) {
+    public String doReg(RegisterFrom registerFrom, ModelMap map,HttpSession session) {
 
         Regisrelnfo lnfo = new Regisrelnfo();
         BeanUtils.copyProperties(registerFrom, lnfo);
-        log.info("123 {}", lnfo);
-        iUserService.add(lnfo);
-        map.addAttribute("msg", "注册成功！请登录");
+
+        String number =(String) session.getAttribute("number");
+
+        String verificationCode = registerFrom.getVerificationCode();
+
+        if(number.equals(verificationCode)){
+            iUserService.add(lnfo);
+            map.addAttribute("msg", "注册成功！请登录");
+        }else {
+            map.addAttribute("Exception","验证码错误！");
+        }
         getClassification(map);
         return "store/login";
     }
@@ -92,10 +100,10 @@ public class UserController {
 
                 BeanUtils.copyProperties(registerFrom, regisrelnfo);
                 User select = iUserService.select(regisrelnfo);
-            if (select == null) {
-                modelMap.addAttribute("msg", "您的账号或者密码错误");
-                return "store/login";
-            }
+                if (select == null) {
+                    modelMap.addAttribute("msg", "您的账号或者密码错误");
+                    return "store/login";
+                }
                 session.setAttribute("userId", select.getUserId());
                 session.setAttribute("username", registerFrom.getUsername());
             }
@@ -123,12 +131,6 @@ public class UserController {
         return "store/login";
     }
 
-//    @RequestMapping("/logout")
-//    public String logout(HttpSession session) {
-//        session.invalidate();
-//
-//        return "redirect:/";
-//    }
 
     public void getClassification(ModelMap model) {
         List<ClassIficationInfo> categories = classification.classification();
@@ -176,47 +178,24 @@ public class UserController {
     @RequestMapping("/modifyPassword")
     public String modifyPassword(HttpSession session, ModifyForm modifyForm, ModelMap model) {
 
+        String number =(String) session.getAttribute("number");
+
+        String verificationCode = modifyForm.getVerificationCode();
+
         Long userId = (Long) session.getAttribute("userId");
 
         modifyForm.setUserId(userId);
 
-        iUserService.modifyPassword(modifyForm);
+        if(number.equals(verificationCode)){
+
+            iUserService.modifyPassword(modifyForm);
+
+        }else {
+            model.addAttribute("Exception","验证码错误！");
+        }
 
         return "redirect:/user/information";
     }
-
-    //邮箱验证
-    @RequestMapping("/emil")
-    public void addEmil(MailUtil mailUtil, HttpServletRequest request) throws Exception {
-
-        /*
-         * emailTitle 邮件标题
-         * toEmailAddress 目标邮箱地址
-         * emailContent 邮件内容
-         */
-        String i = request.getParameter("name");
-        log.info("ajax {}", i);
-        int random = (int) (1 + Math.random() * 100);
-        String number = Integer.toString(random);
-        String emailTitle = "欢迎！";
-        String emailContent = number;
-        mailUtil.sendEmail(emailTitle, emailContent);
-//        return "";
-    }
-//    @RequestMapping("/email")
-//    public String addEmil(MailUtil mailUtil) throws Exception {
-//        //随机数
-//        int random = (int) (1 + Math.random() * 10000);
-//        String number = Integer.toString(random);
-//        String emailContent = number;
-//        //标题
-//        String emailTitle = "欢迎！";
-//        //调用MailUtil
-//        mailUtil.sendEmail(emailTitle, emailContent);
-////        String toEmailAddress = InternetAddress.getLocalAddress();
-//        mailUtil.sendEmail(emailTitle, emailContent);
-//        return "store/index";
-//    }
 
     //找回密码
     @RequestMapping("/doGetBack")
@@ -226,16 +205,28 @@ public class UserController {
     }
 
     @RequestMapping("/getBack")
-    public String modifyUser(ModifyForm modifyForm, MailUtil mailUtil) throws Exception {
-        User getuser = iUserService.getBack(modifyForm);
+    public String modifyUser(ModifyForm modifyForm, HttpSession session,ModelMap modelMap)  {
 
+        String number =(String) session.getAttribute("number");
+
+        String verificationCode = modifyForm.getVerificationCode();
+
+        if(number.equals(verificationCode)){
+
+            User getuser = iUserService.getBack(modifyForm);
+
+        }else {
+            modelMap.addAttribute("Exception","验证码错误！");
+        }
         return "redirect:/";
     }
 
+    //邮件发送
     @RequestMapping("/getEmail")
     @ResponseBody
-    public String getmail(@RequestBody String email, MailUtil mailUtil) throws Exception {
-        email= URLDecoder.decode(email,"UTF-8");
+    public String getmail(@RequestBody String email, MailUtil mailUtil, HttpSession session) throws Exception {
+
+        email = URLDecoder.decode(email, "UTF-8");
         //收件人地址
         String get = email;
         //邮件主题
@@ -244,7 +235,10 @@ public class UserController {
         int random = (int) (1 + Math.random() * 10000);
         String number = Integer.toString(random);
         //发邮件调用的实体类
-        mailUtil.sendEmail(theme,get,number);
+        mailUtil.sendEmail(theme, get, number);
+        //把随机数加入
+        session.setAttribute("number", number);
+        log.info(" 随机数", number);
         return "redirect:/user/doGetBack";
     }
 }
