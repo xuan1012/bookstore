@@ -16,10 +16,10 @@ public class AlipayClientParam {
     public static String alipay_public_key = "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA7sGtZpO+9LyoKFzV72+kpFe3sVIFN2BTktp51wT9YTuBfwyY3Kp7C9Woh0aa9AU3HrnxQtx3kRC4WzE1AzDJYvpM8YmWrvrgSWCgK3ZetbWQTUlbAUa9/tYKN9G2hjbJsHGCqiropAjdsMp1cm87aFg3XDjPAmNxFzLl3GVzEkzCRYJJ3C7fwjuVKxMQJDXBGXME/cNd4nTxNd7Dt2PhD+GB7REr2JzvxCCcuxLQ+YQK5e2Z6uOYOpVk5Gqs1IiJ5g4BHIKOjl2/PIuDK0P8Fsd/Nb6mAZ3CIt1H9kB7SpZKVwK9kKX1XDKtZ/2RFnnRMBAbU6j6/tR63XMVKc4VGQIDAQAB";
 
     // 服务器异步通知页面路径  需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String notify_url = "http://172.18.22.185:8080/order/alipayNotifyNotice";
+    public static String notify_url = "http://localhost:8080/order/alipayNotifyNotice";
 
     // 页面跳转同步通知页面路径 需http://格式的完整路径，不能加?id=123这类自定义参数，必须外网可以正常访问
-    public static String return_url = "http://172.18.22.185:8080/order/alipayReturnNotice";
+    public static String return_url = "http://localhost:8080/order/alipayReturnNotice";
 
     // 签名方式
     public static String sign_type = "RSA2";

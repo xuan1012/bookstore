@@ -8,12 +8,12 @@ import java.util.List;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author xuan
  * @since 2019-05-29
  */
 public interface PicturesMapper extends BaseMapper<Picture> {
-        List<Picture> getBookPicture(@Param("bookId") Long bookId);
+    List<Picture> getBookPicture(@Param("bookId") Long bookId);
 }

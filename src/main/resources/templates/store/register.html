@@ -32,12 +32,14 @@
                         <p>密码<span class="required">*</span><input type="password" name="password"
                                                                    class="" required/></p>
                         <p>E-email<span class="required">*</span><input type="email" id="email" name="email"
-                                                                   class="" required/>
-                            <input class=" btn-primary" style="width: 100px;float:right; background-color: #337ab7;margin: 0.5em;"  type="button" value="发送验证码" id="send">
+                                                                        class="" required/>
+                            <input class=" btn-primary"
+                                   style="width: 100px;float:right; background-color: #337ab7;margin: 0.5em;"
+                                   type="button" value="发送验证码" id="send">
                         </p>
 
                         <p>验证码：<span class="required">*</span><input type="text" name="verificationCode"
-                                                                        class="" required/></p>
+                                                                     class="" required/></p>
                     </div>
                     <div class="form-action">
 
@@ -60,21 +62,21 @@
     })
 
     //邮箱验证
-    $("#send").click(function(){
+    $("#send").click(function () {
         var email = $("#email").val();
-        $("#send").attr("value","正在发送");
-        $("#send").attr("disabled","true");
+        $("#send").attr("value", "正在发送");
+        $("#send").attr("disabled", "true");
         $.ajax({
-            url:"getEmail",
-            type:"POST",
-            timeout:5000,
+            url: "getEmail",
+            type: "POST",
+            timeout: 5000,
             data: email,
             contentType: 'application/json;charset=UTF-8',
             async: false,
-            success:function(data){
-                $("#send").attr("value","验证码已发送");
+            success: function (data) {
+                $("#send").attr("value", "验证码已发送");
             },
-            error:function(){
+            error: function () {
                 alert("请重新输入！");
             }
         });

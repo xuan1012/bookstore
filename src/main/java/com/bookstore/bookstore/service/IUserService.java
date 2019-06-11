@@ -5,9 +5,10 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
 import com.bookstore.bookstore.web.form.ModifyForm;
 import com.bookstore.bookstore.web.form.RegisterFrom;
+
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author xuan
@@ -27,5 +28,5 @@ public interface IUserService extends IService<User> {
 
     User selectName(RegisterFrom registerFrom);
 
-    void  getPW (ModifyForm modifyForm);
+    void getPW(ModifyForm modifyForm);
 }

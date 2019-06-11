@@ -4,12 +4,13 @@ import com.bookstore.bookstore.dao.model.Classification;
 import lombok.Data;
 
 import java.util.Collection;
+
 @Data
 public class ClassIficationInfo {
 
     private Long classID;
 
-    private  String className;
+    private String className;
 
     private Collection<Classification> classificationInfos;
 

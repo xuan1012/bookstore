@@ -29,20 +29,20 @@ public class AddressController {
     private IAddressService iAddressService;
 
     @RequestMapping("/do")
-    private String dos(){
+    private String dos() {
         return "store/address";
     }
 
     @RequestMapping("/doaddress")
-    public String doAddress(ModelMap modelMap, AddressForm addressForm,HttpSession session) {
+    public String doAddress(ModelMap modelMap, AddressForm addressForm, HttpSession session) {
 
         Long userId = (Long) session.getAttribute("userId");
         addressForm.setUserId(userId);
-        String f="F";
-        String t="T";
-        if(addressForm.getDefaultAddress()!=null){
+        String f = "F";
+        String t = "T";
+        if (addressForm.getDefaultAddress() != null) {
             addressForm.setDefaultAddress(f);
-        }else{
+        } else {
             addressForm.setDefaultAddress(t);
         }
 //        modelMap.addAttribute("","");
@@ -50,27 +50,29 @@ public class AddressController {
 
         return "store/address";
     }
+
     @RequestMapping("/doselect")
-    private String doSelect(){
+    private String doSelect() {
 
         return "store/displayAddress";
     }
+
     @RequestMapping("/selectaddress")
-    public String selectAddress(ModelMap modelMap,HttpSession session) {
+    public String selectAddress(ModelMap modelMap, HttpSession session) {
 
         Long userId = (long) session.getAttribute("userId");
 
-        List<Address> modifyAddress=iAddressService.selectAddress(userId);
+        List<Address> modifyAddress = iAddressService.selectAddress(userId);
 
-        modelMap.addAttribute("selectAddress",modifyAddress);
+        modelMap.addAttribute("selectAddress", modifyAddress);
 
         log.info("地址 {}", modifyAddress);
 
         return "store/displayAddress";
     }
-    @RequestMapping("/updateAddress")
-    public String updatetAddress(ModelMap modelMap,HttpSession session,AddressForm addressForm) {
 
+    @RequestMapping("/updateAddress")
+    public String updatetAddress(ModelMap modelMap, HttpSession session, AddressForm addressForm) {
 
 
         return "store/index";

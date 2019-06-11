@@ -29,7 +29,9 @@ public interface IOrderService extends IService<Orderbuy> {
     List<OrdergroupInfo> getAllOrder(ModelMap map, Long userId);
 
     void reBuy(Long orderId);
+
     void delOrder(Long orderId);
+
     void getShop(Long orderId);
 
 }

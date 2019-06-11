@@ -7,7 +7,7 @@ import com.bookstore.bookstore.dao.model.News;
 
 /**
  * <p>
- *  Mapper 接口
+ * Mapper 接口
  * </p>
  *
  * @author xuan

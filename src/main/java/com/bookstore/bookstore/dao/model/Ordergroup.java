@@ -1,6 +1,5 @@
 package com.bookstore.bookstore.dao.model;
 
-import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -25,7 +24,7 @@ public class Ordergroup implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "group_id", type = IdType.AUTO)
+    @TableId(value = "group_id")
     private Long groupId;
 
     private String orderNumber;

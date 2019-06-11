@@ -66,9 +66,9 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
     public void modifyPassword(ModifyForm modifyForm) {
         User user = new User();
 
-            BeanUtils.copyProperties(modifyForm, user);
+        BeanUtils.copyProperties(modifyForm, user);
 
-            userMapper.modifyPassword(user);
+        userMapper.modifyPassword(user);
 
     }
 
@@ -77,18 +77,19 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         User user = new User();
 
-        BeanUtils.copyProperties(modifyForm,user);
+        BeanUtils.copyProperties(modifyForm, user);
 
         User select = userMapper.getUser(user);
 
         return select;
     }
-//判断用户name
+
+    //判断用户name
     @Override
     public User selectName(RegisterFrom registerFrom) {
 
-        User user = new  User();
-        BeanUtils.copyProperties(registerFrom,user);
+        User user = new User();
+        BeanUtils.copyProperties(registerFrom, user);
 
         User selectName = userMapper.selectName(user);
 
@@ -97,8 +98,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
     @Override
     public void getPW(ModifyForm modifyForm) {
-        User user = new  User();
-        BeanUtils.copyProperties(modifyForm,user);
+        User user = new User();
+        BeanUtils.copyProperties(modifyForm, user);
 
         userMapper.setPW(user);
     }

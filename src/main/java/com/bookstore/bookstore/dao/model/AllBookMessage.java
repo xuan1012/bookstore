@@ -11,7 +11,7 @@ import java.util.List;
  * @create: 2019-05-29 11:45
  **/
 @Data
-public class AllBookMessage{
+public class AllBookMessage {
     private Long bookId;
 
     /**
@@ -53,7 +53,6 @@ public class AllBookMessage{
      * 评分
      */
     private BigDecimal score;
-
 
 
     /**

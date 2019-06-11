@@ -62,22 +62,22 @@ public class UserController {
     }
 
     @RequestMapping("/doReg")
-    public String doReg(RegisterFrom registerFrom,ModelMap map,HttpSession session) {
+    public String doReg(RegisterFrom registerFrom, ModelMap map, HttpSession session) {
 
         Regisrelnfo lnfo = new Regisrelnfo();
         BeanUtils.copyProperties(registerFrom, lnfo);
 
-        String number =(String) session.getAttribute("number");
+        String number = (String) session.getAttribute("number");
 
         String verificationCode = registerFrom.getVerificationCode();
 
-        log.info("email {}" ,registerFrom);
+        log.info("email {}", registerFrom);
 
-        if(number.equals(verificationCode)){
+        if (number.equals(verificationCode)) {
             iUserService.add(lnfo);
             map.addAttribute("msg", "注册成功！请登录");
-        }else {
-            map.addAttribute("Exception","验证码错误！");
+        } else {
+            map.addAttribute("Exception", "验证码错误！");
 
             return "redirect:/user/doReg";
         }
@@ -90,6 +90,7 @@ public class UserController {
         getClassification(model);
         return "store/login";
     }
+
     @RequestMapping("/dolog")
     public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session, HttpServletRequest request) {
 
@@ -177,7 +178,7 @@ public class UserController {
     @RequestMapping("/modifyPassword")
     public String modifyPassword(HttpSession session, ModifyForm modifyForm, ModelMap model) {
 
-        String number =(String) session.getAttribute("number");
+        String number = (String) session.getAttribute("number");
 
         String verificationCode = modifyForm.getVerificationCode();
 
@@ -185,12 +186,12 @@ public class UserController {
 
         modifyForm.setUserId(userId);
 
-        if(number.equals(verificationCode)){
+        if (number.equals(verificationCode)) {
 
             iUserService.modifyPassword(modifyForm);
 
-        }else {
-            model.addAttribute("Exception","验证码错误！");
+        } else {
+            model.addAttribute("Exception", "验证码错误！");
         }
 
         return "redirect:/user/information";
@@ -205,16 +206,16 @@ public class UserController {
     }
 
     @RequestMapping("/getBack")
-    public String modifyUser(ModifyForm modifyForm, HttpSession session,ModelMap modelMap)  {
+    public String modifyUser(ModifyForm modifyForm, HttpSession session, ModelMap modelMap) {
 
-        String number =(String) session.getAttribute("number");
+        String number = (String) session.getAttribute("number");
 
         String verificationCode = modifyForm.getVerificationCode();
 
 //        if(number.equals(verificationCode)){
 
-            User getuser = iUserService.getBack(modifyForm);
-            session.setAttribute("email",getuser.getEmail());
+        User getuser = iUserService.getBack(modifyForm);
+        session.setAttribute("email", getuser.getEmail());
 
 //        }else {
 //            modelMap.addAttribute("Exception","验证码错误！");
@@ -223,9 +224,9 @@ public class UserController {
     }
 
     @RequestMapping("/getPassword")
-    public String getPassword(ModifyForm modifyForm, HttpSession session)  {
+    public String getPassword(ModifyForm modifyForm, HttpSession session) {
 
-        String email =(String) session.getAttribute("email");
+        String email = (String) session.getAttribute("email");
 
         modifyForm.setEmail(email);
 
@@ -254,15 +255,16 @@ public class UserController {
         log.info(" 随机数", number);
         return "redirect:/user/doGetBack";
     }
+
     @RequestMapping("/selectName")
-    public String selectName(RegisterFrom registerFrom,ModelMap modelMap){
+    public String selectName(RegisterFrom registerFrom, ModelMap modelMap) {
 
 
         User selectName = iUserService.selectName(registerFrom);
         String getName = registerFrom.getUsername();
         String selectUserName = selectName.getUsername();
-        if(getName.equals(selectUserName)){
-            modelMap.addAttribute("name","该用户已存在！");
+        if (getName.equals(selectUserName)) {
+            modelMap.addAttribute("name", "该用户已存在！");
         }
         return "redirect:/store/login";
     }

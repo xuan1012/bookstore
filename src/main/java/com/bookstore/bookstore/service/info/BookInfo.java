@@ -52,7 +52,6 @@ public class BookInfo {
     private LocalDate publicationDate;
 
 
-
     private String classname;
 
     private Long page;

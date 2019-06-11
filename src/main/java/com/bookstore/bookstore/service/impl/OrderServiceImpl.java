@@ -77,7 +77,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
 
     @Override
     public Ordergroup addOrder(List<OrderForm> orderForms, HttpSession session) {
-//        LocalDateTime now = LocalDateTime.now();
+
         Date now = DateUtils.createNow().getTime();
         List<Orderbuy> orderbuys = new ArrayList<>();
         Iterator it = orderForms.iterator();
@@ -89,7 +89,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
         if (maxId == null) {
             groupId = 1L;
         } else {
-            groupId = maxId.getGroupId() + 2;
+            groupId = maxId.getGroupId() + 1;
         }
         ordergroup.setGroupId(groupId);
         ordergroup.setCreatDate(now);

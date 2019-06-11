@@ -62,7 +62,8 @@
                             <div class="order_content" th:each="oneOrder:${order.orderbuys}" style="width: 99%;">
                                 <ul class="order_lists">
                                     <li class="list_con" style="width: 312px;">
-                                        <a href="javascript:;" th:text="${oneOrder.book.bookName}"
+                                        <a th:href="'/store/query?bookId='+${oneOrder.book.bookId}"
+                                           th:text="${oneOrder.book.bookName}"
                                            style="text-align: center; margin-top: 50px;">书名</a>
                                         <input type="hidden" name="bookId" th:value="${oneOrder.book.bookId}">
                                     </li>

@@ -52,7 +52,6 @@ public class BookForm {
     private LocalDate publicationDate;
 
 
-
     private String classname;
 
     private Long page;

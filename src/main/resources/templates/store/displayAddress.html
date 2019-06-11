@@ -3,7 +3,10 @@
       xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="~{/layout/layout}" xmlns:font-size="http://www.w3.org/1999/xhtml">
 <style type="text/css">
-    .col-lg-6 col-md-6 col-sm-12 ul li{float: left;width: 500px;}
+    .col-lg-6 col-md-6 col-sm-12 ul li {
+        float: left;
+        width: 500px;
+    }
 </style>
 <head>
 <body>
@@ -47,28 +50,29 @@
                  </form> -->
                 <br>
                 <from action="/user/getPW" method="get">
-                <ul>
-                    <li th:each="s : ${selectAddress}" style="float: left;line-height:2em;padding-left: 20px;" id="li">
-                        <p style="font-size:1.5em;" s.>收件人：</p>
-                        <samp style="font-size: 1.5em;" th:text="${s.people}"></samp>
-                        <p style="font-size:1.5em;" s.>电话号码：</p>
-                        <samp style="font-size: 1.5em;" th:text="${s.phone}"></samp>
-                        <p style="font-size:1.5em;" s.>详细地址：</p>
-                        <samp style="font-size: 1.5em;" th:text="${s.content}"></samp>
-                        <br>
-                        <div>
-                            <div style="float: right;margin-top: 13px;">
-                                <button type="submit" class="btn btn-primary" id="modify">修改</button>
-                            </div>
+                    <ul>
+                        <li th:each="s : ${selectAddress}" style="float: left;line-height:2em;padding-left: 20px;"
+                            id="li">
+                            <p style="font-size:1.5em;" s.>收件人：</p>
+                            <samp style="font-size: 1.5em;" th:text="${s.people}"></samp>
+                            <p style="font-size:1.5em;" s.>电话号码：</p>
+                            <samp style="font-size: 1.5em;" th:text="${s.phone}"></samp>
+                            <p style="font-size:1.5em;" s.>详细地址：</p>
+                            <samp style="font-size: 1.5em;" th:text="${s.content}"></samp>
+                            <br>
+                            <div>
+                                <div style="float: right;margin-top: 13px;">
+                                    <button type="submit" class="btn btn-primary" id="modify">修改</button>
+                                </div>
 
-                            <div style="float: left;padding-right: 50px;">
-                                <input type="checkbox" style="width: 20px;display: block; " name="defaultAddress">
-                                <p style="margin-top: -35px;margin-left: 26px;">设置为默认地址</p>
+                                <div style="float: left;padding-right: 50px;">
+                                    <input type="checkbox" style="width: 20px;display: block; " name="defaultAddress">
+                                    <p style="margin-top: -35px;margin-left: 26px;">设置为默认地址</p>
+                                </div>
                             </div>
-                        </div>
-                    </li>
-                </ul>
-            </from>
+                        </li>
+                    </ul>
+                </from>
             </div>
             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12">
 
@@ -94,15 +98,15 @@
     Gid.setAttribute('onchange', 'showArea()');
 
 
-        // $.ajax({
-        //     type:"get",
-        //     url: //你的请求程序页面随便啦
-        //     data:"asd";//请求需要发送的处理数据
-        // success:function(msg){
-        //     if (msg) {//根据返回值进行跳转
-        //         window.location.href = '你的跳转的目标地址';
-        //     }
-        // }
+    // $.ajax({
+    //     type:"get",
+    //     url: //你的请求程序页面随便啦
+    //     data:"asd";//请求需要发送的处理数据
+    // success:function(msg){
+    //     if (msg) {//根据返回值进行跳转
+    //         window.location.href = '你的跳转的目标地址';
+    //     }
+    // }
 
 </script>
 </body>

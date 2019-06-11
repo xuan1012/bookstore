@@ -202,7 +202,8 @@
                         <div class="clinet-active border-1">
                             <div class="single-client fix white-bg" th:each="a:${news}">
                                 <div class="client-content">
-                                    <a th:href="'/store/query?bookId='+${a.bookId}"><p th:text="${a.newsContent}"></p></a>
+                                    <a th:href="'/store/query?bookId='+${a.bookId}"><p th:text="${a.newsContent}"></p>
+                                    </a>
                                 </div>
                                 <div class="clint-img">
                                     <div class="client-img-left">

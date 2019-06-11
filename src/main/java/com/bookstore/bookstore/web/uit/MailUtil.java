@@ -12,7 +12,6 @@ import java.util.Properties;
 public class MailUtil {
 
 
-
     //邮件服务器主机名
     // QQ邮箱的 SMTP 服务器地址为: smtp.qq.com
     private static String myEmailSMTPHost = "smtp.163.com";
@@ -32,7 +31,7 @@ public class MailUtil {
      * @param emailContent   邮件内容
      * @throws Exception
      */
-    public static void sendEmail(String emailTitle,String toEmailAddress,String emailContent) throws Exception {
+    public static void sendEmail(String emailTitle, String toEmailAddress, String emailContent) throws Exception {
 
         Properties props = new Properties();
 

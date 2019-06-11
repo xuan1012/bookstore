@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.bookstore.bookstore.dao.ClassificationMapper">
-<select id="classification" resultType="com.bookstore.bookstore.dao.model.Classification">
+    <select id="classification" resultType="com.bookstore.bookstore.dao.model.Classification">
     select * from classification
 </select>
 </mapper>

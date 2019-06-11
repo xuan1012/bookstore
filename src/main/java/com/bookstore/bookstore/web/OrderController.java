@@ -59,7 +59,6 @@ public class OrderController {
     IClassificationService classification;
 
 
-
     @RequestMapping(value = "/subOrder", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> subOrder(@RequestBody List<OrderForm> orderForms, HttpSession session)
@@ -80,7 +79,7 @@ public class OrderController {
     }
 
     @RequestMapping("/orderList")
-    public String orderList(ModelMap map, HttpSession session,ModelMap model) {
+    public String orderList(ModelMap map, HttpSession session, ModelMap model) {
         List<OrderForm> orderForms = (List<OrderForm>) session.getAttribute("orderForms");
         if (session.getAttribute("userId") != null) {
             Long userId = (Long) session.getAttribute("userId");

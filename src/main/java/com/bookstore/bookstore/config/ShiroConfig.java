@@ -78,6 +78,7 @@ public class ShiroConfig {
         // Caching isn't needed in this example, but we will use the MemoryConstrainedCacheManager for this example.
         return new MemoryConstrainedCacheManager();
     }
+
     @Bean
     public DefaultAdvisorAutoProxyCreator getDefaultAdvisorAutoProxyCreator() {
 

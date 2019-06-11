@@ -13,11 +13,15 @@ import org.apache.ibatis.annotations.Param;
  * @create: 2019-05-29 11:53
  **/
 @Mapper
-public interface BookMessageMapper{
+public interface BookMessageMapper {
     IPage<AllBookMessage> findByName(Page page, @Param("bookName") String bookName);
+
     AllBookMessage findById(@Param("bookId") Long bookId);
-    IPage<AllBookMessage> findByAllSearch(Page page,BookInfo bookInfo);
+
+    IPage<AllBookMessage> findByAllSearch(Page page, BookInfo bookInfo);
+
     IPage<AllBookMessage> findBySales(Page page);
+
     IPage<AllBookMessage> findNewBook(Page page);
 
 }

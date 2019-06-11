@@ -4,7 +4,8 @@
     <insert id="add1" parameterType="com.bookstore.bookstore.dao.model.User">
         insert into myuser(username,password,email) value (#{username},#{password},#{email})
     </insert>
-    <select id="select" parameterType="com.bookstore.bookstore.dao.model.User" resultType="com.bookstore.bookstore.dao.model.User">
+    <select id="select" parameterType="com.bookstore.bookstore.dao.model.User"
+            resultType="com.bookstore.bookstore.dao.model.User">
         select * from myuser where username=#{username} and password=#{password}
     </select>
     <update id="update" parameterType="com.bookstore.bookstore.dao.model.User">
@@ -15,11 +16,13 @@
         update myuser set password=#{password},email=#{email} where user_id=#{userId}
     </update>
 
-    <select id="getUser" parameterType="com.bookstore.bookstore.dao.model.User" resultType="com.bookstore.bookstore.dao.model.User">
+    <select id="getUser" parameterType="com.bookstore.bookstore.dao.model.User"
+            resultType="com.bookstore.bookstore.dao.model.User">
         select * from myuser where email=#{email}
     </select>
 
-    <select id="selectName" parameterType="com.bookstore.bookstore.dao.model.User" resultType="com.bookstore.bookstore.dao.model.User">
+    <select id="selectName" parameterType="com.bookstore.bookstore.dao.model.User"
+            resultType="com.bookstore.bookstore.dao.model.User">
         select * from myuser where username=#{username}
     </select>
 

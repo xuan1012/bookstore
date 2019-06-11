@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zh-CN"  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+<html lang="zh-CN" xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
       layout:decorate="~{/layout/layout}">
 <head>
 
@@ -31,10 +31,10 @@
     </script>
 </div>
 <script layout:fragment="script">
-    var config={pageTitle:"首页",navActive:"navProduct"};
-    $(function(){
-        document.title=config.pageTitle;
-        $("#"+config.navActive).addClass("active");
+    var config = {pageTitle: "首页", navActive: "navProduct"};
+    $(function () {
+        document.title = config.pageTitle;
+        $("#" + config.navActive).addClass("active");
     })
 </script>
 </body>
