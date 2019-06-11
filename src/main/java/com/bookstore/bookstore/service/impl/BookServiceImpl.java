@@ -45,6 +45,14 @@ public class BookServiceImpl extends ServiceImpl<BookMapper, Book> implements IB
     }
 
     @Override
+    public AllBookMessage getBookMsg(Long bookId) {
+        AllBookMessage book = bookMessageMapper.findById(bookId);
+        book.setPictureContent(picturesMapper.getBookPicture(bookId));
+        book.setCategories(categoriesMapper.findByBookId(bookId));
+        return book;
+    }
+
+    @Override
     public List<AllBookMessage> findNewBooks(ModelMap model) {
         Page<AllBookMessage> page = new Page<>(1, 9);
         IPage<AllBookMessage> bySales = bookMessageMapper.findNewBook(page);

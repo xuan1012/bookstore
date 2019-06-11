@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.ModelMap;
 import org.thymeleaf.util.DateUtils;
 
-
 import javax.annotation.Resource;
 import javax.servlet.http.HttpSession;
 import java.math.BigDecimal;
@@ -50,6 +49,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
 
     @Override
     public List<OrderForm> initOrder(List<OrderForm> orderForms) {
+
         Iterator it = orderForms.iterator();
         while (it.hasNext()) {
             OrderForm next = (OrderForm) it.next();
@@ -73,6 +73,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
         List<Address> address = addressMapper.findByUserId(userId);
         return address;
     }
+
 
     @Override
     public Ordergroup addOrder(List<OrderForm> orderForms, HttpSession session) {

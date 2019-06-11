@@ -1,0 +1,378 @@
+<!doctype html>
+<html class="no-js" lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout"
+      layout:decorate="~{/layout/layout}">
+<head>
+    <meta charset="utf-8">
+    <title>详情页面</title>
+
+
+</head>
+
+<body>
+
+<div id="content" layout:fragment="content">
+    <!-----商品详情部分------->
+    <div class="shopdetails">
+        <!-------放大镜-------->
+        <div id="leftbox">
+            <div id="showbox">
+                <img th:if="${#lists.isEmpty(book.pictureContent)}"
+                     src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
+                     alt="" width="400" height="550"/>
+                <span th:each="picture:${book.pictureContent}">
+                <img th:unless="${#lists.isEmpty(book.pictureContent)}"
+                     th:src="${picture.pictureContent}"
+                     width="400" height="550" alt=""/>
+                </span>
+            </div><!--展示图片盒子-->
+            <div id="showsum"></div><!--展示图片里边-->
+            <p class="showpage">
+                <a href="javascript:void(0);" id="showlast"> < </a>
+                <a href="javascript:void(0);" id="shownext"> > </a>
+            </p>
+
+        </div>
+        <!----中间----->
+
+        <div class="centerbox">
+            <p class="imgname" th:text="${book.bookName}">叠叠杯水杯茶杯套杯陶瓷咖啡牛奶杯具套装</p>
+            <!--            <p class="Aprice" th:text="${book.bookPrice}">价格：<samp>￥89.00</samp></p>-->
+            <p class="price">价格：￥<samp th:text="${book.bookPrice}">49.00</samp></p>
+            <!--            <p class="youhui">店铺优惠：<samp>购物满两件打八折</samp></p>-->
+            <!--            <p class="kefu">客服：</p>-->
+            <!--            <ul>-->
+            <!--                <li class="kuanshi">款式：</li>-->
+            <!--                <li class="now shopimg"><a href="#" title="熊猫套装"><img src="/images/shopdetail/kuanshi01.jpg" width="45"></a>-->
+            <!--                </li>-->
+            <!--                <li class="shopimg"><a href="#" title="铁塔套装"><img src="/images/shopdetail/kuanshi02.jpg" width="45"></a>-->
+            <!--                </li>-->
+            <!--                <li class="shopimg"><a href="#" title="创意胡子"><img src="/images/shopdetail/kuanshi03.jpg" width="45"></a>-->
+            <!--                </li>-->
+            <!--                <li class="shopimg"><a href="#" title="四色小猫"><img src="/images/shopdetail/kuanshi04.jpg" width="45"></a>-->
+            <!--                </li>-->
+            <!--            </ul>-->
+            <div class="clear"></div>
+            <!--            <p class="chima">套餐：</p>-->
+
+
+            <p class="buy">
+                <input type="hidden" th:value="${book.bookId}">
+                <a id="firstbuy" onclick="buy()">立即购买</a>
+                <a onclick="addToCart(this)">加入购物车</a>
+            </p>
+            <div class="clear"></div>
+            <!--            <div class="fenx"><a href="#"><img src="/images/shopdetail/tell07.png"></a></div>-->
+            <p class="fuwu">服务承诺：</p>
+            <p class="pay">支付方式：</p>
+        </div>
+        <form id="form1">
+            <input type="hidden" name="bookId" th:value="${book.bookId}">
+            <input type="hidden" name="orderPrice" th:value="${book.bookPrice}">
+            <input type="hidden" name="onePrice" th:value="${book.bookPrice}">
+            <input type="hidden" name="userId" th:value="${session.userId}">
+            <input type="hidden" name="sellStore" th:value="${book.storeName}">
+            <input type="hidden" name="orderCount" th:value="1">
+        </form>
+        <!-----右边------->
+        <!--        <div class="rightbox">-->
+        <!--            <p class="name">——热卖商品</p>-->
+        <!--            <img src="/images/shopdetail/reimai02.jpg" width="130" height="180">-->
+        <!--            <p>￥58元</p>-->
+
+        <!--            <img src="/images/shopdetail/reimai01.jpg" width="130" height="180">-->
+        <!--            <p>￥58元</p>-->
+
+
+        <!--            <img src="/images/shopdetail/reimai03.jpg" width="130" height="180">-->
+        <!--            <p>￥58元</p>-->
+        <!--        </div>-->
+
+    </div>
+    <!-----商品详情部分结束------->
+    <!-----商品详情评价部分------->
+    <div class="evaluate">
+
+        <!--        <div class="classify">-->
+        <!--            <div class="shopim">-->
+        <!--                <p class="name">青蛙工艺家居<img src="/images/shopdetail/tell01.png" width="22" height="22"></p>-->
+        <!--                <img src="/images/shopdetail/tellbottom.png">-->
+        <!--                <p class="sc"><a href="#">收藏店铺</a></p>-->
+        <!--                <p class="sc"><a href="#">进入店铺</a></p>-->
+        <!--                <div class="search">-->
+        <!--                    <input class="left" type="text"/>-->
+        <!--                    <input class="right" type="button" style=" cursor:pointer;" value=""/>-->
+        <!--                </div>-->
+        <!--            </div>-->
+        <!--            <div class="shopfl">-->
+        <!--                <p class="name">本店分类</p>-->
+        <!--                <ul>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">全部商品</a></li>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">木质商品</a></li>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">石制商品</a></li>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">陶制商品</a></li>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">家居厨房</a></li>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">欧式混搭</a></li>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">桌面摆件</a></li>-->
+        <!--                    <li><a href="#"><img src="/images/shopdetail/tell02.png" width="10" height="10">书香文房</a></li>-->
+        <!--                </ul>-->
+        <!--            </div>-->
+        <!--            <div class="shopsee">-->
+        <!--                <p class="name">看了又看</p>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see.jpg" width="170" height="245">-->
+        <!--                    <p>手绘陶瓷茶壶</p>-->
+        <!--                    <p>商城价:168元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see1.jpg" width="170" height="245">-->
+        <!--                    <p>茶具特价紫砂</p>-->
+        <!--                    <p>商城价:￥234元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see2.jpg" width="170" height="245">-->
+        <!--                    <p>创意爱家杯盖</p>-->
+        <!--                    <p>商城价:￥38元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see03.png" width="170" height="245">-->
+        <!--                    <p>木质棋盘</p>-->
+        <!--                    <p>商城价:￥158元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see04.png" width="170" height="245">-->
+        <!--                    <p>北欧风创意椅子</p>-->
+        <!--                    <p>商城价:￥178元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see5.jpg" width="170" height="245">-->
+        <!--                    <p>木质简约衣架</p>-->
+        <!--                    <p>商城价:￥68元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see07.png" width="170" height="245">-->
+        <!--                    <p>龙猫微观景观小夜灯</p>-->
+        <!--                    <p>商城价:￥258元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see06.png" width="170" height="245">-->
+        <!--                    <p>火树银花灯</p>-->
+        <!--                    <p>商城价:￥858元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/content_04.jpg" width="170" height="245">-->
+        <!--                    <p>木质烘脚器</p>-->
+        <!--                    <p>商城价:￥108元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see08.png" width="170" height="245">-->
+        <!--                    <p>个性实木壁灯</p>-->
+        <!--                    <p>商城价:￥68元</p>-->
+        <!--                </a>-->
+        <!--                <a href="#" class="ex01">-->
+        <!--                    <img src="/images/shopdetail/see09.png" width="170" height="245">-->
+        <!--                    <p>创意马克杯</p>-->
+        <!--                    <p>商城价:￥58元</p>-->
+        <!--                </a>-->
+
+        <!--            </div>-->
+
+
+        <!--        </div>-->
+
+
+        <div class="tabbedPanels">
+            <ul class="tabs">
+                <li><a href="#panel01">商品详情</a></li>
+                <li><a href="#panel02" class="active">累计评价</a></li>
+                <!--                <li><a href="#panel03">商品推荐</a></li>-->
+            </ul>
+
+            <div class="panelContainer">
+                <div class="panel" id="panel01">
+                    <p class="sell">商品描述</p>
+                    <img th:if="${#lists.isEmpty(book.pictureContent)}"
+                         src="https://i.loli.net/2019/05/29/5cee3e7b28f3095703.jpg"
+                         alt="" width="400" height="500"/>
+                    <span th:each="picture:${book.pictureContent}">
+                <img th:unless="${#lists.isEmpty(book.pictureContent)}"
+                     th:src="${picture.pictureContent}"
+                     alt="" width="400" height="300"/>
+                </span>
+                    <div class="clear"></div>
+                </div>
+
+                <div class="panel" id="panel02">
+                    <p class="judge">全部评价(<span th:text="${sizes}"></span>)</p>
+
+                    <div class="judge01" th:each="comment:${comments}">
+                        <div class="idimg"><img src="/images/shopdetail/detail102.png"></div>
+                        <div class="write">
+                            <p class="idname" th:text="${comment.user.nicname}">落***1</p>
+                            <p th:text="${comment.content}">
+                                杯子很可爱！就是有两三个杯子后面的小图案有一丢丢斜下来，不过没多大关系，其他的还好。有一点真的特别特别好的就是😂包裹的非常非常非常严实，简直就是里三层外三层！杯子完好无损，赠送的刷子也包装的很好😂让我第一眼以为那是一个棉花糖hhh</p>
+                            <p class="which" th:text="${#dates.format(comment.commentDate,'yyyy年MM月dd日 hh:mm:ss')}">
+                                颜色:创意胡子</p>
+
+                        </div>
+                    </div>
+
+
+                    <div class="clear"></div>
+                </div>
+
+
+            </div>
+
+        </div>
+
+        <!-----商品详情评价部结束分------->
+    </div>
+</div>
+
+<script layout:fragment="script">
+    $(document).ready(function () {
+        var showproduct = {
+            "boxid": "showbox",
+            "sumid": "showsum",
+            "boxw": 400,
+            "boxh": 550,
+            "sumw": 60,//列表每个宽度,该版本中请把宽高填写成一样
+            "sumh": 60,//列表每个高度,该版本中请把宽高填写成一样
+            "sumi": 7,//列表间隔
+            "sums": 5,//列表显示个数
+            "sumsel": "sel",
+            "sumborder": 1,//列表边框，没有边框填写0，边框在css中修改
+            "lastid": "showlast",
+            "nextid": "shownext"
+        };//参数定义
+        $.ljsGlasses.pcGlasses(showproduct);//方法调用，务必在加载完后执行
+
+        $(function () {
+
+            $('.tabs a').click(function () {
+
+                var $this = $(this);
+                $('.panel').hide();
+                $('.tabs a.active').removeClass('active');
+                $this.addClass('active').blur();
+                var panel = $this.attr("href");
+                $(panel).show();
+                return false;  //告诉浏览器  不要纸箱这个链接
+            })//end click
+
+
+            $(".tabs li:first a").click()   //web 浏览器，单击第一个标签吧
+
+
+        });//end ready
+
+        $(".centerbox li").click(function () {
+            $("li").removeClass("now");
+            $(this).addClass("now")
+
+        });
+
+    });
+
+    function addToCart(e) {
+        var bookId = $(e).parent().children("input:first").val();
+        $.ajax({
+            type: "post",
+            url: "/book/addToCart",
+            data: {
+                bookId: bookId
+            },
+            dataType: "json",
+            success: function (json) {
+                if (json.msg === 0) {
+                    alert("添加成功");
+                } else if (json.msg === 1) {
+                    alert("请先登录哦");
+                }
+            }
+        });
+    }
+
+    function buy() {
+        var userId = $("[name=userId]").val();
+        if (!isNumber(userId)) {
+            alert("请先登录");
+        } else {
+            submitOrder();
+        }
+    }
+
+    function isNumber(val) {
+
+        var regPos = /^\d+(\.\d+)?$/; //非负浮点数
+        var regNeg = /^(-(([0-9]+\.[0-9]*[1-9][0-9]*)|([0-9]*[1-9][0-9]*\.[0-9]+)|([0-9]*[1-9][0-9]*)))$/; //负浮点数
+        if (regPos.test(val) || regNeg.test(val)) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    function submitOrder() {
+        var jsonStr = $("#form1").serializeJson();
+        // console.log("jsonStr:\r\n" + jsonStr);
+        //alert(jsonStr);
+        $.ajax({
+            url: "/order/subOrder",
+            type: "POST",
+            contentType: 'application/json;charset=utf-8', //设置请求头信息
+            dataType: "json",
+            data: jsonStr,
+            success: function (data) {
+                window.location.href = "/order/orderList";
+            },
+            error: function (res) {
+                console.log("error");
+                // alert(res.responseText);
+            }
+        });
+    }
+
+    (function ($) {
+        $.fn.serializeJson = function () {
+            var jsonData1 = {};
+            var serializeArray = this.serializeArray();
+            // 先转换成{"id": ["12","14"], "name": ["aaa","bbb"], "pwd":["pwd1","pwd2"]}这种形式
+            $(serializeArray).each(function () {
+                if (jsonData1[this.name]) {
+                    if ($.isArray(jsonData1[this.name])) {
+                        jsonData1[this.name].push(this.value);
+                    } else {
+                        jsonData1[this.name] = [jsonData1[this.name], this.value];
+                    }
+                } else {
+                    jsonData1[this.name] = this.value;
+                }
+            });
+            // 再转成[{"id": "12", "name": "aaa", "pwd":"pwd1"},{"id": "14", "name": "bb", "pwd":"pwd2"}]的形式
+            var vCount = 0;
+            // 计算json内部的数组最大长度
+            for (var item in jsonData1) {
+                var tmp = $.isArray(jsonData1[item]) ? jsonData1[item].length : 1;
+                vCount = (tmp > vCount) ? tmp : vCount;
+            }
+
+            if (vCount > 1) {
+                var jsonData2 = new Array();
+                for (var i = 0; i < vCount; i++) {
+                    var jsonObj = {};
+                    for (var item in jsonData1) {
+                        jsonObj[item] = jsonData1[item][i];
+                    }
+                    jsonData2.push(jsonObj);
+                }
+                return JSON.stringify(jsonData2);
+            } else {
+                return "[" + JSON.stringify(jsonData1) + "]";
+            }
+        };
+    })(jQuery);
+</script>
+</body>
+</html>

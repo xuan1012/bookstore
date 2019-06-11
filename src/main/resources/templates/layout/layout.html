@@ -8,6 +8,7 @@
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
+    <link href="/style/shopdetail.css" rel="stylesheet" type="text/css">
     <!-- Place favicon.ico in the root directory -->
     <link rel="stylesheet" href="/css/reset.css">
     <link rel="stylesheet" href="/css/carts.css">
@@ -121,8 +122,8 @@
                                     <input type="hidden" name="minBookPrice" th:value="${bookForm.minBookPrice}">
                                     <input type="hidden" name="maxBookPrice" th:value="${bookForm.maxBookPrice}">
                                     <input type="hidden" name="page" value="1">
-                                    <input type="hidden" name="sales" th:value="${bookForm.sales}">
-                                    <input type="hidden" name="desc" th:value="${bookForm.desc}">
+                                    <input type="hidden" name="sales">
+                                    <input type="hidden" name="desc">
                                 </div>
                                 <div th:if="${#lists.isEmpty(bookForm)}">
                                     <input type="hidden" name="classname">
@@ -220,7 +221,7 @@
                     </div>
                     <div class="product_vmegamenu">
                         <ul>
-                            <li th:each="c:${session.categories}">
+                            <li th:each="c:${categories}">
                                 <a href="#" class="hover-icon" th:text="${c.className}"
                                    style="font-size:17px;margin:10% auto;text-align: center;font-weight: bold;letter-spacing: 20px;">
                                     小&emsp;说
@@ -397,6 +398,9 @@
 
 <script src="/js/jquery.min.js"></script>
 <script src="/js/carts.js"></script>
+
+<!--<script src="/js/jquery-1.9.1.min.js"></script>-->
+<script src="/js/common.js"></script>
 <script>
     $(function () {
         $(".hover-icon").click(function () {

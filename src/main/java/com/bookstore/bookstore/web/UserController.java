@@ -28,10 +28,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.annotation.Resource;
-import javax.mail.MessagingException;
-import javax.mail.internet.AddressException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import java.net.URLDecoder;
@@ -85,12 +81,25 @@ public class UserController {
 
     @RequestMapping("/dolog")
     public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session, HttpServletRequest request) {
+
         Regisrelnfo regisrelnfo = new Regisrelnfo();
         String message;
         UsernamePasswordToken token = new UsernamePasswordToken(registerFrom.getUsername(), registerFrom.getPassword());
         token.setRememberMe(false);
         Subject currUser = SecurityUtils.getSubject();
         try {
+            if (registerFrom != null) {
+
+                BeanUtils.copyProperties(registerFrom, regisrelnfo);
+                User select = iUserService.select(regisrelnfo);
+            if (select == null) {
+                modelMap.addAttribute("msg", "您的账号或者密码错误");
+                return "store/login";
+            }
+                session.setAttribute("userId", select.getUserId());
+                session.setAttribute("username", registerFrom.getUsername());
+            }
+            getClassification(modelMap);
             currUser.login(token);
 
             SavedRequest req = WebUtils.getAndClearSavedRequest(request);
@@ -110,17 +119,7 @@ public class UserController {
         modelMap.addAttribute("msg", message);
         session.setAttribute("username", registerFrom.getUsername());
 
-        if (registerFrom != null) {
-            BeanUtils.copyProperties(registerFrom, regisrelnfo);
-            User select = iUserService.select(regisrelnfo);
-//            if (select == null) {
-//                modelMap.addAttribute("msg", "您的账号或者密码错误");
-//                return "store/login";
-//            }
-            session.setAttribute("userId", select.getUserId());
-            session.setAttribute("username", registerFrom.getUsername());
-        }
-        getClassification(modelMap);
+
         return "store/login";
     }
 
@@ -187,6 +186,23 @@ public class UserController {
     }
 
     //邮箱验证
+    @RequestMapping("/emil")
+    public void addEmil(MailUtil mailUtil, HttpServletRequest request) throws Exception {
+
+        /*
+         * emailTitle 邮件标题
+         * toEmailAddress 目标邮箱地址
+         * emailContent 邮件内容
+         */
+        String i = request.getParameter("name");
+        log.info("ajax {}", i);
+        int random = (int) (1 + Math.random() * 100);
+        String number = Integer.toString(random);
+        String emailTitle = "欢迎！";
+        String emailContent = number;
+        mailUtil.sendEmail(emailTitle, emailContent);
+//        return "";
+    }
 //    @RequestMapping("/email")
 //    public String addEmil(MailUtil mailUtil) throws Exception {
 //        //随机数
