@@ -58,6 +58,8 @@ public class OrderController {
     @Resource
     IClassificationService classification;
 
+
+
     @RequestMapping(value = "/subOrder", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> subOrder(@RequestBody List<OrderForm> orderForms, HttpSession session)
@@ -90,9 +92,9 @@ public class OrderController {
         return "order/orderList";
     }
 
+    @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/sub", method = {RequestMethod.POST})
     @ResponseBody
-    @Transactional(rollbackFor = Exception.class)
     public Map<String, Object> sub(@RequestBody List<OrderForm> orderForms, HttpSession session)
             throws Exception {
         Map<String, Object> map = new HashMap<>(5);

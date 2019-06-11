@@ -87,10 +87,10 @@ public class UserController {
 
                 BeanUtils.copyProperties(registerFrom, regisrelnfo);
                 User select = iUserService.select(regisrelnfo);
-//            if (select == null) {
-//                modelMap.addAttribute("msg", "您的账号或者密码错误");
-//                return "store/login";
-//            }
+            if (select == null) {
+                modelMap.addAttribute("msg", "您的账号或者密码错误");
+                return "store/login";
+            }
                 session.setAttribute("userId", select.getUserId());
                 session.setAttribute("username", registerFrom.getUsername());
             }

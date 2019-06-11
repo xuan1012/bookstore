@@ -21,5 +21,5 @@ public interface IBookService extends IService<Book> {
     List<AllBookMessage> findByAllSearch(BookInfo bookInfo, ModelMap model);
     List<AllBookMessage> findBySales(int i, ModelMap model);
     List<AllBookMessage> findNewBooks(ModelMap model);
-
+    AllBookMessage getBookMsg(Long bookId);
 }

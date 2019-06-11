@@ -21,7 +21,7 @@
     <!-- cart-main-area start -->
     <div class="cart-main-area pt-0">
         <div th:text="${msg}" style="color:red; text-align: center;"></div>
-        <section class="cartMain"  th:unless="${#lists.isEmpty(shops)}">
+        <section class="cartMain" th:unless="${#lists.isEmpty(shops)}">
             <div class="cartMain_hd">
                 <ul class="order_lists cartTop">
                     <li class="list_chk">
@@ -229,9 +229,14 @@
             success: function (data) {
                 window.location.href = "/order/orderList";
             },
-            error: function (res) {
+            error: function (XMLHttpRequest, textStatus, errorThrown) {
                 console.log("error");
                 // alert(res.responseText);
+                console.log(XMLHttpRequest.status);
+                console.log(XMLHttpRequest.readyState);
+                console.log(textStatus);
+                console.log(errorThrown);
+
             }
         });
     }

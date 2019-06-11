@@ -20,7 +20,9 @@
                         <div class="slider-container">
                             <!-- Slider Image -->
                             <div id="mainSlider" class="nivoSlider slider-image">
+
                                 <span th:each="a:${news}">
+                                    <a th:href="'/store/query?bookId='+${a.bookId}">
                                     <img th:unless="${#lists.isEmpty(a.newsPicture)}"
                                          th:src="${a.newsPicture}"
                                          alt="" style="width: 555px;height:370px;" title="#htmlcaption1"/>
@@ -28,6 +30,7 @@
                                          src="https://i.loli.net/2019/05/31/5cf0deaecd94252145.jpg"
                                          style="width: 555px;height:370px;"
                                          alt="" title="#htmlcaption2"/>
+                                        </a>
                                 </span>
                             </div>
                         </div>
@@ -36,7 +39,7 @@
                         <div class="slider-product-active">
                             <div class="single-product single-product-sidebar white-bg" th:each="book:${books}">
                                 <div class="product-img product-img-left">
-                                    <a href="#">
+                                    <a th:href="'/store/query?bookId='+${book.bookId}">
                                         <img th:unless="${#lists.isEmpty(book.pictureContent)}"
                                              th:src="${book.pictureContent[0].pictureContent}"
                                              style="width: 110.59px;height: 110.59px" alt=""/>
@@ -115,7 +118,7 @@
                             <div class="single-product-items">
                                 <div class="single-product single-product-sidebar white-bg" th:each="book:${books}">
                                     <div class="product-img product-img-left">
-                                        <a href="#">
+                                        <a th:href="'/store/query?bookId='+${book.bookId}">
                                             <img th:unless="${#lists.isEmpty(book.pictureContent)}"
                                                  th:src="${book.pictureContent[0].pictureContent}"
                                                  style="width: 104.8px;height: 104.8px" alt=""/>
@@ -199,7 +202,7 @@
                         <div class="clinet-active border-1">
                             <div class="single-client fix white-bg" th:each="a:${news}">
                                 <div class="client-content">
-                                    <a href="#"><p th:text="${a.newsContent}"></p></a>
+                                    <a th:href="'/store/query?bookId='+${a.bookId}"><p th:text="${a.newsContent}"></p></a>
                                 </div>
                                 <div class="clint-img">
                                     <div class="client-img-left">
@@ -227,7 +230,7 @@
                         <div class="feature-product-active border-1">
                             <div class="single-product  white-bg" th:each="newBook:${newBooks}">
                                 <div class="product-img pt-20">
-                                    <a href="#">
+                                    <a th:href="'/store/query?bookId='+${newBook.bookId}">
                                         <img th:unless="${#lists.isEmpty(newBook.pictureContent)}"
                                              th:src="${newBook.pictureContent[0].pictureContent}"
                                              style="width: 211px;height: 211px" alt=""/>
@@ -287,7 +290,7 @@
                         <div class="feature-product-active border-1">
                             <div class="single-product  white-bg" th:each="book:${storyBooks}">
                                 <div class="product-img pt-20">
-                                    <a href="#">
+                                    <a th:href="'/store/query?bookId='+${book.bookId}">
                                         <img th:unless="${#lists.isEmpty(book.pictureContent)}"
                                              th:src="${book.pictureContent[0].pictureContent}"
                                              style="width: 211px;height: 211px" alt=""/>
@@ -335,7 +338,7 @@
                         <div class="feature-product-active border-1">
                             <div class="single-product  white-bg" th:each="book:${studyBooks}">
                                 <div class="product-img pt-20">
-                                    <a href="#">
+                                    <a th:href="'/store/query?bookId='+${book.bookId}">
                                         <img th:unless="${#lists.isEmpty(book.pictureContent)}"
                                              th:src="${book.pictureContent[0].pictureContent}"
                                              style="width: 211px;height: 211px" alt=""/>
