@@ -19,4 +19,11 @@
         select * from myuser where email=#{email}
     </select>
 
+    <select id="selectName" parameterType="com.bookstore.bookstore.dao.model.User" resultType="com.bookstore.bookstore.dao.model.User">
+        select * from myuser where username=#{username}
+    </select>
+
+    <update id="setPW" parameterType="com.bookstore.bookstore.dao.model.User">
+        update myuser set password=#{password} where email=#{email}
+    </update>
 </mapper>

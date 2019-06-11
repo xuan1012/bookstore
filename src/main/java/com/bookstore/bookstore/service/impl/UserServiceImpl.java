@@ -6,6 +6,7 @@ import com.bookstore.bookstore.dao.model.User;
 import com.bookstore.bookstore.service.IUserService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
 import com.bookstore.bookstore.web.form.ModifyForm;
+import com.bookstore.bookstore.web.form.RegisterFrom;
 import com.bookstore.bookstore.web.uit.MailUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
@@ -82,4 +83,24 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements IU
 
         return select;
     }
+//判断用户name
+    @Override
+    public User selectName(RegisterFrom registerFrom) {
+
+        User user = new  User();
+        BeanUtils.copyProperties(registerFrom,user);
+
+        User selectName = userMapper.selectName(user);
+
+        return selectName;
+    }
+
+    @Override
+    public void getPW(ModifyForm modifyForm) {
+        User user = new  User();
+        BeanUtils.copyProperties(modifyForm,user);
+
+        userMapper.setPW(user);
+    }
+
 }

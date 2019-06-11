@@ -25,4 +25,8 @@ public interface UserMapper extends BaseMapper<User> {
 
     User getUser(User user);
 
+    User selectName(User user);
+
+    void setPW(User user);
+
 }

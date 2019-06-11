@@ -4,8 +4,7 @@ import com.bookstore.bookstore.dao.model.User;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.bookstore.bookstore.service.info.Regisrelnfo;
 import com.bookstore.bookstore.web.form.ModifyForm;
-import com.bookstore.bookstore.web.uit.MailUtil;
-
+import com.bookstore.bookstore.web.form.RegisterFrom;
 /**
  * <p>
  *  服务类
@@ -26,6 +25,7 @@ public interface IUserService extends IService<User> {
 
     User getBack(ModifyForm modifyForm);
 
+    User selectName(RegisterFrom registerFrom);
 
-
+    void  getPW (ModifyForm modifyForm);
 }
