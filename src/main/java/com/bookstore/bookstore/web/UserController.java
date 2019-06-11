@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @RequestMapping("/doReg")
-    public String doReg(RegisterFrom registerFrom, ModelMap map,HttpSession session) {
+    public String doReg(RegisterFrom registerFrom,ModelMap map,HttpSession session) {
 
         Regisrelnfo lnfo = new Regisrelnfo();
         BeanUtils.copyProperties(registerFrom, lnfo);
