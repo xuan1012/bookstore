@@ -141,6 +141,13 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
                 }
             }
         }
+        Iterator it = allOrderGroup.iterator();
+        while (it.hasNext()) {
+            OrdergroupInfo next = (OrdergroupInfo) it.next();
+            if (next.getOrderbuys() == null || next.getOrderbuys().size() == 0) {
+                it.remove();
+            }
+        }
         return allOrderGroup;
     }
 
