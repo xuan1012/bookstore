@@ -157,5 +157,12 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Orderbuy> impleme
         orderbuy.setState("已取消");
         orderbuyMapper.updateById(orderbuy);
     }
+
+    @Override
+    public void getShop(Long orderId) {
+        Orderbuy orderbuy = orderbuyMapper.selectById(orderId);
+        orderbuy.setState("已收货");
+        orderbuyMapper.updateById(orderbuy);
+    }
 }
 

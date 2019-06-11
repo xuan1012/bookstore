@@ -10,8 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import org.springframework.web.bind.annotation.RestController;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 
@@ -50,7 +48,7 @@ public class AddressController {
 //        modelMap.addAttribute("","");
         iAddressService.add(addressForm);
 
-        return "store/index";
+        return "store/address";
     }
     @RequestMapping("/doselect")
     private String doSelect(){

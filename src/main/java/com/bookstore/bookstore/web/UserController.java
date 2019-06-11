@@ -196,6 +196,7 @@ public class UserController {
         return "redirect:/user/information";
     }
 
+
     //找回密码
     @RequestMapping("/doGetBack")
     public String doGetBack() {

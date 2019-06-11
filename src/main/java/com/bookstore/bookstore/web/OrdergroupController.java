@@ -59,4 +59,12 @@ public class OrdergroupController {
         map.put("success", true);
         return map;
     }
+    @RequestMapping("/getShop")
+    @ResponseBody
+    public Map<String, Object> getShop(Long orderId, HttpSession session) {
+        Map<String, Object> map = new HashMap<>(5);
+        orderService.getShop(orderId);
+        map.put("success", true);
+        return map;
+    }
 }
