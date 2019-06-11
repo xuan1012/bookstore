@@ -185,38 +185,6 @@ public class UserController {
         return "redirect:/user/information";
     }
 
-    //邮箱验证
-    @RequestMapping("/emil")
-    public void addEmil(MailUtil mailUtil, HttpServletRequest request) throws Exception {
-
-        /*
-         * emailTitle 邮件标题
-         * toEmailAddress 目标邮箱地址
-         * emailContent 邮件内容
-         */
-        String i = request.getParameter("name");
-        log.info("ajax {}", i);
-        int random = (int) (1 + Math.random() * 100);
-        String number = Integer.toString(random);
-        String emailTitle = "欢迎！";
-        String emailContent = number;
-        mailUtil.sendEmail(emailTitle, emailContent);
-//        return "";
-    }
-//    @RequestMapping("/email")
-//    public String addEmil(MailUtil mailUtil) throws Exception {
-//        //随机数
-//        int random = (int) (1 + Math.random() * 10000);
-//        String number = Integer.toString(random);
-//        String emailContent = number;
-//        //标题
-//        String emailTitle = "欢迎！";
-//        //调用MailUtil
-//        mailUtil.sendEmail(emailTitle, emailContent);
-////        String toEmailAddress = InternetAddress.getLocalAddress();
-//        mailUtil.sendEmail(emailTitle, emailContent);
-//        return "store/index";
-//    }
 
     //找回密码
     @RequestMapping("/doGetBack")

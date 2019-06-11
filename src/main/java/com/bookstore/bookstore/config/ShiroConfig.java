@@ -33,7 +33,7 @@ public class ShiroConfig {
         chainDefinition.addPathDefinition("/layui/**", "anon");
         chainDefinition.addPathDefinition("/style/**", "anon");
         //一些页面的权限控制
-        /*chainDefinition.addPathDefinition("/user/reg", "anon");
+        chainDefinition.addPathDefinition("/user/reg", "anon");
         chainDefinition.addPathDefinition("/user/doReg", "anon");
         chainDefinition.addPathDefinition("/", "anon");
         chainDefinition.addPathDefinition("/user/log", "anon");
@@ -42,13 +42,17 @@ public class ShiroConfig {
         chainDefinition.addPathDefinition("/book/search", "anon");
         chainDefinition.addPathDefinition("/book/findBook", "anon");
         chainDefinition.addPathDefinition("/book/allSearch", "anon");
-        chainDefinition.addPathDefinition("/user/logout", "logout");*/
+        chainDefinition.addPathDefinition("/user/doGetBack", "anon");
+        chainDefinition.addPathDefinition("/user/getBack", "anon");
+        chainDefinition.addPathDefinition("/user/getEmail", "anon");
+        chainDefinition.addPathDefinition("/store/query", "anon");
+        chainDefinition.addPathDefinition("/user/logout", "logout");
         //TODO 需要继续配置其他页面是可访问的，比如商品详情页等
         //其他页面需要认证后访问
 
         //TODO 为了开发便利，暂时允许所有访问
-//        chainDefinition.addPathDefinition("/**", "authc");
-        chainDefinition.addPathDefinition("/**", "anon");
+        chainDefinition.addPathDefinition("/**", "authc");
+//        chainDefinition.addPathDefinition("/**", "anon");
 
         return chainDefinition;
     }
