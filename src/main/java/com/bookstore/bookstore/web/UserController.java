@@ -71,11 +71,15 @@ public class UserController {
 
         String verificationCode = registerFrom.getVerificationCode();
 
+        log.info("email {}" ,registerFrom);
+
         if(number.equals(verificationCode)){
             iUserService.add(lnfo);
             map.addAttribute("msg", "注册成功！请登录");
         }else {
             map.addAttribute("Exception","验证码错误！");
+
+            return "redirect:/user/doReg";
         }
         getClassification(map);
         return "store/login";
@@ -86,7 +90,6 @@ public class UserController {
         getClassification(model);
         return "store/login";
     }
-
     @RequestMapping("/dolog")
     public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session, HttpServletRequest request) {
 
@@ -126,8 +129,6 @@ public class UserController {
         }
         modelMap.addAttribute("msg", message);
         session.setAttribute("username", registerFrom.getUsername());
-
-
         return "store/login";
     }
 
@@ -215,11 +216,24 @@ public class UserController {
         if(number.equals(verificationCode)){
 
             User getuser = iUserService.getBack(modifyForm);
+            session.setAttribute("email",getuser.getEmail());
 
         }else {
             modelMap.addAttribute("Exception","验证码错误！");
         }
-        return "redirect:/";
+        return "store/getPassword";
+    }
+
+    @RequestMapping("/getPassword")
+    public String getPassword(ModifyForm modifyForm, HttpSession session)  {
+
+        String email =(String) session.getAttribute("email");
+
+        modifyForm.setEmail(email);
+
+        iUserService.getPW(modifyForm);
+
+        return "store/login";
     }
 
     //邮件发送
@@ -242,4 +256,17 @@ public class UserController {
         log.info(" 随机数", number);
         return "redirect:/user/doGetBack";
     }
+    @RequestMapping("/selectName")
+    public String selectName(RegisterFrom registerFrom,ModelMap modelMap){
+
+
+        User selectName = iUserService.selectName(registerFrom);
+        String getName = registerFrom.getUsername();
+        String selectUserName = selectName.getUsername();
+        if(getName.equals(selectUserName)){
+            modelMap.addAttribute("name","该用户已存在！");
+        }
+        return "redirect:/store/login";
+    }
+
 }
