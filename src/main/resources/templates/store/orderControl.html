@@ -91,7 +91,9 @@
                                             <a onclick="getShop(this)">确认收货</a>
                                             </span>
                                             <span th:if="${oneOrder.state=='已收货'}">
-                                            <a onclick="">评价</a>
+                                                <input type="hidden" th:value="${oneOrder.bookId}">
+                                            <a id="comment">评价</a>
+                                                <input type="hidden" th:value="${oneOrder.orderId}">
                                             </span>
                                             <span th:if="${oneOrder.state=='待支付'}">
                                             <a onclick="">支付</a>
@@ -136,6 +138,7 @@
             }
         });
     }
+
     function getShop(e) {
         orderId = $(e).parent().parent().parent().children("input:first").val();
         orderState = $(e).parent().parent().parent().parent().children(".list_info").children("p:first");
@@ -151,6 +154,7 @@
             }
         });
     }
+
     function delOrder(e) {
         orderId = $(e).parent().parent().parent().children("input:first").val();
         orderState = $(e).parent().parent().parent().parent().children(".list_info").children("p:first");
@@ -167,6 +171,41 @@
         });
     }
 
+    //页面层-自定义
+    $('#comment').on('click', function () {
+        var bookId = $(this).parent().children("input:first").val();
+        var orderId = $(this).parent().children("input:last").val();
+        var userId = [[${session.userId}]];
+        console.log(bookId);
+        console.log(orderId);
+        layer.open({
+            type: 1,
+            title: false,
+            closeBtn: 0,
+            shadeClose: true,
+            skin: 'yourclass',
+            content: '<div>添加评价:</div><form class="layui-form" action="/comment/add" method="post" id="form5"> ' +
+                '<input type="text" name="content" placeholder="评价内容" required/>' +
+                '<input type="hidden" value="' + userId + '" name="userId"><input type="hidden" name="bookId" value=' + bookId + '>' +
+                '<input type="hidden" name="orderId" value=' + orderId + '> <input type="button" value="提交" onclick="commentForm()"> </form>'
+        });
+    });
+
+    function commentForm() {
+        $.ajax({
+            //几个参数需要注意一下
+            type: "POST",//方法类型
+            dataType: "json",//预期服务器返回的数据类型
+            url: "/comment/add",//url
+            data: $('#form5').serialize(),
+            success: function () {
+                location.reload();
+            },
+            error: function () {
+                alert("异常！");
+            }
+        });
+    }
 </script>
 </body>
 </html>
