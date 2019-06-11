@@ -62,7 +62,7 @@ public class UserController {
     }
 
     @RequestMapping("/doReg")
-    public String doReg(RegisterFrom registerFrom, ModelMap map,HttpSession session) {
+    public String doReg(RegisterFrom registerFrom,ModelMap map,HttpSession session) {
 
         Regisrelnfo lnfo = new Regisrelnfo();
         BeanUtils.copyProperties(registerFrom, lnfo);
@@ -153,7 +153,6 @@ public class UserController {
 
         modelMap.addAttribute("use", user);
 
-
         return "moban/information";
     }
 
@@ -165,7 +164,6 @@ public class UserController {
 
         if (userId != null) {
             iUserService.modify(modifyForm);
-            log.info("测试{}", modifyForm);
         }
         return "redirect:/user/information";
     }
@@ -213,14 +211,14 @@ public class UserController {
 
         String verificationCode = modifyForm.getVerificationCode();
 
-        if(number.equals(verificationCode)){
+//        if(number.equals(verificationCode)){
 
             User getuser = iUserService.getBack(modifyForm);
             session.setAttribute("email",getuser.getEmail());
 
-        }else {
-            modelMap.addAttribute("Exception","验证码错误！");
-        }
+//        }else {
+//            modelMap.addAttribute("Exception","验证码错误！");
+//        }
         return "store/getPassword";
     }
 
