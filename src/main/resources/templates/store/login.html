@@ -26,15 +26,15 @@
 
                 <div class="col-md-12 col-lg-12 col-sm-12">
                     <div class="account-info pb-30">
-                        <form action="/user/dolog" method="post">
+                        <form action="/user/dolog" method="post" class="layui-form">
                             <div class="form-fields">
                                 <h3 style="color:#A62F00;text-align: center;" th:text="${msg}">请登录</h3>
 
                                 <p>用户名：<span class="required">*</span> <input type="text" name="username"
-                                                                              class=""/></p>
+                                                                              class="" required/></p>
 
                                 <p>密码<span class="required">*</span><input type="password" name="password"
-                                                                           class=""/></p>
+                                                                           class="" required/></p>
                             </div>
                             <div class="form-action">
                                 <a href="/user/doGetBack" class="lost_password">忘记密码？</a>

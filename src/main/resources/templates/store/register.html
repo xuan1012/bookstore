@@ -21,22 +21,22 @@
     <div class="account-area pt-30 log">
         <div class="container">
             <div class="row">
-                <form action="/user/doReg" method="post">
+                <form action="/user/doReg" method="post" class="layui-form">
                     <div class="form-fields">
                         <h3 style="color:#A62F00;text-align: center;" th:text="${msg}">用户已存在</h3>
 
                         <p>用户名：<span class="required">*</span> <input type="text" name="username"
-                                                                      class=""/></p>
+                                                                      class="" required/></p>
 
                         <p>密码<span class="required">*</span><input type="password" name="password"
-                                                                   class=""/></p>
+                                                                   class="" required/></p>
                         <p>E-email<span class="required">*</span><input type="email" id="email" name="email"
-                                                                   class=""/>
+                                                                   class="" required/>
                             <input class=" btn-primary" style="width: 100px;float:right; background-color: #337ab7;margin: 0.5em;"  type="button" value="发送验证码" id="send">
                         </p>
 
                         <p>验证码：<span class="required">*</span><input type="text" name="verificationCode"
-                                                                        class=""/></p>
+                                                                        class="" required/></p>
                     </div>
                     <div class="form-action">
 

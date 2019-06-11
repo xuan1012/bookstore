@@ -45,7 +45,7 @@
                         <button type="submit" class="btn btn-primary">保存</button>
                  </form> -->
                 <br>
-                <form action="/address/doaddress" method="post">
+                <form action="/address/doaddress" method="post" >
                     <div class="info">
                         <br>
                         <select class="form-control" id="s_province" name="s_province"></select>
@@ -55,13 +55,13 @@
                         <select class="form-control" id="s_county" name="area"></select>
 
                         <br>
-                        <input type="text" class="form-control" name="content" value="" placeholder="详细地址:">
+                        <input type="text" class="form-control" name="content" value="" placeholder="详细地址:" required/>
                         <br>
-                        <input type="text" class="form-control" name="postcode" value="" placeholder="邮编:">
+                        <input type="text" class="form-control" name="postcode" value="" placeholder="邮编:" required/>
                         <br>
-                        <input type="text" class="form-control" name="phone" value="" placeholder="手机号:">
+                        <input type="text" class="form-control" name="phone" value="" placeholder="手机号:" required/>
                         <br>
-                        <input type="text" class="form-control" name="people" value="" placeholder="收件人:">
+                        <input type="text" class="form-control" name="people" value="" placeholder="收件人:" required/>
                         <br>
 
                         <input type="checkbox" style="width: 20px;display: block;" name="defaultAddress">

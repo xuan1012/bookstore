@@ -45,7 +45,7 @@
                     </div>
                         <button type="submit" class="btn btn-primary">保存</button>
                  </form> -->
-                <form action="/user/modify" method="post">
+                <form action="/user/modify" method="post" class="layui-form">
                     <div class="form-group" th:each="u : ${use}">
 
                         <input type="hidden" th:value="${u.userId}" name="userId">
@@ -57,7 +57,7 @@
                     <div class="form-group" th:each="u : ${use}">
                         <h4 style="color: #5e5e5e;font-size: 1em;">Email:</h4>
                         <input type="email" class="form-control" name="email" id="exampleInputEmail1"
-                               th:value="${u.email}" placeholder="邮箱">
+                               th:value="${u.email}" placeholder="邮箱" lay-verify="email"/>
                     </div>
                     <div class="form-group" th:each="u : ${use}">
                         <h4 style="color: #5e5e5e;font-size: 1em;">联系方式:</h4>

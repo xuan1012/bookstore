@@ -30,4 +30,6 @@ public interface IOrderService extends IService<Orderbuy> {
 
     void reBuy(Long orderId);
     void delOrder(Long orderId);
+    void getShop(Long orderId);
+
 }

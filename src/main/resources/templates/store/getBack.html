@@ -28,16 +28,16 @@
                     <div class="account-info pb-30">
                         <h3>找回密码</h3>
                         <div class="form-fields" >
-                        <form action="/user/getBack" method="post">
+                        <form action="/user/getBack" method="post" class="layui-form">
 
 
                                 <p>E-email<span class="required">*</span><input type="email" id="email" name="email"
-                                                                                class=""/>
+                                                                                class="" required/>
                                     <input class=" btn-primary" style="width: 100px;float:right; background-color: #337ab7;margin: 0.5em;"  type="button" value="发送验证码" id="send">
                                 </p>
 
                                 <p>验证码：<span class="required">*</span><input type="text" name="verificationCode"
-                                                                             class=""/></p>
+                                                                             class="" required/></p>
                             <button type="submit" class="btn btn-primary" style="float: right;margin-top: 2em;">确定</button>
 
                         </form>

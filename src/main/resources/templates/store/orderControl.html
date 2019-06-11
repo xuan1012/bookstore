@@ -87,6 +87,12 @@
                                             <span th:unless="${oneOrder.state=='待支付' || oneOrder.state=='已取消'}">
                                             <a onclick="reBuy(this)">退货</a>
                                             </span>
+                                            <span th:if="${oneOrder.state=='待收货'}">
+                                            <a onclick="getShop(this)">确认收货</a>
+                                            </span>
+                                            <span th:if="${oneOrder.state=='已收货'}">
+                                            <a onclick="">评价</a>
+                                            </span>
                                             <span th:if="${oneOrder.state=='待支付'}">
                                             <a onclick="">支付</a>
                                             <a onclick="delOrder(this)">取消订单</a>
@@ -130,7 +136,21 @@
             }
         });
     }
-
+    function getShop(e) {
+        orderId = $(e).parent().parent().parent().children("input:first").val();
+        orderState = $(e).parent().parent().parent().parent().children(".list_info").children("p:first");
+        $.ajax({
+            type: "post",
+            url: "/ordergroup/getShop",
+            data: {
+                orderId: orderId
+            },
+            dataType: "json",
+            success: function (json) {
+                orderState.text("已收货");
+            }
+        });
+    }
     function delOrder(e) {
         orderId = $(e).parent().parent().parent().children("input:first").val();
         orderState = $(e).parent().parent().parent().parent().children(".list_info").children("p:first");
