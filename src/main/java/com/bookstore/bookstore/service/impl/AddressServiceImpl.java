@@ -26,7 +26,7 @@ public class AddressServiceImpl extends ServiceImpl<AddressMapper, Address> impl
 
     @Resource
     private AddressMapper addressMapper;
-
+    
     @Override
     public void add(AddressForm addressForm) {
 
