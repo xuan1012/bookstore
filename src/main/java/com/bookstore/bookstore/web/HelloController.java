@@ -42,7 +42,14 @@ public class HelloController {
         map.put("msg", "hello");
         return map;
     }
-
+    
+    /** 
+    * @Description: 主页展示 描述
+    * @Param: [model] 参数
+    * @return: java.lang.String 
+    * @Author: xuan 
+    * @Date: 2019/6/12 
+    */ 
     @RequestMapping("/")
     public String index(ModelMap model) {
         BookInfo storyBookInfo = getBookInfo("小说");

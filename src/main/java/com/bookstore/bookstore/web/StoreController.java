@@ -27,7 +27,13 @@ public class StoreController {
     IBookService bookService;
     @Resource
     ICommentService commentService;
-
+    /** 
+    * @Description: 详情页面的展示 描述
+    * @Param: [bookId, map] 参数
+    * @return: java.lang.String 
+    * @Author: xuan 
+    * @Date: 2019/6/12 
+    */ 
     @RequestMapping("/query")
     public String shopDetail(Long bookId, ModelMap map) {
         AllBookMessage book = bookService.getBookMsg(bookId);

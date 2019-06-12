@@ -54,13 +54,25 @@ public class UserController {
 
     @Resource
     IBookService bookService;
-
+    /**
+    * @Description: 跳转注册界面 描述
+    * @Param: [model] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/reg")
     public String toReg(ModelMap model) {
         getClassification(model);
         return "store/register";
     }
-
+    /**
+    * @Description: 注册的实际逻辑 描述
+    * @Param: [registerFrom, map, session] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/doReg")
     public String doReg(RegisterFrom registerFrom, ModelMap map, HttpSession session) {
 
@@ -84,13 +96,25 @@ public class UserController {
         getClassification(map);
         return "store/login";
     }
-
+    /**
+    * @Description: 跳转登陆 描述
+    * @Param: [model] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/log")
     public String tolog(ModelMap model) {
         getClassification(model);
         return "store/login";
     }
-
+    /**
+    * @Description: 登陆的实际逻辑(BY:shiro TODO 如何在shiro中放一个session ) 描述
+    * @Param: [registerFrom, modelMap, session, request] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/dolog")
     public String log(RegisterFrom registerFrom, ModelMap modelMap, HttpSession session, HttpServletRequest request) {
 
@@ -222,7 +246,13 @@ public class UserController {
 //        }
         return "store/getPassword";
     }
-
+    /**
+    * @Description: 找回密码功能 描述
+    * @Param: [modifyForm, session] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/getPassword")
     public String getPassword(ModifyForm modifyForm, HttpSession session) {
 

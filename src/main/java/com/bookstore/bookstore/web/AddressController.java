@@ -28,11 +28,25 @@ public class AddressController {
     @Autowired
     private IAddressService iAddressService;
 
+    /**
+    * @Description: 跳转到新增收货地址的界面 描述
+    * @Param: [] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/do")
     private String dos() {
         return "store/address";
     }
 
+    /**
+    * @Description: 新增地址操作 描述
+    * @Param: [modelMap, addressForm, session] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/doaddress")
     public String doAddress(ModelMap modelMap, AddressForm addressForm, HttpSession session) {
 
@@ -50,6 +64,13 @@ public class AddressController {
 
         return "store/address";
     }
+    /**
+    * @Description: TODO 描述
+    * @Param: [] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
 
     @RequestMapping("/doselect")
     private String doSelect() {
@@ -57,6 +78,13 @@ public class AddressController {
         return "store/displayAddress";
     }
 
+    /**
+    * @Description: TODO修改地址 描述
+    * @Param: [modelMap, session] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/selectaddress")
     public String selectAddress(ModelMap modelMap, HttpSession session) {
 

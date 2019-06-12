@@ -38,6 +38,13 @@ public class BookController {
     @Resource
     IClassificationService classification;
 
+    /**
+    * @Description: 搜索框搜索跳转 描述
+    * @Param: [bookName, model, attr] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
 
     @RequestMapping("/search")
     public String searchByname(String bookName, ModelMap model, RedirectAttributes attr) {
@@ -45,6 +52,13 @@ public class BookController {
         return "redirect:/book/findBook";
     }
 
+    /**
+    * @Description: 搜索框搜索（by书名or作者名） 描述
+    * @Param: [bookName, model] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/findBook")
     public String findBookByName(String bookName, ModelMap model) {
         getBooksAndNews(bookName, model);
@@ -52,6 +66,13 @@ public class BookController {
         return "store/shop";
     }
 
+    /**
+    * @Description: 混合搜索（书名、价格区间、按价格or销量排序） 描述
+    * @Param: [bookForm, model] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/allSearch")
     public String getByAll(BookForm bookForm, ModelMap model) {
         BookInfo bookInfo = new BookInfo();

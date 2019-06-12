@@ -28,7 +28,13 @@ import java.util.Map;
 public class ShoppingcartController {
     @Resource
     IShoppingCartService shoppingCartService;
-
+    /**
+    * @Description: 进入购物车页面的展示数据查询 描述
+    * @Param: [session, map] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/cart")
     public String shoppingCart(HttpSession session, ModelMap map) {
 
@@ -50,7 +56,13 @@ public class ShoppingcartController {
         }
         map.addAttribute("shops", allShops);
     }
-
+    /**
+    * @Description: 所有页面的加入购物车功能 描述
+    * @Param: [bookId, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object>
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping(value = "/addToCart", method = RequestMethod.POST)
     @ResponseBody
     public Map<String, Object> addToCart(Long bookId, HttpSession session) {
@@ -64,7 +76,13 @@ public class ShoppingcartController {
         }
         return map;
     }
-
+    /**
+    * @Description: 购物车界面的删除商品功能 描述
+    * @Param: [cartId, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object>
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @ResponseBody
     @RequestMapping("/delCart")
     public Map<String, Object> delCart(Long cartId, HttpSession session) {
@@ -73,7 +91,13 @@ public class ShoppingcartController {
         map.put("msg", "success");
         return map;
     }
-
+    /**
+    * @Description: 购物车界面的加减数量功能 描述
+    * @Param: [cartId, count, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object>
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @ResponseBody
     @RequestMapping("/updateCount")
     public Map<String, Object> updateCount(Long cartId, Long count, HttpSession session) {

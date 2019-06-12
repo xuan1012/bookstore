@@ -27,7 +27,13 @@ import java.util.Map;
 public class OrdergroupController {
     @Resource
     IOrderService orderService;
-
+    /** 
+    * @Description: 管理订单页面的展示 描述
+    * @Param: [map, session] 参数
+    * @return: java.lang.String 
+    * @Author: xuan 
+    * @Date: 2019/6/12 
+    */ 
     @RequestMapping("/order")
     public String getAllOrder(ModelMap map, HttpSession session) {
 
@@ -41,7 +47,14 @@ public class OrdergroupController {
         }
         return "store/orderControl";
     }
-
+    
+    /** 
+    * @Description: 管理订单页面的取消订单 描述
+    * @Param: [orderId, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object> 
+    * @Author: xuan 
+    * @Date: 2019/6/12 
+    */ 
     @RequestMapping("/reBuy")
     @ResponseBody
     public Map<String, Object> reBuy(Long orderId, HttpSession session) {
@@ -50,7 +63,13 @@ public class OrdergroupController {
         map.put("success", true);
         return map;
     }
-
+    /** 
+    * @Description: 删除订单 描述
+    * @Param: [orderId, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object> 
+    * @Author: xuan 
+    * @Date: 2019/6/12 
+    */ 
     @RequestMapping("/delOrder")
     @ResponseBody
     public Map<String, Object> delOrder(Long orderId, HttpSession session) {
@@ -59,7 +78,13 @@ public class OrdergroupController {
         map.put("success", true);
         return map;
     }
-
+    /** 
+    * @Description: 确认收货 描述
+    * @Param: [orderId, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object> 
+    * @Author: xuan 
+    * @Date: 2019/6/12 
+    */ 
     @RequestMapping("/getShop")
     @ResponseBody
     public Map<String, Object> getShop(Long orderId, HttpSession session) {

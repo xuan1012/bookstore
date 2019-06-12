@@ -58,7 +58,13 @@ public class OrderController {
     @Resource
     IClassificationService classification;
 
-
+    /**
+    * @Description: 购物车提交订单,成功后进入结算页面 描述
+    * @Param: [orderForms, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object>
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping(value = "/subOrder", method = {RequestMethod.POST})
     @ResponseBody
     public Map<String, Object> subOrder(@RequestBody List<OrderForm> orderForms, HttpSession session)
@@ -77,7 +83,13 @@ public class OrderController {
 
         return map;
     }
-
+    /**
+    * @Description: 结算页面的展示 描述
+    * @Param: [map, session, model] 参数
+    * @return: java.lang.String
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @RequestMapping("/orderList")
     public String orderList(ModelMap map, HttpSession session, ModelMap model) {
         List<OrderForm> orderForms = (List<OrderForm>) session.getAttribute("orderForms");
@@ -91,6 +103,13 @@ public class OrderController {
         return "order/orderList";
     }
 
+    /**
+    * @Description: 下单流程，有事务注解 描述
+    * @Param: [orderForms, session] 参数
+    * @return: java.util.Map<java.lang.String,java.lang.Object>
+    * @Author: xuan
+    * @Date: 2019/6/12
+    */
     @Transactional(rollbackFor = Exception.class)
     @RequestMapping(value = "/sub", method = {RequestMethod.POST})
     @ResponseBody

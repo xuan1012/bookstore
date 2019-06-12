@@ -10,6 +10,13 @@ import javax.servlet.http.HttpServletRequest;
 @Controller
 class MainsiteErrorController implements ErrorController {
 
+    /** 
+    * @Description: 错误页面的配置 描述
+    * @Param: [request] 参数
+    * @return: java.lang.String 
+    * @Author: xuan 
+    * @Date: 2019/6/12 
+    */ 
     @RequestMapping("/error")
     public String handleError(HttpServletRequest request) {
         //获取statusCode:401,404,500
